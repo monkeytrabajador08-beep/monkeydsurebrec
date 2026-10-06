@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Unificado - Streaming & Cuentas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 md:p-8">
+
+    <!-- BARRA SUPERIOR DE SIMULACIÓN DE ROLES (Para que pruebes las 3 vistas en un solo archivo) -->
+    <header class="max-w-6xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-6 flex flex-col md:flex-row justify-between items-center gap-4 shadow-xl">
+        <div>
+            <h1 class="text-lg font-bold bg-gradient-to-r from-purple-400 to-indigo-500 bg-clip-text text-transparent">Panel Centralizado</h1>
+            <p class="text-xs text-slate-400">Sistema unificado de revendedores y subclientes</p>
+        </div>
+        <!-- Botones para alternar vistas -->
+        <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-medium gap-1">
+            <button onclick="cambiarVista('admin')" id="btn-admin" class="px-4 py-2 rounded-lg bg-purple-600 text-white transition-all">Vista Admin 👑</button>
+            <button onclick="cambiarVista('cliente')" id="btn-cliente" class="px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-all">Vista Revendedor 🛒</button>
+            <button onclick="cambiarVista('subcliente')" id="btn-subcliente" class="px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-all">Vista Subcliente 🔑</button>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto">
+
+        <!-- ================= VISTA 1: ADMINISTRADOR ================= -->
+        <div id="vista-admin" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
+                    <p class="text-xs text-slate-400 uppercase font-semibold">Pendientes de Aprobar</p>
+                    <h3 class="text-2xl font-bold text-amber-400 mt-2">2 Revendedores</h3>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
+                    <p class="text-xs text-slate-400 uppercase font-semibold">Cuentas en Stock</p>
+                    <h3 class="text-2xl font-bold text-purple-400 mt-2">84 Disponibles</h3>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
+                    <p class="text-xs text-slate-400 uppercase font-semibold">Ventas Generales</p>
+                    <h3 class="text-2xl font-bold text-emerald-400 mt-2">$2,400 MXN</h3>
+                </div>
+            </div>
+
+            <!-- Tabla de Aprobaciones -->
+            <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <h2 class="text-base font-bold mb-4">👥 Solicitudes de Registro (Control Anti-Robos)</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-950 text-slate-400 uppercase text-xs">
+                            <tr>
+                                <th class="p-3">Usuario</th>
+                                <th class="p-3">Correo</th>
+                                <th class="p-3">Teléfono / WhatsApp</th>
+                                <th class="p-3 text-right">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800 text-slate-300">
+                            <tr>
+                                <td class="p-3 font-medium text-white">PedroStreaming</td>
+                                <td class="p-3">pedro@gmail.com</td>
+                                <td class="p-3">+52 951 111 2233</td>
+                                <td class="p-3 text-right space-x-2">
+                                    <button class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-lg">Aprobar</button>
+                                    <button class="bg-rose-600 hover:bg-rose-500 text-white text-xs px-3 py-1.5 rounded-lg">Rechazar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ================= VISTA 2: CLIENTE / REVENDEDOR ================= -->
+        <div id="vista-cliente" class="hidden space-y-6">
+            <div class="flex justify-between items-center bg-slate-900 border border-slate-800 p-5 rounded-xl">
+                <div>
+                    <h2 class="text-lg font-bold">Bienvenido, Revendedor 💼</h2>
+                    <p class="text-xs text-slate-400">Tu saldo actual disponible para compras:</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-2xl font-bold text-emerald-400">$450.00 MXN</span>
+                    <br><button class="text-xs text-purple-400 hover:underline mt-1 block">Recargar Saldo +</button>
+                </div>
+            </div>
+
+            <!-- Tienda con Precios Visibles para Gancho -->
+            <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <h2 class="text-base font-bold mb-4">🛍️ Catálogo y Precios Exclusivos de Revendedor</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2 py-1 rounded font-semibold">1 MES</span>
+                            <h3 class="font-bold mt-2 text-white">Netflix (Miembro Extra)</h3>
+                            <p class="text-xl font-extrabold text-emerald-400 mt-2">$35.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                        </div>
+                        <button class="mt-4 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-medium py-2 rounded-lg transition-colors">Comprar con Saldo</button>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2 py-1 rounded font-semibold">1 MES</span>
+                            <h3 class="font-bold mt-2 text-white">Disney+ Estándar</h3>
+                            <p class="text-xl font-extrabold text-emerald-400 mt-2">$25.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                        </div>
+                        <button class="mt-4 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-medium py-2 rounded-lg transition-colors">Comprar con Saldo</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de Mis Subclientes (Estilo Iker pero en la misma web) -->
+            <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <h2 class="text-base font-bold mb-2">👤 Gestión de Mis Subclientes</h2>
+                <p class="text-xs text-slate-400 mb-4">Aquí puedes crear accesos para tu equipo o sub-revendedores y asignarles cuentas de tu stock.</p>
+                <button class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-4 py-2 rounded-lg font-medium">+ Crear Nuevo Subcliente</button>
+            </section>
+        </div>
+
+
+        <!-- ================= VISTA 3: SUBCLIENTE ================= -->
+        <div id="vista-subcliente" class="hidden space-y-6">
+            <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl text-center md:text-left flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-bold">Panel de Subcliente 🔑</h2>
+                    <p class="text-xs text-slate-400">Tus accesos asignados y soporte directo.</p>
+                </div>
+                <span class="bg-blue-500/10 text-blue-400 text-xs px-3 py-1 rounded-lg mt-2 md:mt-0">Acceso Restringido (Sin Precios de Tienda)</span>
+            </div>
+
+            <!-- Bandeja de Cuentas Asignadas -->
+            <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <h2 class="text-base font-bold mb-4">📥 Tus Cuentas Activas</h2>
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <span class="text-xs text-purple-400 font-semibold uppercase">Netflix (Miembro Extra)</span>
+                        <p class="text-sm font-mono text-white mt-1">correo_ejemplo@toxapa.com / Pass: <span class="bg-slate-800 px-2 py-0.5 rounded">W2590094</span></p>
+                    </div>
+                    <button class="bg-slate-800 hover:bg-slate-700 text-white text-xs px-3 py-2 rounded-lg">Solicitar Código OTP / Hogar</button>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Script sencillo para cambiar de vista con los botones de prueba -->
+    <script>
+        function cambiarVista(vista) {
+            document.getElementById('vista-admin').classList.add('hidden');
+            document.getElementById('vista-cliente').classList.add('hidden');
+            document.getElementById('vista-subcliente').classList.add('hidden');
+
+            document.getElementById('btn-admin').className = "px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-all";
+            document.getElementById('btn-cliente').className = "px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-all";
+            document.getElementById('btn-subcliente').className = "px-4 py-2 rounded-lg text-slate-400 hover:text-white transition-all";
+
+            document.getElementById('vista-' + vista).classList.remove('hidden');
+            document.getElementById('btn-' + vista).className = "px-4 py-2 rounded-lg bg-purple-600 text-white transition-all";
+        }
+    </script>
+
+</body>
+</html>
