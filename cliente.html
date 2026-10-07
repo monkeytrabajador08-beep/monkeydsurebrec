@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="relative">
-                    <input type="text" id="buscador-catalogo" oninput="filtrarCatalogo()" placeholder="🔍 Buscar plataforma o servicio (ej. Netflix, Spotify, Canva, Diamantes...)" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-teal-500">
+                    <input type="text" id="buscador-catalogo" oninput="filtrarCatalogo()" placeholder="🔍 Buscar plataforma o servicio (ej. Netflix, Canva, Gemini, Spotify...)" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-teal-500">
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2" id="catalogo-productos">
@@ -69,7 +69,6 @@
         <section id="sec-manuales" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">🛠️ Solicitar Servicio Especial / Notas</h2>
-                <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl">⏰ <strong>Tiempo de entrega:</strong> 30 min a 8 hrs</p>
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
                     <div>
                         <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Nota o Detalle</label>
@@ -88,7 +87,7 @@
             </div>
         </section>
 
-        <!-- 4. SOLICITUD DE CÓDIGOS, OTP Y LINKS (Con recuadro de respuesta automática) -->
+        <!-- 4. SOLICITUD DE CÓDIGOS, OTP Y LINKS -->
         <section id="sec-codigos" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
                 <h2 class="text-base font-bold text-teal-400">🔑 Solicitud de Códigos, OTP y Links</h2>
@@ -125,7 +124,6 @@
 
                     <button onclick="solicitarCodigoOtp()" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Solicitud</button>
 
-                    <!-- Recuadro donde aparecerá la respuesta automática del código o link -->
                     <div id="resultado-codigo-container" class="hidden mt-4 bg-zinc-900 border border-teal-500/40 p-4 rounded-xl space-y-2">
                         <span class="text-[10px] uppercase font-bold text-teal-400 block">⚡ Respuesta del Sistema / Administrador:</span>
                         <div id="resultado-codigo-texto" class="text-xs text-white font-mono bg-black p-3 rounded-lg border border-zinc-800 select-all">Cargando respuesta...</div>
@@ -138,56 +136,17 @@
         <section id="sec-reportes" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
                 <h2 class="text-base font-bold text-rose-400">⚠️ Reportar Cuenta Caída o Falla</h2>
-                <p class="text-xs text-zinc-400">Reporta si una cuenta dejó de funcionar antes de su garantía para validación y reposición.</p>
-                
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Plataforma</label>
-                        <input type="text" id="rep-plataforma" placeholder="Ej. Netflix Completa" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo de la Cuenta con Falla</label>
-                        <input type="text" id="rep-correo" placeholder="correo@cuenta.com" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Descripción de la Falla</label>
-                        <textarea id="rep-desc" rows="3" placeholder="Detalla el problema..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Evidencia (Foto / Captura de pantalla)</label>
-                        <input type="file" id="rep-foto" accept="image/*" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-400 file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-teal-500 file:text-black hover:file:bg-teal-400">
-                    </div>
-                    <button onclick="enviarReporteFalla()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Reporte de Falla</button>
+                    <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Plataforma</label><input type="text" id="rep-plataforma" placeholder="Ej. Netflix Completa" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"></div>
+                    <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo de la Cuenta</label><input type="text" id="rep-correo" placeholder="correo@cuenta.com" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"></div>
+                    <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Descripción</label><textarea id="rep-desc" rows="3" placeholder="Detalle..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea></div>
+                    <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Evidencia (Foto)</label><input type="file" id="rep-foto" accept="image/*" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-400"></div>
+                    <button onclick="enviarReporteFalla()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Reporte</button>
                 </div>
             </div>
         </section>
 
     </main>
-
-    <!-- MODAL DIAMANTES -->
-    <div id="modal-diamantes" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center"><h3 id="modal-titulo" class="text-base font-bold text-teal-400">💎 Seleccionar Paquete</h3><button onclick="cerrarModal('modal-diamantes')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
-            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
-            <div class="space-y-3">
-                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">ID de Jugador (Free Fire)</label><input type="text" id="modal-id-jugador" placeholder="Ej. 123456789" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"></div>
-                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Nombre de Jugador (Nickname)</label><input type="text" id="modal-nombre-jugador" placeholder="Ej. MonkeyD_99" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"></div>
-            </div>
-            <div class="border-t border-zinc-800 pt-3"><p class="text-[11px] text-zinc-400 mb-2">Selecciona el paquete deseado:</p><div class="max-h-48 overflow-y-auto space-y-2 pr-1" id="lista-paquetes-modal"></div></div>
-        </div>
-    </div>
-
-    <!-- MODAL XBOX -->
-    <div id="modal-xbox" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🎮 Xbox Game Pass (Alquiler)</h3><button onclick="cerrarModal('modal-xbox')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
-            <div class="border-t border-zinc-800 pt-3"><div class="space-y-2">
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Essential (1M)</strong><p class="text-emerald-400 font-bold text-xs">$105.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Essential (1M)', 105, 'Alquiler', 'modal-xbox')" class="bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Premium (1M)</strong><p class="text-emerald-400 font-bold text-xs">$155.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Premium (1M)', 155, 'Alquiler', 'modal-xbox')" class="bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Ultimate (1M)</strong><p class="text-emerald-400 font-bold text-xs">$265.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Ultimate (1M)', 265, 'Alquiler', 'modal-xbox')" class="bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
-            </div></div>
-        </div>
-    </div>
 
     <!-- MODAL SMART FIT -->
     <div id="modal-smartfit" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
@@ -208,10 +167,7 @@
                     <label class="block text-xs font-semibold uppercase text-teal-400 mb-1">Monto Total del Adeudo (MXN):</label>
                     <input type="number" id="smart-monto-adeudo" oninput="calcularAdeudoSmart()" placeholder="Ej. 1000" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
                 </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Ingresa los datos requeridos:</label>
-                    <textarea id="smart-datos-input" rows="3" placeholder="Datos..." class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
-                </div>
+                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Ingresa los datos requeridos:</label><textarea id="smart-datos-input" rows="3" placeholder="Datos..." class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea></div>
             </div>
             <div class="border-t border-zinc-800 pt-3 flex justify-between items-center">
                 <div><span class="text-xs text-zinc-400">Total a pagar:</span><p id="smart-precio-txt" class="text-emerald-400 font-extrabold text-lg">$95.00 MXN</p></div>
@@ -238,24 +194,51 @@
         </div>
     </div>
 
-    <!-- MODAL CANVA EDU -->
+    <!-- MODAL CANVA PRO EDU (CON TODOS SUS PLAZOS) -->
     <div id="modal-canva-edu" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🎨 Canva Pro EDU</h3><button onclick="cerrarModal('modal-canva-edu')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
             <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo para activación</label><input type="text" id="canva-edu-correo" placeholder="correo@gmail.com" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white mb-2"></div>
-            <div class="space-y-2">
+            <div class="space-y-2 max-h-48 overflow-y-auto">
                 <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Canva Pro EDU (1M)</strong><p class="text-emerald-400 font-bold text-xs">$2.00 MXN</p></div><button onclick="seleccionarCanvaEdu('1M', 2)" class="bg-cyan-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Canva Pro EDU (2M)</strong><p class="text-emerald-400 font-bold text-xs">$3.00 MXN</p></div><button onclick="seleccionarCanvaEdu('2M', 3)" class="bg-cyan-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Canva Pro EDU (3M)</strong><p class="text-emerald-400 font-bold text-xs">$5.00 MXN</p></div><button onclick="seleccionarCanvaEdu('3M', 5)" class="bg-cyan-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Canva Pro EDU (6M)</strong><p class="text-emerald-400 font-bold text-xs">$8.00 MXN</p></div><button onclick="seleccionarCanvaEdu('6M', 8)" class="bg-cyan-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
                 <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Canva Pro EDU (12M)</strong><p class="text-emerald-400 font-bold text-xs">$15.00 MXN</p></div><button onclick="seleccionarCanvaEdu('12M', 15)" class="bg-cyan-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Canva Pro EDU (24M)</strong><p class="text-emerald-400 font-bold text-xs">$30.00 MXN</p></div><button onclick="seleccionarCanvaEdu('24M', 30)" class="bg-cyan-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL GEMINI -->
+    <!-- MODAL CANVA PRO IA (CON TODOS SUS PLAZOS) -->
+    <div id="modal-canva-ia" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🤖 Canva Pro IA (Kit Marca)</h3><button onclick="cerrarModal('modal-canva-ia')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo para activación</label><input type="text" id="canva-ia-correo" placeholder="correo@gmail.com" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white mb-2"></div>
+            <div class="space-y-2">
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Canva Pro IA (1M)</strong><p class="text-emerald-400 font-bold text-xs">$15.00 MXN</p></div><button onclick="seleccionarCanvaIa('1M', 15)" class="bg-cyan-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Canva Pro IA (2M)</strong><p class="text-emerald-400 font-bold text-xs">$25.00 MXN</p></div><button onclick="seleccionarCanvaIa('2M', 25)" class="bg-cyan-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Canva Pro IA (3M)</strong><p class="text-emerald-400 font-bold text-xs">$35.00 MXN</p></div><button onclick="seleccionarCanvaIa('3M', 35)" class="bg-cyan-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Canva Pro IA (6M)</strong><p class="text-emerald-400 font-bold text-xs">$50.00 MXN</p></div><button onclick="seleccionarCanvaIa('6M', 50)" class="bg-cyan-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GEMINI / GOOGLE ONE (CON INVITACIONES Y FAMILIAR) -->
     <div id="modal-gemini" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">✨ Google One / Gemini</h3><button onclick="cerrarModal('modal-gemini')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
-            <div class="space-y-2">
-                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (1M)</strong><p class="text-emerald-400 font-bold text-xs">$20.00 MXN</p></div><button onclick="seleccionarServicioManual('Gemini Invitación (1M)', 20, 'Sin correo', 'modal-gemini')" class="bg-teal-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+            <div class="space-y-2 max-h-60 overflow-y-auto">
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (1M)</strong><p class="text-emerald-400 font-bold text-xs">$20.00 MXN (Sin correo)</p></div><button onclick="seleccionarServicioManual('Gemini Invitación (1M)', 20, 'Sin correo (Invitación)', 'modal-gemini')" class="bg-teal-600 text-white font-bold text-[10px] px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (3M)</strong><p class="text-emerald-400 font-bold text-xs">$50.00 MXN (Sin correo)</p></div><button onclick="seleccionarServicioManual('Gemini Invitación (3M)', 50, 'Sin correo (Invitación)', 'modal-gemini')" class="bg-teal-600 text-white font-bold text-[10px] px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (6M)</strong><p class="text-emerald-400 font-bold text-xs">$75.00 MXN (Sin correo)</p></div><button onclick="seleccionarServicioManual('Gemini Invitación (6M)', 75, 'Sin correo (Invitación)', 'modal-gemini')" class="bg-teal-600 text-white font-bold text-[10px] px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (12M)</strong><p class="text-emerald-400 font-bold text-xs">$125.00 MXN (Sin correo)</p></div><button onclick="seleccionarServicioManual('Gemini Invitación (12M)', 125, 'Sin correo (Invitación)', 'modal-gemini')" class="bg-teal-600 text-white font-bold text-[10px] px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+                
+                <div class="pt-2 border-t border-zinc-800">
+                    <label class="block text-[11px] text-zinc-400 mb-1">Gemini Familiar (12M) - Pide Correo y Contraseña:</label>
+                    <input type="text" id="gemini-fam-creds" placeholder="correo@gmail.com:password" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white mb-2 font-mono">
+                    <button onclick="seleccionarGeminiFamiliar()" class="w-full bg-teal-600 text-white font-bold text-xs py-2 rounded-xl">Seleccionar Gemini Familiar ($290)</button>
+                </div>
             </div>
         </div>
     </div>
@@ -285,16 +268,17 @@
             await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(mensaje)}&parse_mode=Markdown`);
         }
 
-        // 🌟 CATÁLOGO OFICIAL COMPLETO (Netflix, Disney, Max, Prime, Crunchy, Canva, Gemini, etc.)
+        // 🌟 CATÁLOGO OFICIAL 100% COMPLETO
         const catalogoOficial = [
-            { id: 'netflix_1m', nombre: '🎬 Netflix Completa (1M)', precio: 210, rangos: [{min: 1, max: 4, p: 210}, {min: 5, max: 9, p: 200}], desc: 'Renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-red-700 hover:bg-red-600 text-white' },
+            { id: 'netflix_1m', nombre: '🎬 Netflix Completa (1M)', precio: 210, rangos: [{min: 1, max: 4, p: 210}, {min: 5, max: 9, p: 200}], desc: 'Renovable. Con panel.', tyc: 'Garantía 25 días.', colorBtn: 'bg-red-700 hover:bg-red-600 text-white' },
             { id: 'disney_1m', nombre: '🐭 Disney Premium (1M)', precio: 65, rangos: [{min: 1, max: 9, p: 65}], desc: 'Sin ESPN.', tyc: 'Garantía 25 días.', colorBtn: 'bg-sky-600 hover:bg-sky-500 text-white' },
             { id: 'max_1m', nombre: '🍿 HBO MAX (1M)', precio: 33, rangos: [{min: 1, max: 4, p: 33}], desc: 'Estándar bug.', tyc: 'Garantía 25 días.', colorBtn: 'bg-purple-700 hover:bg-purple-600 text-white' },
             { id: 'prime_1m', nombre: '📦 Prime Video (1M)', precio: 20, rangos: [{min: 1, max: 4, p: 20}], desc: 'Con anuncios.', tyc: 'Garantía 25 días.', colorBtn: 'bg-cyan-700 hover:bg-cyan-600 text-white' },
             { id: 'spotify_serv', nombre: '🎧 Spotify Individual', precio: 45, rangos: [{min: 1, max: 3, p: 45}], desc: 'Alquiler. (Manual)', tyc: 'Garantía activa.', esMusica: true, tipo: 'spotify', colorBtn: 'bg-emerald-600 hover:bg-emerald-500 text-white' },
             { id: 'youtube_serv', nombre: '▶️ YouTube Individual / Fam.', precio: 15, desc: 'A tus datos. (Manual)', tyc: 'Garantía 25 días.', esMusica: true, tipo: 'youtube', colorBtn: 'bg-red-600 hover:bg-red-500 text-white' },
-            { id: 'canva_edu', nombre: '🎨 Canva Pro EDU', precio: 2, desc: '1M a 24M. (Manual)', tyc: 'Activación al cliente.', esCanvaEdu: true, colorBtn: 'bg-teal-600 hover:bg-teal-500 text-white' },
-            { id: 'gemini_inv', nombre: '✨ Google One / Gemini', precio: 20, desc: 'Invitaciones (Manual)', tyc: 'Activación al cliente.', esGemini: true, colorBtn: 'bg-yellow-600 hover:bg-yellow-500 text-black font-bold' },
+            { id: 'canva_edu', nombre: '🎨 Canva Pro EDU', precio: 2, desc: 'Plazos 1M a 24M. (Manual)', tyc: 'Activación al cliente.', esCanvaEdu: true, colorBtn: 'bg-teal-600 hover:bg-teal-500 text-white' },
+            { id: 'canva_ia', nombre: '🤖 Canva Pro IA (Kit Marca)', precio: 15, desc: 'Plazos 1M a 6M. (Manual)', tyc: 'Activación al cliente.', esCanvaIa: true, colorBtn: 'bg-teal-600 hover:bg-teal-500 text-white' },
+            { id: 'gemini_inv', nombre: '✨ Google One / Gemini', precio: 20, desc: 'Invitaciones y Familiar. (Manual)', tyc: 'Activación al cliente.', esGemini: true, colorBtn: 'bg-yellow-600 hover:bg-yellow-500 text-black font-bold' },
             { id: 'm365_6m', nombre: '📊 Microsoft 365 Completa (6M)', precio: 50, rangos: [{min: 1, max: 4, p: 50}], desc: 'Manual.', tyc: 'Garantía 3M.', colorBtn: 'bg-blue-700 hover:bg-blue-600 text-white' },
             { id: 'outlook_serv', nombre: '📧 Correo Outlook/Hotmail', precio: 5, rangos: [{min: 1, max: 8, p: 5}], desc: 'Correos limpios. (Manual)', tyc: 'Primer acceso.', esOutlookManual: true, colorBtn: 'bg-slate-700 hover:bg-slate-600 text-white' },
             { id: 'smart_fit', nombre: '🏋️ Smart Fit (Para toda la república)', precio: 95, desc: 'Trámites 1x1 (Manual)', tyc: 'Datos correctos.', esSmartfit: true, colorBtn: 'bg-amber-600 hover:bg-amber-500 text-white' }
@@ -349,6 +333,7 @@
                 else if (p.esSmartfit) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-smartfit')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">🏋️ Ver Membresías</button>`; }
                 else if (p.esOutlookManual) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-outlook')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">📧 Solicitar Correo</button>`; }
                 else if (p.esCanvaEdu) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-canva-edu')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">🎨 Ver Plazos</button>`; }
+                else if (p.esCanvaIa) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-canva-ia')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">🤖 Ver Plazos</button>`; }
                 else if (p.esGemini) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-gemini')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">✨ Ver Opciones</button>`; }
 
                 return `
@@ -429,6 +414,18 @@
             const correo = document.getElementById('canva-edu-correo').value.trim();
             if(!correo) return alert('Ingresa el correo.');
             seleccionarServicioManual(`Canva Pro EDU (${plazo})`, precio, `Correo: ${correo}`, 'modal-canva-edu');
+        }
+
+        function seleccionarCanvaIa(plazo, precio) {
+            const correo = document.getElementById('canva-ia-correo').value.trim();
+            if(!correo) return alert('Ingresa el correo.');
+            seleccionarServicioManual(`Canva Pro IA (${plazo})`, precio, `Correo: ${correo}`, 'modal-canva-ia');
+        }
+
+        function seleccionarGeminiFamiliar() {
+            const creds = document.getElementById('gemini-fam-creds').value.trim();
+            if(!creds) return alert('Ingresa correo y contraseña.');
+            seleccionarServicioManual('Gemini Familiar (12M)', 290, `Correo y Pass: ${creds}`, 'modal-gemini');
         }
 
         function seleccionarServicioManual(nombre, precio, datos, idModal) {
@@ -561,14 +558,13 @@
             document.getElementById('man-datos').value = '';
         }
 
-        // SOLICITUD DE CÓDIGOS CON RECUADRO DE RESPUESTA AUTOMÁTICA
+        // SOLICITUD DE CÓDIGOS CON RECUADRO DE RESPUESTA AUTOMÁTICA Y SIN DUPLICADOS
         async function solicitarCodigoOtp() {
             const plataforma = document.getElementById('cod-plataforma').value;
             const correo = document.getElementById('cod-correo').value.trim();
             const tipo = document.getElementById('cod-tipo').value;
             if(!correo) return alert('Ingresa el correo.');
 
-            // Insertamos la solicitud en Supabase
             await supabaseClient.from('reportes').insert([{ 
                 usuario_correo: correoUsuarioActual, 
                 plataforma, 
@@ -577,15 +573,13 @@
                 descripcion: `Solicitud: ${tipo}` 
             }]);
 
-            // Notificamos a Telegram
             const mensajeOtp = `🔑 *¡Solicitud de Código / Link!* ⚡\n\n👤 *Revendedor:* \`${correoUsuarioActual}\`\n🎮 *Plataforma:* ${plataforma}\n📧 *Cuenta:* ${correo}\n📋 *Necesita:* ${tipo}`;
             await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(mensajeOtp)}&parse_mode=Markdown`);
 
-            // Mostramos el recuadro de respuesta automática abajo
             const container = document.getElementById('resultado-codigo-container');
             const textoBox = document.getElementById('resultado-codigo-texto');
             container.classList.remove('hidden');
-            textoBox.innerText = `Solicitud enviada para [${plataforma}] - ${correo}.\nTipo: ${tipo}\n\n⏳ Esperando respuesta del administrador (código o link aparecerá aquí o se te notificará en breve)...`;
+            textoBox.innerText = `Solicitud enviada para [${plataforma}] - ${correo}.\nTipo: ${tipo}\n\n⏳ Esperando respuesta del administrador (el código, link o extracto aparecerá aquí en cuanto se procese)...`;
 
             alert('¡Solicitud enviada!');
         }
