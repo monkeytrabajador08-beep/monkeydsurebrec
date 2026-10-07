@@ -34,59 +34,100 @@
 
     <main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- SECCIÓN 1: TIENDA, CARRITO Y TyC -->
+        <!-- SECCIÓN 1: TIENDA CON TIEMPOS, SELECTOR DE CANTIDAD Y TYC DESPLEGABLES -->
         <section id="sec-tienda" class="space-y-6">
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                     <div>
                         <h2 class="text-base font-bold">🛍️ Catálogo y Carrito de Compras</h2>
-                        <p class="text-xs text-slate-400">Selecciona varias cuentas, revisa los Términos y Condiciones y procesa tu compra.</p>
+                        <p class="text-xs text-slate-400">Elige la duración, cantidad de cuentas y añade al carrito.</p>
                     </div>
                     <div class="bg-slate-950 border border-slate-800 px-4 py-2 rounded-xl text-xs flex items-center gap-3">
-                        <span>🛒 Carrito: <strong class="text-purple-400">2 ítems</strong></span>
-                        <button onclick="alert('Procesando compra del carrito con saldo disponible...')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg transition-colors">Pagar Carrito</button>
+                        <span>🛒 Carrito: <strong id="contador-carrito" class="text-purple-400">0 ítems</strong></span>
+                        <button onclick="alert('Procesando pago de los ítems en el carrito con tu saldo disponible...')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg transition-colors">Pagar Carrito</button>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Producto 1 -->
+                    
+                    <!-- Producto 1: Netflix con selector de tiempo y cantidad -->
                     <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
                         <div>
-                            <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2.5 py-1 rounded-md font-semibold">1 MES</span>
-                            <h3 class="font-bold mt-3 text-white text-base">Netflix (Miembro Extra)</h3>
-                            <p class="text-2xl font-black text-emerald-400 mt-1">$35.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                            <h3 class="font-bold text-white text-base">Netflix (Miembro Extra)</h3>
                             
-                            <!-- Términos y Condiciones / Especificaciones -->
-                            <div class="mt-4 bg-slate-900 border border-slate-800 p-3 rounded-lg text-[11px] text-slate-300 space-y-1">
-                                <p class="font-semibold text-purple-300 uppercase text-[10px]">TyC / Especificaciones:</p>
-                                <p>• Cuenta perfil extra / No cambiar correo ni contraseña.</p>
-                                <p>• Garantía de 30 días contra caídas de hogar.</p>
+                            <!-- Selector de Meses / Tiempo -->
+                            <div class="flex gap-2 mt-3">
+                                <button onclick="cambiarPrecio('netflix', 1, 35, this)" class="px-3 py-1 rounded-lg bg-purple-600 text-white text-xs font-semibold transition-all">1 Mes ($35)</button>
+                                <button onclick="cambiarPrecio('netflix', 2, 65, this)" class="px-3 py-1 rounded-lg bg-slate-900 text-slate-400 text-xs font-semibold transition-all">2 Meses ($65)</button>
+                                <button onclick="cambiarPrecio('netflix', 3, 95, this)" class="px-3 py-1 rounded-lg bg-slate-900 text-slate-400 text-xs font-semibold transition-all">3 Meses ($95)</button>
+                            </div>
+
+                            <p id="precio-netflix" class="text-2xl font-black text-emerald-400 mt-3">$35.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+
+                            <!-- Selector de Cantidad tipo "+ / -" -->
+                            <div class="flex items-center justify-between mt-4 bg-slate-900 p-2 rounded-xl border border-slate-800">
+                                <span class="text-xs text-slate-400 font-medium">Cantidad:</span>
+                                <div class="flex items-center gap-3">
+                                    <button onclick="cambiarCantidad('netflix', -1)" class="w-7 h-7 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-bold text-xs">-</button>
+                                    <span id="cant-netflix" class="text-sm font-bold text-white">1</span>
+                                    <button onclick="cambiarCantidad('netflix', 1)" class="w-7 h-7 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-bold text-xs">+</button>
+                                </div>
+                            </div>
+
+                            <!-- TyC Desplegable -->
+                            <div class="mt-3">
+                                <button onclick="toggleTyC('tyc-netflix')" class="text-xs text-purple-400 hover:underline flex items-center gap-1 font-medium">📜 Ver TyC / Especificaciones</button>
+                                <div id="tyc-netflix" class="hidden mt-2 bg-slate-900 border border-slate-800 p-3 rounded-lg text-[11px] text-slate-300 space-y-1">
+                                    <p>• Cuenta perfil extra / No cambiar correo ni contraseña.</p>
+                                    <p>• Garantía activa contra caídas de hogar durante el plazo elegido.</p>
+                                </div>
                             </div>
                         </div>
-                        <button onclick="alert('Netflix añadida al carrito de compras.')" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">+ Añadir al Carrito</button>
+
+                        <button onclick="agregarAlCarrito('Netflix')" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">+ Añadir al Carrito</button>
                     </div>
 
-                    <!-- Producto 2 -->
+                    <!-- Producto 2: Disney+ con selector de tiempo y cantidad -->
                     <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
                         <div>
-                            <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2.5 py-1 rounded-md font-semibold">1 MES</span>
-                            <h3 class="font-bold mt-3 text-white text-base">Disney+ Estándar</h3>
-                            <p class="text-2xl font-black text-emerald-400 mt-1">$25.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                            <h3 class="font-bold text-white text-base">Disney+ Estándar</h3>
                             
-                            <!-- TyC -->
-                            <div class="mt-4 bg-slate-900 border border-slate-800 p-3 rounded-lg text-[11px] text-slate-300 space-y-1">
-                                <p class="font-semibold text-purple-300 uppercase text-[10px]">TyC / Especificaciones:</p>
-                                <p>• Cuenta completa o perfil asignado según stock.</p>
-                                <p>• Soporte activo durante todo el mes de servicio.</p>
+                            <!-- Selector de Meses / Tiempo -->
+                            <div class="flex gap-2 mt-3">
+                                <button onclick="cambiarPrecio('disney', 1, 25, this)" class="px-3 py-1 rounded-lg bg-purple-600 text-white text-xs font-semibold transition-all">1 Mes ($25)</button>
+                                <button onclick="cambiarPrecio('disney', 2, 45, this)" class="px-3 py-1 rounded-lg bg-slate-900 text-slate-400 text-xs font-semibold transition-all">2 Meses ($45)</button>
+                            </div>
+
+                            <p id="precio-disney" class="text-2xl font-black text-emerald-400 mt-3">$25.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+
+                            <!-- Selector de Cantidad -->
+                            <div class="flex items-center justify-between mt-4 bg-slate-900 p-2 rounded-xl border border-slate-800">
+                                <span class="text-xs text-slate-400 font-medium">Cantidad:</span>
+                                <div class="flex items-center gap-3">
+                                    <button onclick="cambiarCantidad('disney', -1)" class="w-7 h-7 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-bold text-xs">-</button>
+                                    <span id="cant-disney" class="text-sm font-bold text-white">1</span>
+                                    <button onclick="cambiarCantidad('disney', 1)" class="w-7 h-7 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-bold text-xs">+</button>
+                                </div>
+                            </div>
+
+                            <!-- TyC Desplegable -->
+                            <div class="mt-3">
+                                <button onclick="toggleTyC('tyc-disney')" class="text-xs text-purple-400 hover:underline flex items-center gap-1 font-medium">📜 Ver TyC / Especificaciones</button>
+                                <div id="tyc-disney" class="hidden mt-2 bg-slate-900 border border-slate-800 p-3 rounded-lg text-[11px] text-slate-300 space-y-1">
+                                    <p>• Cuenta completa o perfil asignado según stock.</p>
+                                    <p>• Soporte garantizado durante todo el periodo contratado.</p>
+                                </div>
                             </div>
                         </div>
-                        <button onclick="alert('Disney+ añadida al carrito de compras.')" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">+ Añadir al Carrito</button>
+
+                        <button onclick="agregarAlCarrito('Disney+')" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">+ Añadir al Carrito</button>
                     </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 2: MIS CUENTAS (Con Opción de Asignar a Subcliente) -->
+        <!-- SECCIÓN 2: MIS CUENTAS (Con menú desplegable de subclientes al asignar) -->
         <section id="sec-cuentas" class="space-y-6 hidden">
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
                 <h2 class="text-base font-bold mb-4">📦 Inventario de Mis Cuentas Activas</h2>
@@ -97,72 +138,74 @@
                             <p class="text-white font-mono mt-1">correo_ejemplo@toxapa.com / Pass: W2590094</p>
                             <p class="text-[10px] text-slate-400 mt-0.5">Compra: 12 de Octubre, 2026 · Vence: 12 de Noviembre, 2026</p>
                         </div>
-                        <div class="flex items-center gap-2 w-full md:w-auto">
-                            <span class="bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded-lg font-medium">Activa</span>
-                            <button onclick="alert('Abriendo selector para transferir/asignar esta cuenta a tu subcliente...')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-medium">➡️ Asignar a Subcliente</button>
+                        <div class="flex flex-col md:flex-row items-end gap-2 w-full md:w-auto">
+                            <!-- Desplegable de subclientes al dar clic en asignar -->
+                            <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white">
+                                <option>Seleccionar Subcliente...</option>
+                                <option>Subcliente_Pedro (pedro_sub@gmail.com)</option>
+                                <option>Subcliente_Ana (ana_streaming@gmail.com)</option>
+                            </select>
+                            <button onclick="alert('Cuenta transferida al subcliente seleccionado con éxito.')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-medium whitespace-nowrap">Confirmar Asignación</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 3: CÓDIGOS Y REPORTES (Filtrado por Plataforma y Búsqueda por Correo) -->
+        <!-- SECCIÓN 3: CÓDIGOS Y REPORTES (Búsqueda rápida por correo) -->
         <section id="sec-soporte" class="space-y-6 hidden">
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
-                <h2 class="text-base font-bold">🔑 Panel de Códigos y Reportes con Búsqueda Inteligente</h2>
+                <h2 class="text-base font-bold">🔑 Panel de Códigos y Reportes Inteligente</h2>
                 
-                <!-- Solicitud de Códigos (Plataforma -> Correo) -->
+                <!-- Solicitud de Códigos -->
                 <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-3">
                     <h3 class="text-xs font-bold uppercase text-purple-400">Solicitar Código OTP / Link / Hogar</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
-                            <option>1. Seleccionar Plataforma...</option>
-                            <option>Netflix (Miembro Extra)</option>
-                            <option>Disney+ Estándar</option>
+                            <option>1. Plataforma...</option>
+                            <option>Netflix</option>
+                            <option>Disney+</option>
                         </select>
-                        <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
-                            <option>2. Buscar / Seleccionar Correo...</option>
-                            <option>correo_ejemplo@toxapa.com</option>
-                        </select>
+                        <input type="text" placeholder="2. Escribe o busca el correo..." class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
                         <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
                             <option>🔑 Pedir Código OTP</option>
-                            <option>🌐 Link de Restablecimiento</option>
-                            <option>📺 Actualizar Dispositivo / Hogar</option>
+                            <option>🌐 Link Restablecimiento</option>
+                            <option>📺 Actualizar Hogar</option>
                         </select>
                     </div>
-                    <button onclick="alert('Solicitud enviada correctamente.')" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">Enviar Solicitud al Sistema</button>
+                    <button onclick="alert('Solicitud enviada.')" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">Enviar Solicitud</button>
                 </div>
 
-                <!-- Reporte de Caída (Fecha automática e imagen obligatoria) -->
+                <!-- Reportar Caída -->
                 <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-3">
-                    <h3 class="text-xs font-bold uppercase text-rose-400">🚨 Reportar Cuenta Caída (Fecha automática de compra)</h3>
+                    <h3 class="text-xs font-bold uppercase text-rose-400">🚨 Reportar Cuenta Caída</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
-                            <option>1. Seleccionar Plataforma...</option>
-                            <option>Netflix (Miembro Extra)</option>
+                            <option>Plataforma...</option>
+                            <option>Netflix</option>
                         </select>
-                        <input type="text" placeholder="2. Ingresar Correo de la Cuenta..." class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+                        <input type="text" placeholder="Correo de la cuenta..." class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
                     </div>
-                    <input type="text" placeholder="Describe brevemente el problema..." class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
-                    <p class="text-[11px] text-slate-400">📅 Fecha de compra registrada en el sistema: <strong class="text-emerald-400">12 de Octubre, 2026</strong> (Se adjuntará automáticamente al reporte).</p>
+                    <input type="text" placeholder="Describe el problema..." class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+                    <p class="text-[11px] text-slate-400">📅 Fecha de compra automática: <strong class="text-emerald-400">12 de Octubre, 2026</strong></p>
                     <div>
-                        <label class="block text-[11px] text-slate-400 mb-1">Adjuntar Captura de Pantalla / Evidencia (Obligatorio):</label>
+                        <label class="block text-[11px] text-slate-400 mb-1">Evidencia Fotográfica (Obligatorio):</label>
                         <input type="file" accept="image/*" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-400 file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-rose-600 file:text-white hover:file:bg-rose-500">
                     </div>
-                    <button onclick="alert('Reporte enviado con la fecha de compra y foto adjunta en automático.')" class="w-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">Enviar Reporte con Foto</button>
+                    <button onclick="alert('Reporte enviado con foto y fecha automática.')" class="w-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">Enviar Reporte</button>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 4: SUBCLIENTES (Creación de accesos) -->
+        <!-- SECCIÓN 4: SUBCLIENTES -->
         <section id="sec-subclientes" class="space-y-6 hidden">
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
                         <h2 class="text-base font-bold">👥 Gestión de Subclientes</h2>
-                        <p class="text-xs text-slate-400">Crea usuario y contraseña para tu sub-revendedor.</p>
+                        <p class="text-xs text-slate-400">Crea credenciales (usuario y contraseña) para tu equipo.</p>
                     </div>
-                    <button onclick="alert('Abriendo formulario de creación de credenciales para subcliente...')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-4 py-2.5 rounded-lg font-medium">+ Crear Credenciales de Subcliente</button>
+                    <button onclick="alert('Abriendo creador de cuentas para subcliente...')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-4 py-2.5 rounded-lg font-medium">+ Crear Credenciales de Subcliente</button>
                 </div>
                 <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl text-center text-xs text-slate-400">
                     No tienes subclientes activos todavía.
@@ -172,8 +215,9 @@
 
     </main>
 
-    <!-- Script para navegación flotante -->
+    <!-- Scripts de Interacción -->
     <script>
+        // Navegación flotante
         function mostrarSeccion(seccion) {
             const secs = ['tienda', 'cuentas', 'soporte', 'subclientes'];
             secs.forEach(s => {
@@ -182,6 +226,39 @@
             });
             document.getElementById('sec-' + seccion).classList.remove('hidden');
             document.getElementById('nav-' + seccion).className = "px-3 py-2 rounded-xl bg-purple-600 text-white text-xs font-semibold whitespace-nowrap transition-all shadow-lg shadow-purple-950";
+        }
+
+        // Mostrar / Ocultar TyC desplegables
+        function toggleTyC(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+        }
+
+        // Cambiar cantidad con botones + / -
+        let cantidades = { netflix: 1, disney: 1 };
+        function cambiarCantidad(producto, cambio) {
+            cantidades[producto] += cambio;
+            if (cantidades[producto] < 1) cantidades[producto] = 1;
+            document.getElementById('cant-' + producto).innerText = cantidades[producto];
+        }
+
+        // Cambiar precio según los meses seleccionados
+        function cambiarPrecio(producto, meses, precio, boton) {
+            document.getElementById('precio-' + producto).innerHTML = `$${precio}.00 <span class="text-xs text-slate-400 font-normal">MXN</span>`;
+            // Cambiar estilos de los botones de meses
+            const contenedor = boton.parentElement;
+            Array.from(contenedor.children).forEach(btn => {
+                btn.className = "px-3 py-1 rounded-lg bg-slate-900 text-slate-400 text-xs font-semibold transition-all";
+            });
+            boton.className = "px-3 py-1 rounded-lg bg-purple-600 text-white text-xs font-semibold transition-all";
+        }
+
+        // Simular añadir al carrito
+        let totalCarrito = 0;
+        function agregarAlCarrito(nombre) {
+            totalCarrito++;
+            document.getElementById('contador-carrito').innerText = totalCarrito + ' ítems';
+            alert(`¡${nombre} añadida al carrito correctamente!`);
         }
     </script>
 
