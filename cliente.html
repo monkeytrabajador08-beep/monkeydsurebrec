@@ -21,7 +21,7 @@
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec</h2>
             <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel de Revendedor 💼</h1>
-            <p class="text-xs text-zinc-400 mt-1">Catálogo oficial con opciones de tiempo y términos de uso.</p>
+            <p class="text-xs text-zinc-400 mt-1">Catálogo oficial con selección exacta de plazos y precios.</p>
         </div>
         <div class="flex items-center gap-4">
             <div class="text-right">
@@ -39,8 +39,8 @@
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                     <div>
-                        <h2 class="text-base font-bold">🛍️ Catálogo de Cuentas y Plazos</h2>
-                        <p class="text-xs text-zinc-400">Selecciona el tiempo, cantidad y revisa las condiciones de cada servicio.</p>
+                        <h2 class="text-base font-bold">🛍️ Catálogo de Cuentas y Duración</h2>
+                        <p class="text-xs text-zinc-400">Elige el servicio, el plazo correspondiente y añade al carrito.</p>
                     </div>
                     <div class="bg-black border border-zinc-800 px-4 py-2.5 rounded-xl text-xs flex items-center gap-4">
                         <div>
@@ -117,18 +117,19 @@
         let carritoTotal = 0;
         let productoEnCarrito = null;
 
-        // Catálogo oficial con variantes, plazos y T&C configurables fácilmente aquí
+        // Catálogo oficial con opciones independientes de meses, precios reales y T&C
         const catalogoOficial = [
-            { nombre: 'Disney Premium', precio: 65, plazos: ['1 Mes', '3 Meses', '6 Meses'], desc: 'Cuenta completa oficial.', tyc: 'Garantía por el plazo adquirido. No cambiar correo ni contraseña.' },
-            { nombre: 'MAX Platino', precio: 95, plazos: ['1 Mes', '3 Meses', '12 Meses'], desc: 'Platino calidad máxima.', tyc: 'Uso exclusivo en dispositivos permitidos. Respetar pantallas.' },
-            { nombre: 'Prime Video 1M', precio: 20, plazos: ['1 Mes'], desc: 'Prime Video 1 Mes.', tyc: 'Cuenta con garantía total ante caídas dentro del periodo.' },
-            { nombre: 'Prime Video 6M', precio: 65, plazos: ['6 Meses'], desc: 'Prime Video 6 Meses.', tyc: 'Cuenta con garantía total ante caídas dentro del periodo.' },
-            { nombre: 'Apple TV', precio: 30, plazos: ['1 Mes', '3 Meses'], desc: 'Apple TV MLS + F1.', tyc: 'Respetar las políticas de acceso de la plataforma.' },
-            { nombre: 'Crunchyroll CP', precio: 35, plazos: ['1 Mes', '12 Meses'], desc: 'Cuenta principal (CP).', tyc: 'No modificar perfiles principales creados para el revendedor.' },
-            { nombre: 'Netflix Completa', precio: 210, plazos: ['1 Mes'], desc: 'Netflix Completa C/P.', tyc: 'Mantener el hogar configurado correctamente.' },
-            { nombre: 'Netflix Individual', precio: 50, plazos: ['1 Mes'], desc: 'Netflix Individual Code/Pass.', tyc: 'Usar únicamente en el dispositivo asignado.' },
-            { nombre: 'Nord VPN', precio: 50, plazos: ['1 Mes', '12 Meses'], desc: 'Acceso completo VPN.', tyc: 'No revender accesos simultáneos fuera de lo permitido.' },
-            { nombre: 'VIX', precio: 35, plazos: ['1 Mes', '6 Meses'], desc: 'VIX Completa.', tyc: 'Garantía activa durante la vigencia.' }
+            { id: 'disney_1m', nombre: 'Disney Premium (1 Mes)', precio: 65, desc: 'Cuenta completa oficial por 1 Mes.', tyc: 'Garantía por 1 mes. No cambiar correo ni contraseña.' },
+            { id: 'max_1m', nombre: 'MAX Platino (1 Mes)', precio: 95, desc: 'Platino calidad máxima por 1 Mes.', tyc: 'Uso exclusivo en dispositivos permitidos.' },
+            { id: 'prime_1m', nombre: 'Prime Video (1 Mes)', precio: 20, desc: 'Acceso completo por 1 Mes (Fija).', tyc: 'Cuenta fija de 1 mes sin renovación.' },
+            { id: 'prime_6m', nombre: 'Prime Video (6 Meses)', precio: 65, desc: 'Acceso completo por 6 Meses (Fija).', tyc: 'Cuenta fija de 6 meses sin renovación.' },
+            { id: 'apple_1m', nombre: 'Apple TV MLS+F1 (1 Mes)', precio: 30, desc: 'Acceso por 1 Mes.', tyc: 'Respetar políticas de acceso.' },
+            { id: 'apple_3m', nombre: 'Apple TV MLS+F1 (3 Meses)', precio: 65, desc: 'Acceso por 3 Meses.', tyc: 'Garantía durante el trimestre adquirido.' },
+            { id: 'crunchy_1m', nombre: 'Crunchyroll CP (1 Mes)', precio: 35, desc: 'Cuenta principal por 1 Mes.', tyc: 'No modificar perfiles principales.' },
+            { id: 'netflix_1m', nombre: 'Netflix Completa (1 Mes)', precio: 210, desc: 'Netflix Completa C/P 1 Mes.', tyc: 'Mantener el hogar configurado.' },
+            { id: 'netflix_ind', nombre: 'Netflix Individual (1 Mes)', precio: 50, desc: 'Perfil individual.', tyc: 'Usar solo en el dispositivo asignado.' },
+            { id: 'nord_1m', nombre: 'Nord VPN (1 Mes)', precio: 50, desc: 'Acceso completo VPN.', tyc: 'No revender accesos simultáneos.' },
+            { id: 'vix_1m', nombre: 'VIX Completa (1 Mes)', precio: 35, desc: 'VIX Completa 1 Mes.', tyc: 'Garantía activa durante la vigencia.' }
         ];
 
         async function inicializarCliente() {
@@ -158,9 +159,7 @@
             const contenedor = document.getElementById('catalogo-productos');
 
             contenedor.innerHTML = catalogoOficial.map((p, index) => {
-                const stockCount = inventario ? inventario.filter(i => i.plataforma.toLowerCase().includes(p.nombre.toLowerCase())).length : 0;
-                
-                let opcionesPlazos = p.plazos.map(mes => `<option value="${mes}">${mes}</option>`).join('');
+                const stockCount = inventario ? inventario.filter(i => i.plataforma.toLowerCase() === p.nombre.toLowerCase()).length : 0;
 
                 return `
                     <div class="bg-black border border-zinc-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
@@ -173,21 +172,14 @@
                             <p class="text-2xl font-black text-emerald-400 mt-3">$${p.precio}.00 <span class="text-xs text-zinc-400 font-normal">MXN</span></p>
                         </div>
                         
-                        <!-- Selector de Plazos y Cantidad -->
+                        <!-- Control de Cantidad y Términos -->
                         <div class="space-y-3">
-                            <div>
-                                <label class="block text-[10px] uppercase font-semibold text-zinc-400 mb-1">Plazo / Meses:</label>
-                                <select id="plazo-${index}" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white">
-                                    ${opcionesPlazos}
-                                </select>
-                            </div>
-
                             <div class="flex items-center justify-between bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-xl">
                                 <span class="text-xs text-zinc-400">Cantidad:</span>
                                 <div class="flex items-center gap-2">
-                                    <button onclick="cambiarCantidad('${p.nombre}', -1)" class="w-6 h-6 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">-</button>
-                                    <span id="qty-${index}" class="text-xs font-bold text-white w-4 text-center">1</span>
-                                    <button onclick="cambiarCantidad('${p.nombre}', 1)" class="w-6 h-6 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">+</button>
+                                    <button onclick="cambiarCantidad('${p.id}', -1)" class="w-6 h-6 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">-</button>
+                                    <span id="qty-${p.id}" class="text-xs font-bold text-white w-4 text-center">1</span>
+                                    <button onclick="cambiarCantidad('${p.id}', 1)" class="w-6 h-6 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">+</button>
                                 </div>
                             </div>
 
@@ -197,7 +189,7 @@
                                 <p class="mt-2 text-zinc-300 leading-relaxed">${p.tyc}</p>
                             </details>
 
-                            <button onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, ${stockCount}, ${index})" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Añadir al Carrito</button>
+                            <button onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, ${stockCount}, '${p.id}')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Añadir al Carrito</button>
                         </div>
                     </div>
                 `;
@@ -205,16 +197,13 @@
         }
 
         let cantidadesTemp = {};
-        function cambiarCantidad(nombre, delta) {
-            if(!cantidadesTemp[nombre]) cantidadesTemp[nombre] = 1;
-            cantidadesTemp[nombre] += delta;
-            if(cantidadesTemp[nombre] < 1) cantidadesTemp[nombre] = 1;
+        function cambiarCantidad(id, delta) {
+            if(!cantidadesTemp[id]) cantidadesTemp[id] = 1;
+            cantidadesTemp[id] += delta;
+            if(cantidadesTemp[id] < 1) cantidadesTemp[id] = 1;
             
-            const idx = catalogoOficial.findIndex(p => p.nombre === nombre);
-            if(idx !== -1) {
-                const spanQty = document.getElementById(`qty-${idx}`);
-                if(spanQty) spanQty.innerText = cantidadesTemp[nombre];
-            }
+            const spanQty = document.getElementById(`qty-${id}`);
+            if(spanQty) spanQty.innerText = cantidadesTemp[id];
         }
 
         function mostrarSeccion(seccion) {
@@ -228,20 +217,19 @@
             if(seccion === 'cuentas') cargarMisCuentas();
         }
 
-        function agregarAlCarrito(nombre, precio, stock, index) {
-            const cantidad = cantidadesTemp[nombre] || 1;
-            const plazoSeleccionado = document.getElementById(`plazo-${index}`).value;
+        function agregarAlCarrito(nombre, precio, stock, id) {
+            const cantidad = cantidadesTemp[id] || 1;
             
             if(stock <= 0) return alert('Lo sentimos, no hay stock disponible.');
             if(cantidad > stock) return alert(`Solo hay ${stock} unidades disponibles.`);
 
-            productoEnCarrito = { nombre, precio, cantidad, plazo: plazoSeleccionado };
+            productoEnCarrito = { nombre, precio, cantidad };
             carritoItems = cantidad;
             carritoTotal = precio * cantidad;
 
             document.getElementById('contador-carrito').innerText = cantidad + ' ítems';
             document.getElementById('total-carrito').innerText = '$' + carritoTotal.toFixed(2) + ' MXN';
-            alert(`¡Se añadió ${cantidad}x ${nombre} (${plazoSeleccionado}) al carrito!`);
+            alert(`¡Se añadió ${cantidad}x ${nombre} al carrito!`);
         }
 
         async function pagarCarrito() {
@@ -251,7 +239,7 @@
             const { data: stockItems } = await supabaseClient
                 .from('inventario')
                 .select('*')
-                .ilike('plataforma', `%${productoEnCarrito.nombre}%`)
+                .ilike('plataforma', productoEnCarrito.nombre)
                 .eq('estado', 'disponible')
                 .limit(productoEnCarrito.cantidad);
 
@@ -274,7 +262,7 @@
             document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
 
             let detalleCuentas = stockItems.map(c => `• ${c.correo_cuenta} / Pass: ${c.password_cuenta}`).join('\n');
-            alert(`¡Compra Exitosa (${productoEnCarrito.plazo})!\n\nTus cuentas:\n${detalleCuentas}`);
+            alert(`¡Compra Exitosa!\n\nTus cuentas:\n${detalleCuentas}`);
 
             productoEnCarrito = null;
             carritoItems = 0;
