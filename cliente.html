@@ -26,7 +26,7 @@
         <div class="flex items-center gap-4">
             <div class="text-right">
                 <span class="text-xs text-slate-400 uppercase font-semibold block">Saldo Disponible</span>
-                <span class="text-xl font-extrabold text-emerald-400">$450.00 MXN</span>
+                <span id="saldo-disponible" class="text-xl font-extrabold text-emerald-400">$450.00 MXN</span>
             </div>
             <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2.5 rounded-xl transition-colors">Cerrar Sesión</a>
         </div>
@@ -42,14 +42,13 @@
                         <h2 class="text-base font-bold">🛍️ Catálogo y Carrito de Compras</h2>
                         <p class="text-xs text-slate-400">Elige la duración, cantidad y añade al carrito.</p>
                     </div>
-                    <!-- Botón de Pagar con Total Actualizado -->
                     <div class="bg-slate-950 border border-slate-800 px-4 py-2.5 rounded-xl text-xs flex items-center gap-4">
                         <div>
                             <span>🛒 <strong id="contador-carrito" class="text-purple-400">0 ítems</strong></span>
                             <span class="text-slate-400 mx-1">|</span>
                             <span>Total: <strong id="total-carrito" class="text-emerald-400">$0.00 MXN</strong></span>
                         </div>
-                        <button onclick="alert('Pago procesado con éxito con tu saldo disponible.')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3.5 py-1.5 rounded-lg transition-colors shadow-lg">Pagar Carrito</button>
+                        <button onclick="pagarCarrito()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3.5 py-1.5 rounded-lg transition-colors shadow-lg">Pagar Carrito</button>
                     </div>
                 </div>
 
@@ -60,9 +59,9 @@
                         <div>
                             <h3 class="font-bold text-white text-base">Netflix (Miembro Extra)</h3>
                             <div class="flex gap-2 mt-3">
-                                <button onclick="actualizarSeleccion('netflix', 1, 35, this)" class="btn-netflix-1 px-3 py-1 rounded-lg bg-purple-600 text-white text-xs font-semibold transition-all">1 Mes ($35)</button>
-                                <button onclick="actualizarSeleccion('netflix', 2, 65, this)" class="btn-netflix-2 px-3 py-1 rounded-lg bg-slate-900 text-slate-400 text-xs font-semibold transition-all">2 Meses ($65)</button>
-                                <button onclick="actualizarSeleccion('netflix', 3, 95, this)" class="btn-netflix-3 px-3 py-1 rounded-lg bg-slate-900 text-slate-400 text-xs font-semibold transition-all">3 Meses ($95)</button>
+                                <button onclick="actualizarSeleccion('netflix', 1, 35, this)" class="px-3 py-1 rounded-lg bg-purple-600 text-white text-xs font-semibold transition-all">1 Mes ($35)</button>
+                                <button onclick="actualizarSeleccion('netflix', 2, 65, this)" class="px-3 py-1 rounded-lg bg-slate-900 text-slate-400 text-xs font-semibold transition-all">2 Meses ($65)</button>
+                                <button onclick="actualizarSeleccion('netflix', 3, 95, this)" class="px-3 py-1 rounded-lg bg-slate-900 text-slate-400 text-xs font-semibold transition-all">3 Meses ($95)</button>
                             </div>
 
                             <p id="precio-netflix" class="text-2xl font-black text-emerald-400 mt-3">$35.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
@@ -93,8 +92,8 @@
                         <div>
                             <h3 class="font-bold text-white text-base">Disney+ Estándar</h3>
                             <div class="flex gap-2 mt-3">
-                                <button onclick="actualizarSeleccion('disney', 1, 25, this)" class="btn-disney-1 px-3 py-1 rounded-lg bg-purple-600 text-white text-xs font-semibold transition-all">1 Mes ($25)</button>
-                                <button onclick="actualizarSeleccion('disney', 2, 45, this)" class="btn-disney-2 px-3 py-1 rounded-lg bg-slate-900 text-slate-400 text-xs font-semibold transition-all">2 Meses ($45)</button>
+                                <button onclick="actualizarSeleccion('disney', 1, 25, this)" class="px-3 py-1 rounded-lg bg-purple-600 text-white text-xs font-semibold transition-all">1 Mes ($25)</button>
+                                <button onclick="actualizarSeleccion('disney', 2, 45, this)" class="px-3 py-1 rounded-lg bg-slate-900 text-slate-400 text-xs font-semibold transition-all">2 Meses ($45)</button>
                             </div>
 
                             <p id="precio-disney" class="text-2xl font-black text-emerald-400 mt-3">$25.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
@@ -124,49 +123,55 @@
             </div>
         </section>
 
-        <!-- SECCIÓN 2: MIS CUENTAS (Con Semáforo de Vencimiento Dinámico) -->
+        <!-- SECCIÓN 2: MIS CUENTAS (Con Semáforo, Asignación y Opción de Renovar con Saldo) -->
         <section id="sec-cuentas" class="space-y-6 hidden">
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
                 <h2 class="text-base font-bold mb-4">📦 Inventario de Mis Cuentas Activas</h2>
-                <div class="space-y-3">
-                    <!-- Cuenta 1 (Ejemplo próxima a vencer en 3 días - Alerta Roja) -->
-                    <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs">
+                <div class="space-y-4">
+                    <!-- Cuenta 1 (Vence en 3 días - Alerta Roja + Opción de Renovar) -->
+                    <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 text-xs">
                         <div>
                             <div class="flex items-center gap-2">
                                 <span class="text-purple-400 font-semibold uppercase">Netflix (Miembro Extra)</span>
-                                <!-- Etiqueta de semáforo con menos de 5 días (Rojo) -->
                                 <span class="bg-rose-500/10 border border-rose-500/30 text-rose-400 px-2 py-0.5 rounded text-[10px] font-bold">⚠️ Vence en 3 días</span>
                             </div>
                             <p class="text-white font-mono mt-1">correo_ejemplo@toxapa.com / Pass: W2590094</p>
                             <p class="text-[10px] text-slate-400 mt-0.5">Compra: 09 de Octubre, 2026</p>
                         </div>
-                        <div class="flex flex-col md:flex-row items-end gap-2 w-full md:w-auto">
-                            <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white">
+                        
+                        <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto">
+                            <!-- Botón de Renovar Cuenta (Costo ej. $35) -->
+                            <button onclick="renovarCuenta(35)" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-1.5 rounded-lg font-medium transition-colors">🔄 Renovar ($35)</button>
+                            
+                            <!-- Asignar a Subcliente -->
+                            <select class="bg-slate-900 border border-slate-800 rounded-lg px-2 py-1.5 text-xs text-white">
                                 <option>Seleccionar Subcliente...</option>
                                 <option>Subcliente_Pedro (pedro_sub@gmail.com)</option>
                                 <option>Subcliente_Ana (ana_streaming@gmail.com)</option>
                             </select>
-                            <button onclick="alert('Cuenta transferida al subcliente seleccionado con éxito.')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-medium whitespace-nowrap">Confirmar Asignación</button>
+                            <button onclick="alert('Cuenta transferida al subcliente seleccionado con éxito.')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-medium">Asignar</button>
                         </div>
                     </div>
 
-                    <!-- Cuenta 2 (Ejemplo con más de 5 días - Estado Normal) -->
-                    <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs">
+                    <!-- Cuenta 2 (Vence en 18 días - Estado Normal + Opción de Renovar) -->
+                    <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 text-xs">
                         <div>
                             <div class="flex items-center gap-2">
                                 <span class="text-purple-400 font-semibold uppercase">Disney+ Estándar</span>
-                                <!-- Etiqueta de semáforo normal (Más de 5 días) -->
                                 <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-2 py-0.5 rounded text-[10px] font-bold">🟢 Vence en 18 días</span>
                             </div>
                             <p class="text-white font-mono mt-1">disney_user@domain.com / Pass: PassDisney99</p>
                             <p class="text-[10px] text-slate-400 mt-0.5">Compra: 24 de Septiembre, 2026</p>
                         </div>
-                        <div class="flex flex-col md:flex-row items-end gap-2 w-full md:w-auto">
-                            <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white">
+
+                        <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto">
+                            <button onclick="renovarCuenta(25)" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-1.5 rounded-lg font-medium transition-colors">🔄 Renovar ($25)</button>
+                            
+                            <select class="bg-slate-900 border border-slate-800 rounded-lg px-2 py-1.5 text-xs text-white">
                                 <option>Seleccionar Subcliente...</option>
                                 <option>Subcliente_Pedro (pedro_sub@gmail.com)</option>
                             </select>
-                            <button onclick="alert('Cuenta transferida al subcliente seleccionado con éxito.')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-medium whitespace-nowrap">Confirmar Asignación</button>
+                            <button onclick="alert('Cuenta transferida al subcliente seleccionado con éxito.')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-medium">Asignar</button>
                         </div>
                     </div>
                 </div>
@@ -234,13 +239,12 @@
 
     </main>
 
-    <!-- Scripts de Interacción y Cálculo de Carrito -->
+    <!-- Scripts de Interacción, Carrito y Validación de Saldo para Renovación -->
     <script>
-        // Variables para control del carrito y precios
+        let saldoActual = 450.00; // Saldo simulado del revendedor
         let carritoItems = 0;
         let carritoTotal = 0;
 
-        // Precios actuales seleccionados por defecto
         let seleccionActual = {
             netflix: { precio: 35, cantidad: 1 },
             disney: { precio: 25, cantidad: 1 }
@@ -271,7 +275,6 @@
             seleccionActual[producto].precio = precioBase;
             document.getElementById('precio-' + producto).innerHTML = `$${precioBase}.00 <span class="text-xs text-slate-400 font-normal">MXN</span>`;
             
-            // Actualizar diseño de botones de tiempo
             const contenedor = boton.parentElement;
             Array.from(contenedor.children).forEach(btn => {
                 btn.className = "px-3 py-1 rounded-lg bg-slate-900 text-slate-400 text-xs font-semibold transition-all";
@@ -290,6 +293,36 @@
             document.getElementById('total-carrito').innerText = '$' + carritoTotal.toFixed(2) + ' MXN';
             
             alert(`¡Se añadieron ${item.cantidad} cuenta(s) al carrito por un subtotal de $${subtotal}.00 MXN!`);
+        }
+
+        // Función para pagar el carrito validando saldo
+        function pagarCarrito() {
+            if (carritoTotal === 0) {
+                alert("Tu carrito está vacío.");
+                return;
+            }
+            if (saldoActual < carritoTotal) {
+                alert(`Saldo insuficiente. Tu saldo actual es de $${saldoActual.toFixed(2)} MXN y el total es de $${carritoTotal.toFixed(2)} MXN.`);
+                return;
+            }
+            saldoActual -= carritoTotal;
+            document.getElementById('saldo-disponible').innerText = '$' + saldoActual.toFixed(2) + ' MXN';
+            alert("¡Compra y pago realizados con éxito! El saldo ha sido descontado y las cuentas añadidas.");
+            carritoItems = 0;
+            carritoTotal = 0;
+            document.getElementById('contador-carrito').innerText = '0 ítems';
+            document.getElementById('total-carrito').innerText = '$0.00 MXN';
+        }
+
+        // Función para renovar cuenta individual validando saldo
+        function renovarCuenta(costo) {
+            if (saldoActual < costo) {
+                alert(`Saldo insuficiente para renovar. Tu saldo actual es de $${saldoActual.toFixed(2)} MXN y la renovación cuesta $${costo}.00 MXN.`);
+                return;
+            }
+            saldoActual -= costo;
+            document.getElementById('saldo-disponible').innerText = '$' + saldoActual.toFixed(2) + ' MXN';
+            alert(`¡Cuenta renovada con éxito por $${costo}.00 MXN! Se han sumado 30 días más de vigencia a la cuenta.`);
         }
     </script>
 
