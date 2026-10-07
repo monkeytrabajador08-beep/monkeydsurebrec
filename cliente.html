@@ -3,95 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Revendedor - Catálogo y Subclientes</title>
+    <title>Panel de Revendedor - Plataforma Unificada</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen p-4 md:p-8">
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 md:p-8 pb-24 md:pb-8">
+
+    <!-- Menú Flotante / Barra de Navegación Rápida (5 Botones) -->
+    <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-slate-900/90 backdrop-blur-md border border-slate-800 p-2 rounded-2xl shadow-2xl flex items-center gap-2 z-50 overflow-x-auto max-w-full px-4">
+        <button onclick="mostrarSeccion('tienda')" id="nav-tienda" class="px-3 py-2 rounded-xl bg-purple-600 text-white text-xs font-semibold whitespace-nowrap transition-all shadow-lg shadow-purple-950">🛍️ Tienda</button>
+        <button onclick="mostrarSeccion('cuentas')" id="nav-cuentas" class="px-3 py-2 rounded-xl text-slate-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">📦 Mis Cuentas</button>
+        <button onclick="mostrarSeccion('soporte')" id="nav-soporte" class="px-3 py-2 rounded-xl text-slate-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🔑 Códigos y Reportes</button>
+        <button onclick="mostrarSeccion('subclientes')" id="nav-subclientes" class="px-3 py-2 rounded-xl text-slate-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">👥 Subclientes</button>
+        <a href="https://wa.me/" target="_blank" class="px-3 py-2 rounded-xl bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 text-xs font-semibold whitespace-nowrap transition-all border border-emerald-500/20">💬 WhatsApp</a>
+    </nav>
 
     <!-- Header del Revendedor -->
     <header class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-8 shadow-xl gap-4">
         <div>
             <h1 class="text-xl font-bold bg-gradient-to-r from-purple-400 to-indigo-500 bg-clip-text text-transparent">Panel de Revendedor 💼</h1>
-            <p class="text-xs text-slate-400 mt-1">Gestiona tu saldo, compra stock y administra a tus subclientes</p>
+            <p class="text-xs text-slate-400 mt-1">Tu saldo, compras automáticas y administración general</p>
         </div>
-        <div class="flex items-center gap-3">
-            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2 rounded-lg transition-colors">Cerrar Sesión</a>
+        <div class="flex items-center gap-4">
+            <div class="text-right">
+                <span class="text-xs text-slate-400 uppercase font-semibold block">Saldo Disponible</span>
+                <span class="text-xl font-extrabold text-emerald-400">$450.00 MXN</span>
+            </div>
+            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2.5 rounded-xl transition-colors">Cerrar Sesión</a>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto space-y-8">
+    <main class="max-w-6xl mx-auto">
 
-        <!-- Saldo y Estado -->
-        <div class="flex flex-col md:flex-row justify-between items-center bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl gap-4">
-            <div>
-                <h2 class="text-lg font-bold">Bienvenido de nuevo</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Tu saldo actual disponible para compras automáticas:</p>
-            </div>
-            <div class="text-center md:text-right">
-                <span class="text-3xl font-extrabold text-emerald-400">$450.00 MXN</span>
-                <br>
-                <button class="text-xs text-purple-400 hover:underline mt-1 font-medium inline-block">Solicitar Recarga de Saldo +</button>
-            </div>
-        </div>
-
-        <!-- Tienda de Revendedor (Gancho y Precios) -->
-        <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-            <h2 class="text-base font-bold mb-4">🛍️ Catálogo Exclusivo</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col justify-between">
-                    <div>
-                        <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2.5 py-1 rounded-md font-semibold">1 MES</span>
-                        <h3 class="font-bold mt-3 text-white text-base">Netflix (Miembro Extra)</h3>
-                        <p class="text-2xl font-black text-emerald-400 mt-2">$35.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+        <!-- SECCIÓN 1: TIENDA / CATÁLOGO (Principal) -->
+        <section id="sec-tienda" class="space-y-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <h2 class="text-base font-bold mb-4">🛍️ Catálogo Exclusivo (Compra Directa con Saldo)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2.5 py-1 rounded-md font-semibold">1 MES</span>
+                            <h3 class="font-bold mt-3 text-white text-base">Netflix (Miembro Extra)</h3>
+                            <p class="text-2xl font-black text-emerald-400 mt-2">$35.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                        </div>
+                        <button onclick="alert('¡Compra exitosa! La cuenta se ha añadido a tu inventario de cuentas activas.')" class="mt-5 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">Comprar Cuenta</button>
                     </div>
-                    <button class="mt-5 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">Comprar con Saldo</button>
-                </div>
-                <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col justify-between">
-                    <div>
-                        <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2.5 py-1 rounded-md font-semibold">1 MES</span>
-                        <h3 class="font-bold mt-3 text-white text-base">Disney+ Estándar</h3>
-                        <p class="text-2xl font-black text-emerald-400 mt-2">$25.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                    <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col justify-between">
+                        <div>
+                            <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2.5 py-1 rounded-md font-semibold">1 MES</span>
+                            <h3 class="font-bold mt-3 text-white text-base">Disney+ Estándar</h3>
+                            <p class="text-2xl font-black text-emerald-400 mt-2">$25.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                        </div>
+                        <button onclick="alert('¡Compra exitosa! La cuenta se ha añadido a tu inventario de cuentas activas.')" class="mt-5 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">Comprar Cuenta</button>
                     </div>
-                    <button class="mt-5 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">Comprar con Saldo</button>
                 </div>
             </div>
         </section>
 
-        <!-- Gestión de Subclientes -->
-        <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
-                <div>
-                    <h2 class="text-base font-bold">👤 Mis Subclientes / Equipo</h2>
-                    <p class="text-xs text-slate-400">Crea accesos para tus sub-revendedores y asígnales cuentas de tu stock.</p>
+        <!-- SECCIÓN 2: MIS CUENTAS / INVENTARIO -->
+        <section id="sec-cuentas" class="space-y-6 hidden">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <h2 class="text-base font-bold mb-4">📦 Inventario de Mis Cuentas Activas</h2>
+                <div class="space-y-3">
+                    <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex justify-between items-center text-xs">
+                        <div>
+                            <span class="text-purple-400 font-semibold uppercase">Netflix (Miembro Extra)</span>
+                            <p class="text-white font-mono mt-1">correo_ejemplo@toxapa.com / Pass: W2590094</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Vence: 12 de Noviembre, 2026</p>
+                        </div>
+                        <span class="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-lg font-medium">Activa</span>
+                    </div>
                 </div>
-                <button class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-4 py-2.5 rounded-lg font-medium transition-colors">+ Crear Nuevo Subcliente</button>
             </div>
-            
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
-                    <thead class="bg-slate-950 text-slate-400 uppercase text-xs">
-                        <tr>
-                            <th class="p-3">Subcliente</th>
-                            <th class="p-3">Correo Asignado</th>
-                            <th class="p-3">Cuentas Activas</th>
-                            <th class="p-3 text-right">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-800 text-slate-300">
-                        <tr>
-                            <td class="p-3 font-medium text-white">Subcliente_Pedro</td>
-                            <td class="p-3">pedro_sub@gmail.com</td>
-                            <td class="p-3">1 Cuenta</td>
-                            <td class="p-3 text-right">
-                                <button class="bg-slate-800 hover:bg-slate-700 text-white text-xs px-3 py-1.5 rounded-lg">Asignar Cuenta</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        </section>
+
+        <!-- SECCIÓN 3: CÓDIGOS, SOPORTE Y REPORTES (Con Evidencia Fotográfica) -->
+        <section id="sec-soporte" class="space-y-6 hidden">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+                <h2 class="text-base font-bold">🔑 Panel de Códigos y Solicitud de Soporte</h2>
+                
+                <!-- Pedir código rápido -->
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-3">
+                    <h3 class="text-xs font-bold uppercase text-purple-400">Solicitar Código OTP / Link / Hogar</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+                            <option>Seleccionar tu cuenta activa...</option>
+                            <option>Netflix - correo_ejemplo@toxapa.com</option>
+                        </select>
+                        <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+                            <option>🔑 Pedir Código OTP</option>
+                            <option>🌐 Link de Restablecimiento</option>
+                            <option>📺 Actualizar Dispositivo / Hogar</option>
+                        </select>
+                    </div>
+                    <button onclick="alert('Solicitud enviada al administrador con éxito.')" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">Enviar Solicitud al Sistema</button>
+                </div>
+
+                <!-- Reportar caída con foto -->
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-3">
+                    <h3 class="text-xs font-bold uppercase text-rose-400">🚨 Reportar Cuenta Caída / Error (Obligatorio Foto)</h3>
+                    <input type="text" placeholder="Describe brevemente el problema (ej. Error de hogar, contraseña incorrecta)..." class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+                    <div>
+                        <label class="block text-[11px] text-slate-400 mb-1">Adjuntar Captura de Pantalla / Evidencia:</label>
+                        <input type="file" accept="image/*" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-400 file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-rose-600 file:text-white hover:file:bg-rose-500">
+                    </div>
+                    <button onclick="alert('Reporte y evidencia fotográfica enviados al administrador.')" class="w-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">Enviar Reporte con Foto</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: SUBCLIENTES -->
+        <section id="sec-subclientes" class="space-y-6 hidden">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 class="text-base font-bold">👥 Gestión de Subclientes</h2>
+                        <p class="text-xs text-slate-400">Crea accesos y asigna cuentas a tu equipo.</p>
+                    </div>
+                    <button onclick="alert('Ventana para crear nuevo subcliente.')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-4 py-2 rounded-lg font-medium">+ Crear Subcliente</button>
+                </div>
+                <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl text-center text-xs text-slate-400">
+                    No tienes subclientes registrados todavía.
+                </div>
             </div>
         </section>
 
     </main>
+
+    <!-- Script para alternar las secciones con el menú flotante -->
+    <script>
+        function mostrarSeccion(seccion) {
+            const secs = ['tienda', 'cuentas', 'soporte', 'subclientes'];
+            secs.forEach(s => {
+                document.getElementById('sec-' + s).classList.add('hidden');
+                document.getElementById('nav-' + s).className = "px-3 py-2 rounded-xl text-slate-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all";
+            });
+            document.getElementById('sec-' + seccion).classList.remove('hidden');
+            document.getElementById('nav-' + seccion).className = "px-3 py-2 rounded-xl bg-purple-600 text-white text-xs font-semibold whitespace-nowrap transition-all shadow-lg shadow-purple-950";
+        }
+    </script>
 
 </body>
 </html>
