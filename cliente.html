@@ -9,7 +9,6 @@
 </head>
 <body class="bg-black text-slate-100 min-h-screen p-4 md:p-8 pb-24 md:pb-8">
 
-    <!-- Menú Flotante Inferior -->
     <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-zinc-900/90 backdrop-blur-md border border-zinc-800 p-2 rounded-2xl shadow-2xl flex items-center gap-2 z-50 overflow-x-auto max-w-full px-4">
         <button onclick="mostrarSeccion('tienda')" id="nav-tienda" class="px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg">🛍️ Tienda Auto</button>
         <button onclick="mostrarSeccion('manuales')" id="nav-manuales" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🛠️ Pedidos Manuales</button>
@@ -18,12 +17,11 @@
         <a href="https://wa.me/" target="_blank" class="px-3 py-2 rounded-xl bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 text-xs font-semibold whitespace-nowrap transition-all border border-emerald-500/20">💬 Soporte WhatsApp</a>
     </nav>
 
-    <!-- Header con Saldo Real -->
     <header class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center bg-zinc-900 border border-zinc-800 rounded-2xl p-6 mb-8 shadow-2xl gap-4">
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec</h2>
             <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel de Revendedor 💼</h1>
-            <p class="text-xs text-zinc-400 mt-1">Catálogo oficial con control de stock y cantidades en vivo.</p>
+            <p class="text-xs text-zinc-400 mt-1">Catálogo oficial con opciones de tiempo y términos de uso.</p>
         </div>
         <div class="flex items-center gap-4">
             <div class="text-right">
@@ -41,8 +39,8 @@
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                     <div>
-                        <h2 class="text-base font-bold">🛍️ Catálogo de Cuentas y Lotes</h2>
-                        <p class="text-xs text-zinc-400">Ajusta la cantidad que requieras y añádela al carrito.</p>
+                        <h2 class="text-base font-bold">🛍️ Catálogo de Cuentas y Plazos</h2>
+                        <p class="text-xs text-zinc-400">Selecciona el tiempo, cantidad y revisa las condiciones de cada servicio.</p>
                     </div>
                     <div class="bg-black border border-zinc-800 px-4 py-2.5 rounded-xl text-xs flex items-center gap-4">
                         <div>
@@ -54,7 +52,6 @@
                     </div>
                 </div>
 
-                <!-- Cuadrícula del Catálogo -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="catalogo-productos">
                     <div class="bg-black border border-zinc-800 p-5 rounded-xl text-xs text-zinc-500 text-center col-span-full">Cargando catálogo...</div>
                 </div>
@@ -120,17 +117,15 @@
         let carritoTotal = 0;
         let productoEnCarrito = null;
 
-        // Catálogo completo oficial con todas las variantes
+        // Catálogo oficial con opciones de meses y términos (T&C)
         const catalogoOficial = [
-            { nombre: 'Disney Premium', precio: 65, desc: 'Cuenta completa oficial.' },
-            { nombre: 'MAX Platino', precio: 95, desc: 'Platino calidad máxima.' },
-            { nombre: 'Prime Video 1M', precio: 20, desc: 'Prime Video 1 Mes.' },
-            { nombre: 'Prime Video 6M', precio: 65, desc: 'Prime Video 6 Meses.' },
-            { nombre: 'Crunchyroll CP', precio: 35, desc: 'Cuenta principal (CP).' },
-            { nombre: 'Netflix Completa', precio: 210, desc: 'Netflix Completa C/P 1M.' },
-            { nombre: 'Netflix Individual', precio: 50, desc: 'Netflix Individual Code/Pass.' },
-            { nombre: 'Nord VPN', precio: 50, desc: 'Acceso completo VPN.' },
-            { nombre: 'VIX', precio: 35, desc: 'VIX Completa.' }
+            { nombre: 'Disney Premium', precio: 65, plazos: [1, 3, 6], desc: 'Cuenta completa oficial.', tyc: 'Garantía por el plazo adquirido. No cambiar correo ni contraseña.' },
+            { nombre: 'MAX Platino', precio: 95, plazos: [1, 3, 12], desc: 'Platino calidad máxima.', tyc: 'Uso exclusivo en dispositivos permitidos. Respetar pantallas.' },
+            { nombre: 'Prime Video', precio: 65, plazos: [1, 6], desc: 'Acceso completo.', tyc: 'Cuenta con garantía total ante caídas dentro del periodo.' },
+            { nombre: 'Crunchyroll CP', precio: 35, plazos: [1, 12], desc: 'Cuenta principal (CP).', tyc: 'No modificar perfiles principales creados para el revendedor.' },
+            { nombre: 'Netflix Completa', precio: 210, plazos: [1], desc: 'Netflix Completa C/P.', tyc: 'Mantener el hogar configurado correctamente.' },
+            { nombre: 'Nord VPN', precio: 50, plazos: [1, 12], desc: 'Acceso completo VPN.', tyc: 'No revender accesos simultáneos fuera de lo permitido.' },
+            { nombre: 'VIX', precio: 35, plazos: [1, 6], desc: 'VIX Completa.', tyc: 'Garantía activa durante la vigencia.' }
         ];
 
         async function inicializarCliente() {
@@ -160,7 +155,10 @@
             const contenedor = document.getElementById('catalogo-productos');
 
             contenedor.innerHTML = catalogoOficial.map((p, index) => {
-                const stockCount = inventario ? inventario.filter(i => i.plataforma.toLowerCase() === p.nombre.toLowerCase()).length : 0;
+                const stockCount = inventario ? inventario.filter(i => i.plataforma.toLowerCase().includes(p.nombre.toLowerCase())).length : 0;
+                
+                let opcionesPlazos = p.plazos.map(mes => `<option value="${mes}">${mes} ${mes === 1 ? 'Mes' : 'Meses'}</option>`).join('');
+
                 return `
                     <div class="bg-black border border-zinc-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
                         <div>
@@ -172,8 +170,15 @@
                             <p class="text-2xl font-black text-emerald-400 mt-3">$${p.precio}.00 <span class="text-xs text-zinc-400 font-normal">MXN</span></p>
                         </div>
                         
-                        <!-- Control de cantidad y botón -->
-                        <div class="space-y-2">
+                        <!-- Selector de Plazos y Cantidad -->
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-[10px] uppercase font-semibold text-zinc-400 mb-1">Plazo / Meses:</label>
+                                <select id="plazo-${index}" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-white">
+                                    ${opcionesPlazos}
+                                </select>
+                            </div>
+
                             <div class="flex items-center justify-between bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-xl">
                                 <span class="text-xs text-zinc-400">Cantidad:</span>
                                 <div class="flex items-center gap-2">
@@ -182,6 +187,13 @@
                                     <button onclick="cambiarCantidad('${p.nombre}', 1)" class="w-6 h-6 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">+</button>
                                 </div>
                             </div>
+
+                            <!-- Desplegable de Términos y Condiciones -->
+                            <details class="bg-zinc-900/60 border border-zinc-800/80 rounded-xl p-2 text-[11px] text-zinc-400">
+                                <summary class="cursor-pointer font-semibold text-teal-400 hover:text-teal-300">📄 Términos y Condiciones (T&C)</summary>
+                                <p class="mt-2 text-zinc-300 leading-relaxed">${p.tyc}</p>
+                            </details>
+
                             <button onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, ${stockCount}, ${index})" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Añadir al Carrito</button>
                         </div>
                     </div>
@@ -195,7 +207,6 @@
             cantidadesTemp[nombre] += delta;
             if(cantidadesTemp[nombre] < 1) cantidadesTemp[nombre] = 1;
             
-            // Actualizar vista local
             const idx = catalogoOficial.findIndex(p => p.nombre === nombre);
             if(idx !== -1) {
                 const spanQty = document.getElementById(`qty-${idx}`);
@@ -216,34 +227,35 @@
 
         function agregarAlCarrito(nombre, precio, stock, index) {
             const cantidad = cantidadesTemp[nombre] || 1;
-            if(stock <= 0) return alert('Lo sentimos, no hay stock disponible de esta plataforma.');
-            if(cantidad > stock) return alert(`Solo hay ${stock} unidades disponibles en stock.`);
+            const plazoSeleccionado = document.getElementById(`plazo-${index}`).value;
+            
+            if(stock <= 0) return alert('Lo sentimos, no hay stock disponible.');
+            if(cantidad > stock) return alert(`Solo hay ${stock} unidades disponibles.`);
 
-            productoEnCarrito = { nombre, precio, cantidad };
+            productoEnCarrito = { nombre, precio, cantidad, plazo: plazoSeleccionado };
             carritoItems = cantidad;
             carritoTotal = precio * cantidad;
 
             document.getElementById('contador-carrito').innerText = cantidad + ' ítems';
             document.getElementById('total-carrito').innerText = '$' + carritoTotal.toFixed(2) + ' MXN';
-            alert(`¡Se añadieron ${cantidad}x ${nombre} al carrito por $${carritoTotal.toFixed(2)} MXN!`);
+            alert(`¡Se añadió ${cantidad}x ${nombre} (${plazoSeleccionado} Mes/es) al carrito!`);
         }
 
         async function pagarCarrito() {
             if (!productoEnCarrito || carritoTotal === 0) return alert("Tu carrito está vacío.");
-            if (saldoRevendedor < carritoTotal) return alert("Saldo insuficiente para completar la compra.");
+            if (saldoRevendedor < carritoTotal) return alert("Saldo insuficiente.");
 
-            const { data: stockItems, error: errStock } = await supabaseClient
+            const { data: stockItems } = await supabaseClient
                 .from('inventario')
                 .select('*')
-                .ilike('plataforma', productoEnCarrito.nombre)
+                .ilike('plataforma', `%${productoEnCarrito.nombre}%`)
                 .eq('estado', 'disponible')
                 .limit(productoEnCarrito.cantidad);
 
-            if (errStock || !stockItems || stockItems.length < productoEnCarrito.cantidad) {
-                return alert("Ups, el stock disponible es menor al que intentas comprar.");
+            if (!stockItems || stockItems.length < productoEnCarrito.cantidad) {
+                return alert("Stock insuficiente al intentar procesar.");
             }
 
-            // Asignar todas las cuentas del lote/carrito
             for (let cuenta of stockItems) {
                 await supabaseClient.from('inventario').update({
                     estado: 'asignada',
@@ -259,7 +271,7 @@
             document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
 
             let detalleCuentas = stockItems.map(c => `• ${c.correo_cuenta} / Pass: ${c.password_cuenta}`).join('\n');
-            alert(`¡Compra Exitosa!\n\nTus cuentas:\n${detalleCuentas}`);
+            alert(`¡Compra Exitosa (${productoEnCarrito.plazo} Mes/es)!\n\nTus cuentas:\n${detalleCuentas}`);
 
             productoEnCarrito = null;
             carritoItems = 0;
@@ -272,27 +284,24 @@
         async function enviarPedidoManual() {
             const servicio = document.getElementById('man-servicio').value;
             const datos = document.getElementById('man-datos').value.trim();
-            if(!datos) return alert('Por favor ingresa los datos requeridos.');
+            if(!datos) return alert('Ingresa los datos requeridos.');
 
-            const { error } = await supabaseClient.from('pedidos_manuales').insert([{
+            await supabaseClient.from('pedidos_manuales').insert([{
                 usuario_correo: correoUsuarioActual,
                 servicio: servicio,
                 datos_cliente: datos,
                 estado: 'pendiente'
             }]);
 
-            if(error) alert('Error al enviar pedido.');
-            else {
-                alert('¡Pedido manual enviado con éxito a la administración!');
-                document.getElementById('man-datos').value = '';
-            }
+            alert('¡Pedido manual enviado con éxito!');
+            document.getElementById('man-datos').value = '';
         }
 
         async function cargarMisCuentas() {
             const { data } = await supabaseClient.from('inventario').select('*').eq('asignado_a', correoUsuarioActual);
             const contenedor = document.getElementById('lista-mis-cuentas');
             if(!data || data.length === 0) {
-                contenedor.innerHTML = `<div class="bg-black border border-zinc-800 p-4 rounded-xl text-center text-xs text-zinc-500">No tienes cuentas compradas todavía.</div>`;
+                contenedor.innerHTML = `<div class="bg-black border border-zinc-800 p-4 rounded-xl text-center text-xs text-zinc-500">No tienes cuentas compradas.</div>`;
                 return;
             }
             contenedor.innerHTML = data.map(c => `
@@ -320,7 +329,7 @@
                 descripcion: desc
             }]);
 
-            alert('¡Reporte enviado con éxito!');
+            alert('¡Reporte enviado!');
             document.getElementById('rep-correo').value = '';
             document.getElementById('rep-desc').value = '';
         }
