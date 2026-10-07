@@ -12,7 +12,7 @@
     <header class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-8 shadow-xl gap-4">
         <div>
             <h1 class="text-xl font-bold bg-gradient-to-r from-purple-400 to-indigo-500 bg-clip-text text-transparent">Panel Maestro · Administrador 👑</h1>
-            <p class="text-xs text-slate-400 mt-1">Control absoluto de inventario, stock masivo, vencimientos y reportes</p>
+            <p class="text-xs text-slate-400 mt-1">Control absoluto de inventario, stock masivo, vencimientos y reportes con evidencia fotográfica</p>
         </div>
         <div class="flex items-center gap-3">
             <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2 rounded-lg transition-colors">Cerrar Sesión</a>
@@ -22,22 +22,26 @@
     <main class="max-w-6xl mx-auto space-y-8">
 
         <!-- Métricas Rápidas -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-                <p class="text-xs text-slate-400 uppercase font-semibold">Pendientes Aprobación</p>
-                <h3 class="text-2xl font-bold text-amber-400 mt-2">2 Revendedores</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                <p class="text-[11px] text-slate-400 uppercase font-semibold">Pendientes Aprobación</p>
+                <h3 class="text-xl font-bold text-amber-400 mt-1.5">2 Revendedores</h3>
             </div>
-            <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-                <p class="text-xs text-slate-400 uppercase font-semibold">Cuentas en Stock</p>
-                <h3 class="text-2xl font-bold text-purple-400 mt-2">84 Disponibles</h3>
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                <p class="text-[11px] text-slate-400 uppercase font-semibold">Cuentas en Stock</p>
+                <h3 class="text-xl font-bold text-purple-400 mt-1.5">84 Disponibles</h3>
             </div>
-            <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-                <p class="text-xs text-slate-400 uppercase font-semibold">Próximas a Vencer (3 días)</p>
-                <h3 class="text-2xl font-bold text-rose-400 mt-2">5 Cuentas</h3>
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                <p class="text-[11px] text-slate-400 uppercase font-semibold">Próximas a Vencer</p>
+                <h3 class="text-xl font-bold text-rose-400 mt-1.5">5 Cuentas</h3>
             </div>
-            <div class="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-                <p class="text-xs text-slate-400 uppercase font-semibold">Reportes de Soporte</p>
-                <h3 class="text-2xl font-bold text-blue-400 mt-2">3 Nuevos</h3>
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                <p class="text-[11px] text-slate-400 uppercase font-semibold">Cuentas Liberadas</p>
+                <h3 class="text-xl font-bold text-slate-300 mt-1.5">12 Listas</h3>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                <p class="text-[11px] text-slate-400 uppercase font-semibold">Reportes de Soporte</p>
+                <h3 class="text-xl font-bold text-blue-400 mt-1.5">3 Nuevos</h3>
             </div>
         </div>
 
@@ -69,7 +73,7 @@
             </div>
         </section>
 
-        <!-- 2. Carga y Gestión de Inventario (Individual o por Documento .txt) -->
+        <!-- 2. Carga y Gestión de Inventario -->
         <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
                 <h2 class="text-base font-bold">📦 Alta de Inventario / Stock</h2>
@@ -80,158 +84,4 @@
             </div>
 
             <!-- Formulario Individual -->
-            <form id="stock-individual" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Plataforma</label>
-                    <select class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white">
-                        <option>Netflix (Miembro Extra)</option>
-                        <option>Disney+ Estándar</option>
-                        <option>MAX Platino</option>
-                        <option>Spotify 1M</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Correo</label>
-                    <input type="text" placeholder="cuenta@dominio.com" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Contraseña</label>
-                    <input type="text" placeholder="Contraseña" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white">
-                </div>
-                <div class="flex items-end">
-                    <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium py-2 rounded-lg transition-colors">Guardar al Stock</button>
-                </div>
-            </form>
-
-            <!-- Formulario Masivo (.txt) -->
-            <form id="stock-masivo" class="space-y-4 hidden">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Seleccionar Plataforma para el Lote</label>
-                        <select class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white">
-                            <option>Netflix (Miembro Extra)</option>
-                            <option>Disney+ Estándar</option>
-                            <option>MAX Platino</option>
-                            <option>Spotify 1M</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Subir Archivo (.txt)</label>
-                        <input type="file" accept=".txt" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-400 file:mr-4 file:py-1.5 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-500">
-                    </div>
-                </div>
-                <p class="text-[11px] text-slate-400">Formato esperado en el documento de texto por línea: <code class="bg-slate-950 px-2 py-0.5 rounded text-indigo-400">correo@dominio.com:contraseña</code></p>
-                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">Procesar y Cargar Lote Completo</button>
-            </form>
-        </section>
-
-        <!-- 3. Semáforo de Vencimientos y Asignación Manual con Filtro por Plataforma -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            
-            <!-- Semáforo de Vencimientos -->
-            <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                <h2 class="text-base font-bold mb-4">⏰ Control de Vencimientos (3 Días / Liberadas)</h2>
-                <div class="space-y-3">
-                    <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl flex justify-between items-center text-xs">
-                        <div>
-                            <span class="text-rose-400 font-bold">Vence en 2 días</span>
-                            <p class="text-white font-medium mt-0.5">Netflix · client_carlos</p>
-                        </div>
-                        <button class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-1 rounded-lg">Renovar</button>
-                    </div>
-                    <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl flex justify-between items-center text-xs">
-                        <div>
-                            <span class="text-slate-400 font-bold">Liberada (Vencida)</span>
-                            <p class="text-white font-medium mt-0.5">Disney+ · client_ana</p>
-                        </div>
-                        <button class="bg-slate-800 hover:bg-slate-700 text-white px-3 py-1 rounded-lg">Reciclar / Editar Pass</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Asignación Manual Optimizada -->
-            <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                <h2 class="text-base font-bold mb-4">✍️ Asignación Manual Optimizada</h2>
-                <form class="space-y-3">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">1. Seleccionar Usuario / Revendedor</label>
-                        <select class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white">
-                            <option>CarlosRevende (Cliente)</option>
-                            <option>Subcliente_Pedro (Sub de Carlos)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">2. Filtrar por Plataforma</label>
-                        <select class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white">
-                            <option>Netflix (Miembro Extra) - (14 disponibles)</option>
-                            <option>Disney+ Estándar - (8 disponibles)</option>
-                            <option>MAX Platino - (5 disponibles)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">3. Cuenta Específica de esa Plataforma</label>
-                        <select class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white">
-                            <option>net_stock_01@domain.com</option>
-                            <option>net_stock_02@domain.com</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium py-2.5 rounded-lg transition-colors">Asignar Cuenta Directa</button>
-                </form>
-            </section>
-
-        </div>
-
-        <!-- 4. Apartado de Reportes y Soporte -->
-        <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-            <h2 class="text-base font-bold mb-4 flex items-center gap-2">🚨 Bandeja de Reportes y Caídas</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
-                    <thead class="bg-slate-950 text-slate-400 uppercase text-xs">
-                        <tr>
-                            <th class="p-3">Usuario</th>
-                            <th class="p-3">Plataforma / Cuenta</th>
-                            <th class="p-3">Motivo / Reporte</th>
-                            <th class="p-3 text-right">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-800 text-slate-300">
-                        <tr>
-                            <td class="p-3 font-medium text-white">Subcliente_Pedro</td>
-                            <td class="p-3 text-purple-400">Netflix · correo@toxapa.com</td>
-                            <td class="p-3 text-amber-400 text-xs">"Termina de configurar este TV para el hogar"</td>
-                            <td class="p-3 text-right space-x-2">
-                                <button class="bg-purple-600 hover:bg-purple-500 text-white text-xs px-3 py-1.5 rounded-lg">Resolver Hogar</button>
-                                <button class="bg-rose-600 hover:bg-rose-500 text-white text-xs px-3 py-1.5 rounded-lg">Reemplazar Cuenta</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Script simple para alternar entre Alta Individual y Masiva -->
-    <script>
-        function cambiarModoStock(modo) {
-            const indForm = document.getElementById('stock-individual');
-            const masForm = document.getElementById('stock-masivo');
-            const btnInd = document.getElementById('btn-ind');
-            const btnMas = document.getElementById('btn-mas');
-
-            if (modo === 'individual') {
-                indForm.classList.remove('hidden');
-                masForm.classList.add('hidden');
-                btnInd.className = "px-3 py-1.5 rounded-lg bg-purple-600 text-white transition-all";
-                btnMas.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all";
-            } else {
-                indForm.classList.add('hidden');
-                masForm.classList.remove('hidden');
-                btnMas.className = "px-3 py-1.5 rounded-lg bg-purple-600 text-white transition-all";
-                btnInd.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all";
-            }
-        }
-    </script>
-
-</body>
-</html>
+            <form id="stock-individual" class="grid grid-cols
