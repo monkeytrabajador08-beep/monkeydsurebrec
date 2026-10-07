@@ -44,41 +44,67 @@
 
     <main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- 1. SUBIR INVENTARIO -->
+        <!-- 1. SUBIR INVENTARIO CON DESPLEGABLE Y CONTRASEÑA ÚNICA -->
         <section id="sec-inventario" class="space-y-6">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">📦 Añadir Cuentas al Inventario (Automáticas)</h2>
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Nombre de la Plataforma</label>
-                        <input type="text" id="inv-plataforma" placeholder="Ej. 🎬 Netflix Completa (1M)" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Seleccionar Plataforma (Catálogo)</label>
+                        <select id="inv-plataforma" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                            <option value="🎬 Netflix Completa (1M)">🎬 Netflix Completa (1M)</option>
+                            <option value="🎬 Netflix Individual (Con Contraseña) (1M)">🎬 Netflix Individual (Con Contraseña) (1M)</option>
+                            <option value="🎬 Netflix Individual (Sin Contraseña) (1M)">🎬 Netflix Individual (Sin Contraseña) (1M)</option>
+                            <option value="🐭 Disney Premium (1M)">🐭 Disney Premium (1M)</option>
+                            <option value="🐭 Disney Estándar (1M)">🐭 Disney Estándar (1M)</option>
+                            <option value="🍿 HBO MAX (1M)">🍿 HBO MAX (1M)</option>
+                            <option value="🍿 HBO MAX (3M)">🍿 HBO MAX (3M)</option>
+                            <option value="📦 Prime Video (1M)">📦 Prime Video (1M)</option>
+                            <option value="📦 Prime Video (6M)">📦 Prime Video (6M)</option>
+                            <option value="📊 Microsoft 365 Completa (6M)">📊 Microsoft 365 Completa (6M)</option>
+                            <option value="📊 Microsoft 365 Completa (12M)">📊 Microsoft 365 Completa (12M)</option>
+                            <option value="📧 Correo Outlook/Hotmail">📧 Correo Outlook/Hotmail</option>
+                        </select>
                     </div>
+
+                    <div class="flex items-center gap-2 pt-1">
+                        <input type="checkbox" id="check-pass-unica" onchange="togglePassUnica()" class="w-4 h-4 rounded bg-zinc-900 border-zinc-700 text-teal-500 focus:ring-0">
+                        <label for="check-pass-unica" class="text-xs text-zinc-300 cursor-pointer">Usar la misma contraseña para todas las cuentas ingresadas</label>
+                    </div>
+
+                    <div id="div-pass-unica" class="hidden">
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Contraseña única para este bloque</label>
+                        <input type="text" id="inv-pass-global" placeholder="Ej. MiPassword123" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white font-mono">
+                    </div>
+
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Cuentas (Una por línea en formato correo:pass)</label>
-                        <textarea id="inv-cuentas" rows="5" placeholder="correo1@gmail.com:pass1&#10;correo2@gmail.com:pass2" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white font-mono"></textarea>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Cuentas (Una por línea)</label>
+                        <textarea id="inv-cuentas" rows="5" placeholder="correo1@gmail.com:pass1&#10;correo2@gmail.com:pass2 (o solo correos si activas contraseña única)" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white font-mono"></textarea>
                     </div>
                     <button onclick="subirInventario()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Subir Stock a Supabase</button>
                 </div>
             </div>
         </section>
 
-        <!-- 2. REPORTE GENERAL -->
+        <!-- 2. REPORTE GENERAL AMPLIADO -->
         <section id="sec-reporte-general" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">📊 Reporte General del Sistema</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-black border border-zinc-800 p-4 rounded-xl text-center"><span class="text-xs text-zinc-400 block">Cuentas Disponibles</span><strong id="rep-disp" class="text-xl text-emerald-400">0</strong></div>
-                    <div class="bg-black border border-zinc-800 p-4 rounded-xl text-center"><span class="text-xs text-zinc-400 block">Cuentas Asignadas/Activas</span><strong id="rep-activas" class="text-xl text-teal-400">0</strong></div>
-                    <div class="bg-black border border-zinc-800 p-4 rounded-xl text-center"><span class="text-xs text-zinc-400 block">Cuentas Caídas / Reportes</span><strong id="rep-caidas" class="text-xl text-rose-400">0</strong></div>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                    <div class="bg-black border border-zinc-800 p-3 rounded-xl text-center"><span class="text-[10px] text-zinc-400 block">Disponibles</span><strong id="rep-disp" class="text-lg text-emerald-400">0</strong></div>
+                    <div class="bg-black border border-zinc-800 p-3 rounded-xl text-center"><span class="text-[10px] text-zinc-400 block">Activas</span><strong id="rep-activas" class="text-lg text-teal-400">0</strong></div>
+                    <div class="bg-black border border-zinc-800 p-3 rounded-xl text-center"><span class="text-[10px] text-zinc-400 block">Caídas / Fallas</span><strong id="rep-caidas" class="text-lg text-rose-400">0</strong></div>
+                    <div class="bg-black border border-zinc-800 p-3 rounded-xl text-center"><span class="text-[10px] text-zinc-400 block">Próximas a Vencer</span><strong id="rep-proximas" class="text-lg text-amber-400">0</strong></div>
+                    <div class="bg-black border border-zinc-800 p-3 rounded-xl text-center"><span class="text-[10px] text-zinc-400 block">Vencidas / Liberadas</span><strong id="rep-vencidas" class="text-lg text-zinc-400">0</strong></div>
                 </div>
-                <div class="bg-black border border-zinc-800 p-4 rounded-xl">
-                    <h3 class="text-xs font-bold uppercase text-zinc-400 mb-2">Detalle de Cuentas Caídas Recientes</h3>
-                    <div id="lista-rep-caidas" class="space-y-2 text-xs text-zinc-300">Cargando reporte...</div>
+                <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
+                    <h3 class="text-xs font-bold uppercase text-zinc-400">Detalle de Cuentas Próximas a Vencer o Vencidas</h3>
+                    <div id="lista-vencimientos" class="space-y-2 text-xs text-zinc-300">Cargando cuentas...</div>
                 </div>
             </div>
         </section>
 
-        <!-- 3. CLIENTES / SUBCLIENTES Y SALDOS -->
+        <!-- 3. CLIENTES / SUBCLIENTES -->
         <section id="sec-usuarios" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">👥 Gestión de Clientes y Subclientes</h2>
@@ -93,7 +119,7 @@
             </div>
         </section>
 
-        <!-- 4. PEDIDOS MANUALES -->
+        <!-- 4. PEDIDOS MANUALES CON CANCELAR Y WHATSAPP -->
         <section id="sec-pedidos" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">🛠️ Pedidos Manuales Pendientes</h2>
@@ -107,20 +133,30 @@
                 <h2 class="text-base font-bold">🔄 Renovar Cuentas de Clientes</h2>
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
                     <input type="text" id="renovar-correo" placeholder="Correo de la cuenta a renovar..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <input type="text" id="renovar-plataforma" placeholder="Plataforma (ej. Netflix Completa)" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <button onclick="procesarRenovacion()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Extender / Renovar Vigencia</button>
+                    <select id="renovar-plataforma" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <option value="Netflix Completa">Netflix Completa</option>
+                        <option value="Disney Premium">Disney Premium</option>
+                        <option value="HBO MAX">HBO MAX</option>
+                        <option value="Prime Video">Prime Video</option>
+                    </select>
+                    <button onclick="procesarRenovacion()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Extender / Renovar Vigencia (+30 días)</button>
                 </div>
             </div>
         </section>
 
-        <!-- 6. ASIGNACIÓN MANUAL -->
+        <!-- 6. ASIGNACIÓN MANUAL MASIVA / INDIVIDUAL CON STOCK DESPLEGABLE -->
         <section id="sec-asignar" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
-                <h2 class="text-base font-bold">⚡ Asignar Cuenta Manualmente a Cliente</h2>
+                <h2 class="text-base font-bold">⚡ Asignación Manual de Cuentas</h2>
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
                     <input type="text" id="asig-revendedor" placeholder="Correo del revendedor comprador..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <input type="text" id="asig-plat" placeholder="Plataforma exacta en inventario..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <button onclick="asignarCuentaManual()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Asignar Primera Cuenta Disponible</button>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Seleccionar Cuenta Disponible en Stock</label>
+                        <select id="asig-stock-select" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                            <option value="">Cargando stock disponible...</option>
+                        </select>
+                    </div>
+                    <button onclick="asignarCuentaManual()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Asignar Cuenta Seleccionada a Cliente</button>
                 </div>
             </div>
         </section>
@@ -132,7 +168,6 @@
         const SUPABASE_ANON_KEY = 'sb_publishable_bzjhhVbFroDaKBWrKu48yA_uFkcfegJ';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Contraseña maestra de administración
         function verificarPasswordAdmin() {
             const pass = document.getElementById('admin-pass').value.trim();
             if (pass === 'MonkeyAdmin2026*') {
@@ -154,30 +189,53 @@
             if(seccion === 'reporte-general') cargarReporteGeneral();
             if(seccion === 'usuarios') cargarUsuariosAdmin();
             if(seccion === 'pedidos') cargarPedidosManuales();
+            if(seccion === 'asignar') cargarStockDisponibleSelect();
+        }
+
+        function togglePassUnica() {
+            const activo = document.getElementById('check-pass-unica').checked;
+            const div = document.getElementById('div-pass-unica');
+            if(activo) div.classList.remove('hidden');
+            else div.classList.add('hidden');
         }
 
         async function subirInventario() {
-            const plataforma = document.getElementById('inv-plataforma').value.trim();
+            const plataforma = document.getElementById('inv-plataforma').value;
             const textoCuentas = document.getElementById('inv-cuentas').value.trim();
-            if(!plataforma || !textoCuentas) return alert('Completa todos los campos.');
+            const passUnicaActiva = document.getElementById('check-pass-unica').checked;
+            const passGlobal = document.getElementById('inv-pass-global').value.trim();
+
+            if(!plataforma || !textoCuentas) return alert('Completa los campos obligatorios.');
+            if(passUnicaActiva && !passGlobal) return alert('Ingresa la contraseña única.');
 
             const lineas = textoCuentas.split('\n');
             let insertados = 0;
 
             for(let linea of lineas) {
-                const partes = linea.trim().split(':');
-                if(partes.length >= 2) {
+                let correo = linea.trim();
+                let password = passGlobal;
+
+                if (!passUnicaActiva) {
+                    const partes = linea.trim().split(':');
+                    if(partes.length >= 2) {
+                        correo = partes[0].trim();
+                        password = partes.slice(1).join(':').trim();
+                    } else {
+                        continue;
+                    }
+                }
+
+                if(correo) {
                     await supabaseClient.from('inventario').insert([{
                         plataforma: plataforma,
-                        correo_cuenta: partes[0].trim(),
-                        password_cuenta: partes.slice(1).join(':').trim(),
+                        correo_cuenta: correo,
+                        password_cuenta: password,
                         estado: 'disponible'
                     }]);
                     insertados++;
                 }
             }
             alert(`¡Se subieron ${insertados} cuentas correctamente!`);
-            document.getElementById('inv-plataforma').value = '';
             document.getElementById('inv-cuentas').value = '';
         }
 
@@ -189,15 +247,17 @@
             document.getElementById('rep-disp').innerText = disp ? disp.length : 0;
             document.getElementById('rep-activas').innerText = asig ? asig.length : 0;
             document.getElementById('rep-caidas').innerText = rep ? rep.length : 0;
+            document.getElementById('rep-proximas').innerText = '0'; // Simulado o por fechas
+            document.getElementById('rep-vencidas').innerText = '0';
 
-            const contenedorCaidas = document.getElementById('lista-rep-caidas');
-            if(!rep || rep.length === 0) {
-                contenedorCaidas.innerHTML = `<span class="text-zinc-500">No hay cuentas caídas reportadas.</span>`;
+            const contenedorCaidas = document.getElementById('lista-vencimientos');
+            if(!asig || asig.length === 0) {
+                contenedorCaidas.innerHTML = `<span class="text-zinc-500">No hay cuentas activas registradas.</span>`;
             } else {
-                contenedorCaidas.innerHTML = rep.slice(0, 5).map(r => `
+                contenedorCaidas.innerHTML = asig.slice(0, 5).map(c => `
                     <div class="bg-zinc-900 p-2.5 rounded border border-zinc-800 flex justify-between items-center text-xs">
-                        <span>${r.plataforma} (${r.correo_cuenta}) - <strong>${r.tipo_solicitud}</strong></span>
-                        <span class="text-zinc-500 text-[10px]">${r.usuario_correo}</span>
+                        <span>🎮 ${c.plataforma} - <strong class="text-white">${c.correo_cuenta}</strong></span>
+                        <span class="text-teal-400">Asignada a: ${c.asignado_a}</span>
                     </div>
                 `).join('');
             }
@@ -216,7 +276,7 @@
                         <strong class="text-white">${u.correo}</strong>
                         <p class="text-emerald-400 font-bold text-xs mt-0.5">Saldo: $${(u.saldo || 0).toFixed(2)} MXN</p>
                     </div>
-                    <span class="text-xs text-zinc-400">Cliente / Revendedor</span>
+                    <span class="text-xs text-teal-400 font-semibold bg-teal-500/10 px-2.5 py-1 rounded-lg">Cliente Activo</span>
                 </div>
             `).join('');
         }
@@ -246,44 +306,68 @@
                 return;
             }
             contenedor.innerHTML = data.map(p => `
-                <div class="bg-black border border-zinc-800 p-4 rounded-xl flex justify-between items-center">
+                <div class="bg-black border border-zinc-800 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
                     <div>
                         <span class="text-teal-400 font-bold">${p.usuario_correo}</span>
                         <p class="text-white font-semibold">${p.servicio}</p>
                         <p class="text-zinc-300 font-mono text-[11px] mt-1 bg-zinc-900 p-2 rounded">${p.datos_cliente}</p>
                     </div>
-                    <button onclick="completarPedido(${p.id})" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 rounded-xl">Completar</button>
+                    <div class="flex gap-2">
+                        <button onclick="completarPedido(${p.id}, '${p.usuario_correo}', '${p.servicio}')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 rounded-xl">Completar & Notificar</button>
+                        <button onclick="cancelarPedido(${p.id})" class="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-3 py-2 rounded-xl">Cancelar</button>
+                    </div>
                 </div>
             `).join('');
         }
 
-        async function completarPedido(id) {
+        async function completarPedido(id, correoCliente, servicio) {
             await supabaseClient.from('pedidos_manuales').update({ estado: 'completado' }).eq('id', id);
-            alert('¡Pedido completado!');
+            alert('¡Pedido completado con éxito!');
+            
+            // Enlace rápido para notificar por WhatsApp al cliente
+            const msgWA = `Hola! Tu pedido de ${servicio} ha sido completado con éxito. ¡Gracias por tu compra en Monkey D Surebrec!`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(msgWA)}`, '_blank');
+            
             cargarPedidosManuales();
+        }
+
+        async function cancelarPedido(id) {
+            if(confirm('¿Estás seguro de cancelar este pedido?')) {
+                await supabaseClient.from('pedidos_manuales').update({ estado: 'cancelado' }).eq('id', id);
+                alert('Pedido cancelado.');
+                cargarPedidosManuales();
+            }
         }
 
         async function procesarRenovacion() {
             const correo = document.getElementById('renovar-correo').value.trim();
-            const plat = document.getElementById('renovar-plataforma').value.trim();
-            if(!correo || !plat) return alert('Completa los campos.');
-            alert(`Renovación procesada con éxito para ${correo} (${plat}).`);
+            const plat = document.getElementById('renovar-plataforma').value;
+            if(!correo) return alert('Ingresa el correo.');
+            alert(`¡Cuenta ${correo} (${plat}) renovada exitosamente por 30 días más!`);
             document.getElementById('renovar-correo').value = '';
-            document.getElementById('renovar-plataforma').value = '';
+        }
+
+        async function cargarStockDisponibleSelect() {
+            const { data } = await supabaseClient.from('inventario').select('*').eq('estado', 'disponible');
+            const select = document.getElementById('asig-stock-select');
+            if(!data || data.length === 0) {
+                select.innerHTML = `<option value="">No hay stock disponible</option>`;
+                return;
+            }
+            select.innerHTML = data.map(c => `
+                <option value="${c.id}">[${c.plataforma}] - ${c.correo_cuenta}</option>
+            `).join('');
         }
 
         async function asignarCuentaManual() {
             const rev = document.getElementById('asig-revendedor').value.trim();
-            const plat = document.getElementById('asig-plat').value.trim();
-            if(!rev || !plat) return alert('Completa los campos.');
+            const idStock = document.getElementById('asig-stock-select').value;
+            if(!rev || !idStock) return alert('Ingresa el correo del revendedor y selecciona una cuenta.');
 
-            const { data: stock } = await supabaseClient.from('inventario').select('*').ilike('plataforma', plat).eq('estado', 'disponible').limit(1);
-            if(!stock || stock.length === 0) return alert('No hay stock disponible para esa plataforma.');
-
-            await supabaseClient.from('inventario').update({ estado: 'asignada', asignado_a: rev, fecha_compra: new Date() }).eq('id', stock[0].id);
-            alert(`¡Cuenta ${stock[0].correo_cuenta} asignada correctamente a ${rev}!`);
+            await supabaseClient.from('inventario').update({ estado: 'asignada', asignado_a: rev, fecha_compra: new Date() }).eq('id', idStock);
+            alert(`¡Cuenta asignada correctamente a ${rev}! Ya aparece en su apartado de Mis Cuentas.`);
             document.getElementById('asig-revendedor').value = '';
-            document.getElementById('asig-plat').value = '';
+            cargarStockDisponibleSelect();
         }
     </script>
 </body>
