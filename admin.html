@@ -94,12 +94,13 @@
                     <div>
                         <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Plataforma</label>
                         <select id="admin-plataforma" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
-                            <option value="Disney Premium">Disney Premium Completa</option>
-                            <option value="MAX Platino">MAX Platino Completa</option>
-                            <option value="Prime Video">Prime Video Completa</option>
-                            <option value="Crunchyroll CP">Crunchyroll Cuenta Principal (CP)</option>
-                            <option value="Nord VPN">Nord VPN (Completa)</option>
-                            <option value="VIX">VIX Completa</option>
+                            <option value="Disney Premium">Disney Premium ($65)</option>
+                            <option value="MAX Platino">MAX Platino ($95)</option>
+                            <option value="Prime Video">Prime Video 6M ($65)</option>
+                            <option value="Crunchyroll CP">Crunchyroll CP ($35)</option>
+                            <option value="Netflix Completa">Netflix Completa ($210)</option>
+                            <option value="Nord VPN">Nord VPN ($50)</option>
+                            <option value="VIX">VIX ($35)</option>
                         </select>
                     </div>
                     <div>
@@ -132,7 +133,6 @@
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         async function cargarDashboardYDatos() {
-            // 1. Cargar Solicitudes de Registro
             const { data: solicitudes } = await supabaseClient.from('usuarios').select('*').eq('estado', 'pendiente');
             const tbodySol = document.getElementById('tabla-solicitudes');
             if (!solicitudes || solicitudes.length === 0) {
@@ -150,17 +150,15 @@
                 `).join('');
             }
 
-            // 2. Inventario (Contar Disponibles, Asignadas y Ganancias)
             const { data: inventarioTodo } = await supabaseClient.from('inventario').select('*');
             if (inventarioTodo) {
                 const disponibles = inventarioTodo.filter(i => i.estado === 'disponible').length;
                 const asignadas = inventarioTodo.filter(i => i.estado === 'asignada').length;
                 
                 document.getElementById('dash-disponibles').innerText = disponibles;
-                document.getElementById('dash-ganancias').innerText = '$' + (asignadas * 45).toFixed(2) + ' MXN';
+                document.getElementById('dash-ganancias').innerText = '$' + (asignadas * 65).toFixed(2) + ' MXN';
             }
 
-            // 3. Reportes de caídas pendientes
             const { data: reportesCaidas } = await supabaseClient.from('reportes').select('*').eq('estado', 'pendiente');
             if (reportesCaidas) {
                 document.getElementById('dash-caidas').innerText = reportesCaidas.length;
@@ -168,7 +166,6 @@
                 document.getElementById('dash-caidas').innerText = '0';
             }
 
-            // 4. Cargar Pedidos Manuales desde 'pedidos_manuales'
             const { data: manuales } = await supabaseClient.from('pedidos_manuales').select('*').eq('estado', 'pendiente');
             const tbodyMan = document.getElementById('tabla-pedidos-manuales');
             if (!manuales || manuales.length === 0) {
