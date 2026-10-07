@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monkey D Surebrec - Portal de Revendedores</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería oficial de Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-black text-slate-100 min-h-screen flex flex-col justify-between p-4 md:p-8">
 
@@ -25,35 +27,35 @@
         </div>
 
         <!-- Formulario de Iniciar Sesión -->
-        <form id="form-login" class="space-y-4" onsubmit="event.preventDefault(); window.location.href='cliente.html';">
+        <form id="form-login" class="space-y-4" onsubmit="iniciarSesion(event)">
             <div>
                 <label class="block text-[11px] font-semibold uppercase text-zinc-400 mb-1">Correo Electrónico</label>
-                <input type="email" placeholder="tucorreo@dominio.com" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-teal-400 transition-colors">
+                <input type="email" id="login-correo" placeholder="tucorreo@dominio.com" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-teal-400 transition-colors">
             </div>
             <div>
                 <label class="block text-[11px] font-semibold uppercase text-zinc-400 mb-1">Contraseña</label>
-                <input type="password" placeholder="••••••••" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-teal-400 transition-colors">
+                <input type="password" id="login-pass" placeholder="••••••••" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-teal-400 transition-colors">
             </div>
             <button type="submit" class="w-full bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-black font-bold text-sm py-3 rounded-xl transition-all shadow-lg shadow-teal-950">Ingresar al Panel</button>
         </form>
 
-        <!-- Formulario de Registro (Anti-Fraude) -->
-        <form id="form-registro" class="space-y-4 hidden" onsubmit="event.preventDefault(); alert('Solicitud enviada. El administrador revisará tus datos.');">
+        <!-- Formulario de Registro (Anti-Fraude conectado a Supabase) -->
+        <form id="form-registro" class="space-y-4 hidden" onsubmit="registrarUsuario(event)">
             <div>
                 <label class="block text-[11px] font-semibold uppercase text-zinc-400 mb-1">Nombre de Usuario</label>
-                <input type="text" placeholder="Tu alias o nombre" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-teal-400">
+                <input type="text" id="reg-nombre" placeholder="Tu alias o nombre" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-teal-400">
             </div>
             <div>
                 <label class="block text-[11px] font-semibold uppercase text-zinc-400 mb-1">Correo Electrónico</label>
-                <input type="email" placeholder="tucorreo@dominio.com" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-teal-400">
+                <input type="email" id="reg-correo" placeholder="tucorreo@dominio.com" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-teal-400">
             </div>
             <div>
                 <label class="block text-[11px] font-semibold uppercase text-zinc-400 mb-1">WhatsApp / Teléfono</label>
-                <input type="text" placeholder="+52 ..." required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-teal-400">
+                <input type="text" id="reg-whatsapp" placeholder="+52 ..." required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-teal-400">
             </div>
             <div>
                 <label class="block text-[11px] font-semibold uppercase text-zinc-400 mb-1">Contraseña</label>
-                <input type="password" placeholder="••••••••" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-teal-400">
+                <input type="password" id="reg-pass" placeholder="••••••••" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-teal-400">
             </div>
             <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-black font-bold text-sm py-3 rounded-xl transition-all shadow-lg shadow-cyan-950">Enviar Solicitud de Acceso</button>
         </form>
@@ -65,8 +67,13 @@
         Monkey D Surebrec © 2026 · Todos los derechos reservados.
     </footer>
 
-    <!-- Script para cambiar entre pestañas -->
+    <!-- Conexión y Lógica con Supabase -->
     <script>
+        const SUPABASE_URL = 'https://hlkuleummozpanmtwcxp.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_bzjhhVbFroDaKBWrKu48yA_uFkcfegJ';
+        
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         function cambiarTab(tipo) {
             const fLogin = document.getElementById('form-login');
             const fRegistro = document.getElementById('form-registro');
@@ -83,6 +90,63 @@
                 fRegistro.classList.remove('hidden');
                 bRegistro.className = "w-1/2 py-2 rounded-lg bg-cyan-500 text-black font-bold transition-all";
                 bLogin.className = "w-1/2 py-2 rounded-lg text-zinc-400 hover:text-white transition-all";
+            }
+        }
+
+        // Registrar usuario en la base de datos
+        async function registrarUsuario(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('reg-nombre').value;
+            const correo = document.getElementById('reg-correo').value;
+            const whatsapp = document.getElementById('reg-whatsapp').value;
+
+            const { data, error } = await supabaseClient
+                .from('usuarios')
+                .insert([{ nombre, correo, whatsapp, rol: 'cliente', estado: 'pendiente' }]);
+
+            if (error) {
+                alert('Error al registrarse: ' + error.message);
+            } else {
+                alert('¡Solicitud enviada con éxito! El administrador revisará tus datos.');
+                document.getElementById('form-registro').reset();
+                cambiarTab('login');
+            }
+        }
+
+        // Iniciar sesión validando con Supabase
+        async function iniciarSesion(e) {
+            e.preventDefault();
+            const correo = document.getElementById('login-correo').value;
+
+            // Acceso rápido para pruebas como Administrador maestro
+            if (correo === 'admin@surebrec.com') {
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            const { data, error } = await supabaseClient
+                .from('usuarios')
+                .select('*')
+                .eq('correo', correo)
+                .single();
+
+            if (error || !data) {
+                alert('Correo no registrado o no encontrado.');
+                return;
+            }
+
+            if (data.estado !== 'aprobado') {
+                alert('Tu cuenta aún está pendiente de aprobación por el administrador.');
+                return;
+            }
+
+            // Redirigir según su rol
+            if (data.rol === 'admin') {
+                window.location.href = 'admin.html';
+            } else if (data.rol === 'subcliente') {
+                window.location.href = 'subcliente.html';
+            } else {
+                window.location.href = 'cliente.html';
             }
         }
     </script>
