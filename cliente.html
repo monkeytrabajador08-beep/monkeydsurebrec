@@ -162,7 +162,6 @@
                 <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">LINK Gemini (18M) [Garantía Act.]</strong><p class="text-emerald-400 font-bold text-xs">$35.00 MXN (Sin correo)</p></div><button onclick="seleccionarServicioManual('LINK Gemini (18M) - G. Act.', 35, 'Sin correo (Link)', 'modal-gemini')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
                 <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">LINK Gemini (18M) [Garantía 2M]</strong><p class="text-emerald-400 font-bold text-xs">$50.00 MXN (Sin correo)</p></div><button onclick="seleccionarServicioManual('LINK Gemini (18M) - G. 2M', 50, 'Sin correo (Link)', 'modal-gemini')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
                 
-                <!-- Gemini Familiar (Pide correo y contraseña) -->
                 <div class="pt-2 border-t border-zinc-800">
                     <label class="block text-[11px] text-zinc-400 mb-1">Gemini Familiar (12M) - Pide Correo y Contraseña:</label>
                     <input type="text" id="gemini-fam-creds" placeholder="correo@gmail.com:password" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white mb-2 font-mono">
@@ -172,63 +171,13 @@
         </div>
     </div>
 
-    <!-- MODAL CAPCUT -->
-    <div id="modal-capcut" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <!-- MODAL DUOLINGO LINK 12M -->
+    <div id="modal-duolinking" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🎬 CapCut Pro Completa</h3><button onclick="cerrarModal('modal-capcut')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🦉 Duolingo Súper Link 12M</h3><button onclick="cerrarModal('modal-duolinking')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
             <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
-            <div class="border-t border-zinc-800 pt-3 space-y-2">
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">CapCut Pro Completa (7D)</strong><p class="text-emerald-400 font-bold text-xs">$15.00 MXN</p></div><button onclick="seleccionarServicioManual('CapCut Pro Completa (7D)', 15, 'N/A', 'modal-capcut')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">CapCut Pro Completa (1M)</strong><p class="text-emerald-400 font-bold text-xs">$65.00 MXN</p></div><button onclick="seleccionarServicioManual('CapCut Pro Completa (1M)', 65, 'N/A', 'modal-capcut')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL DUOLINGO -->
-    <div id="modal-duolingo" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🦉 Duolingo Súper</h3><button onclick="cerrarModal('modal-duolingo')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
-            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
-            <div class="border-t border-zinc-800 pt-3 space-y-2">
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Duolingo Súper Individual (1M)</strong><p class="text-emerald-400 font-bold text-xs">$10.00 MXN</p></div><button onclick="seleccionarServicioManual('Duolingo Súper Individual (1M)', 10, 'N/A', 'modal-duolingo')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Duolingo Súper Individual (12M)</strong><p class="text-emerald-400 font-bold text-xs">$40.00 MXN</p></div><button onclick="seleccionarServicioManual('Duolingo Súper Individual (12M)', 40, 'N/A', 'modal-duolingo')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Duolingo Súper Familiar (1M)</strong><p class="text-emerald-400 font-bold text-xs">$25.00 MXN</p></div><button onclick="seleccionarServicioManual('Duolingo Súper Familiar (1M)', 25, 'N/A', 'modal-duolingo')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL MICROSOFT 365 -->
-    <div id="modal-m365" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">📊 Microsoft 365 Completa</h3><button onclick="cerrarModal('modal-m365')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
-            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
-            <div class="border-t border-zinc-800 pt-3 space-y-2">
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Microsoft 365 Completa (6M)</strong><p class="text-emerald-400 font-bold text-xs">$50.00 MXN</p></div><button onclick="seleccionarServicioManual('Microsoft 365 Completa (6M)', 50, 'N/A', 'modal-m365')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Microsoft 365 Completa (12M)</strong><p class="text-emerald-400 font-bold text-xs">$90.00 MXN</p></div><button onclick="seleccionarServicioManual('Microsoft 365 Completa (12M)', 90, 'N/A', 'modal-m365')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL MÚSICA -->
-    <div id="modal-musica" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center"><h3 id="titulo-modal-musica" class="text-base font-bold text-teal-400">🎵 Plataforma de Música</h3><button onclick="cerrarModal('modal-musica')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
-            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
-            <div id="input-datos-youtube" class="hidden">
-                <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo NUEVO y Contraseña (para YouTube)</label>
-                <textarea id="youtube-creds" rows="2" placeholder="correo@gmail.com:contraseña" class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white mb-2 font-mono"></textarea>
-            </div>
-            <div class="border-t border-zinc-800 pt-3"><div class="max-h-48 overflow-y-auto space-y-2 pr-1" id="lista-paquetes-musica"></div></div>
-        </div>
-    </div>
-
-    <!-- MODAL CRUNCHYROLL 12M -->
-    <div id="modal-crunchy12" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🍥 Crunchyroll (12M)</h3><button onclick="cerrarModal('modal-crunchy12')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
-            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs (Quedan después de medianoche)</p>
-            <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo del cliente (para activación)</label><input type="text" id="crunchy12-correo" placeholder="correo@gmail.com" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white mb-2"></div>
-            <button onclick="seleccionarCrunchy12()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Seleccionar Crunchyroll (12M)</button>
+            <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo del cliente (para enviar link)</label><input type="text" id="duolinking-correo" placeholder="correo@gmail.com" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white mb-2"></div>
+            <button onclick="seleccionarDuolingoLink()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Solicitar Duolingo Link 12M</button>
         </div>
     </div>
 
@@ -270,9 +219,9 @@
             <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🔒 NordVPN Completa</h3><button onclick="cerrarModal('modal-nord-comp')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
             <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs (Alquiler)</p>
             <div class="border-t border-zinc-800 pt-3 space-y-2">
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">NordVPN Completa (1M)</strong><p class="text-emerald-400 font-bold text-xs">$40.00 MXN</p></div><button onclick="seleccionarServicioManual('NordVPN Completa (1M)', 40, 'Alquiler (Datos otorgados por admin)', 'modal-nord-comp')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">NordVPN Completa (2M)</strong><p class="text-emerald-400 font-bold text-xs">$70.00 MXN</p></div><button onclick="seleccionarServicioManual('NordVPN Completa (2M)', 70, 'Alquiler (Datos otorgados por admin)', 'modal-nord-comp')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">NordVPN Completa (3M)</strong><p class="text-emerald-400 font-bold text-xs">$100.00 MXN</p></div><button onclick="seleccionarServicioManual('NordVPN Completa (3M)', 100, 'Alquiler (Datos otorgados por admin)', 'modal-nord-comp')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">NordVPN Completa (1M)</strong><p class="text-emerald-400 font-bold text-xs">$40.00 MXN</p></div><button onclick="seleccionarServicioManual('NordVPN Completa (1M)', 40, 'Alquiler (Datos otorgados by admin)', 'modal-nord-comp')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">NordVPN Completa (2M)</strong><p class="text-emerald-400 font-bold text-xs">$70.00 MXN</p></div><button onclick="seleccionarServicioManual('NordVPN Completa (2M)', 70, 'Alquiler (Datos otorgados by admin)', 'modal-nord-comp')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">NordVPN Completa (3M)</strong><p class="text-emerald-400 font-bold text-xs">$100.00 MXN</p></div><button onclick="seleccionarServicioManual('NordVPN Completa (3M)', 100, 'Alquiler (Datos otorgados by admin)', 'modal-nord-comp')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
             </div>
         </div>
     </div>
@@ -303,18 +252,13 @@
         let productoEnCarrito = null;
         let servicioRecargaActual = '';
 
-        // Credenciales de Telegram configuradas
         const TG_BOT_TOKEN = '8951012373:AAEMp0O_9UYw5qFheENSinB9yzOzvOLvvuo';
         const TG_CHAT_ID = '1811703237';
 
         async function enviarNotificacionTelegram(servicio, datosExtra, total) {
             const mensaje = `🚨 *¡Nuevo Pedido / Servicio Manual!* 📦\n\n👤 *Revendedor:* ${correoUsuarioActual}\n🛠️ *Servicio:* ${servicio}\n📝 *Datos:* ${datosExtra}\n💰 *Total:* $${total.toFixed(2)} MXN`;
             const url = `https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(mensaje)}&parse_mode=Markdown`;
-            try {
-                await fetch(url);
-            } catch (e) {
-                console.error("Error enviando alerta a Telegram:", e);
-            }
+            try { await fetch(url); } catch (e) { console.error("Error enviando alerta a Telegram:", e); }
         }
 
         const paquetesDiamantes1v = [
@@ -335,6 +279,7 @@
             { cantidad: 'Combo 8086', precio: 890 }, { cantidad: 'Combo 8558', precio: 935 }, { cantidad: 'Combo 10296', precio: 1115 }
         ];
 
+        // 🌟 CATÁLOGO OFICIAL CON MICROSOFT Y CAPCUT SEPARADOS E INCLUYENDO DUOLINGO SÚPER LINK 12M
         const catalogoOficial = [
             { id: 'netflix_1m', nombre: '🎬 Netflix Completa (1M)', precio: 210, rangos: [{min: 1, max: 4, p: 210}, {min: 5, max: 9, p: 200}, {min: 10, max: 40, p: 190}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
             { id: 'netflixindivpass_1m', nombre: '🎬 Netflix Individual (Con Contraseña) (1M)', precio: 55, rangos: [{min: 1, max: 4, p: 55}, {min: 5, max: 9, p: 53}, {min: 10, max: 40, p: 50}, {min: 41, max: 50, p: 48}, {min: 51, max: 100, p: 45}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
@@ -372,11 +317,19 @@
 
             { id: 'canva_edu', nombre: '🎨 Canva Pro EDU', precio: 2, desc: 'Plazos 1M a 24M. (Manual)', tyc: 'Activación a datos del cliente.', esCanvaEdu: true },
             { id: 'canva_ia', nombre: '🤖 Canva Pro IA (Kit Marca)', precio: 15, desc: 'Plazos 1M a 6M. (Manual)', tyc: 'Activación a datos del cliente.', esCanvaIa: true },
-            { id: 'capcut_serv', nombre: '🎬 CapCut Pro Completa', precio: 15, rangos: [{min: 1, max: 3, p: 15}, {min: 4, max: 5, p: 13}, {min: 6, max: 10, p: 10}, {min: 11, max: 50, p: 8}], desc: '7D y 1M con rangos. (Manual)', tyc: 'Garantía 6 días. Máximo 3 dispositivos.', esCapcut: true },
+            
+            // CapCut separado por plazos con rangos
+            { id: 'capcut_7d', nombre: '🎬 CapCut Pro Completa (7D)', precio: 15, rangos: [{min: 1, max: 3, p: 15}, {min: 4, max: 5, p: 13}, {min: 6, max: 10, p: 10}, {min: 11, max: 50, p: 8}], desc: 'CapCut Pro por 7 días con rangos. (Manual)', tyc: 'Garantía 6 días. Máximo 3 dispositivos.' },
+            { id: 'capcut_1m', nombre: '🎬 CapCut Pro Completa (1M)', precio: 65, rangos: [{min: 1, max: 4, p: 65}, {min: 5, max: 10, p: 60}, {min: 11, max: 50, p: 48}], desc: 'CapCut Pro por 30 días con rangos. (Manual)', tyc: 'Garantía 6 días. Máximo 3 dispositivos.' },
+
             { id: 'gemini_inv', nombre: '✨ Google One / Gemini', precio: 20, desc: 'Invitaciones y Links (Sin correo) y Familiar. (Manual)', tyc: 'Activación a datos del cliente.', esGemini: true },
 
             { id: 'duolingo_serv', nombre: '🦉 Duolingo Súper', precio: 10, rangos: [{min: 1, max: 4, p: 10}, {min: 5, max: 9, p: 8}, {min: 10, max: 40, p: 5}], desc: 'Individual y Familiar con rangos. (Manual)', tyc: 'Garantía activa.', esDuolingo: true },
-            { id: 'm365_serv', nombre: '📊 Microsoft 365 Completa', precio: 50, rangos: [{min: 1, max: 4, p: 50}, {min: 5, max: 9, p: 45}, {min: 10, max: 40, p: 40}, {min: 41, max: 99, p: 30}], desc: '6M y 12M con rangos. (Manual)', tyc: 'Cambiar contraseña al ingresar.', esM365: true },
+            { id: 'duolingo_link_12m', nombre: '🦉 Duolingo Súper Link 12M', precio: 40, rangos: [{min: 1, max: 4, p: 40}, {min: 5, max: 9, p: 35}, {min: 10, max: 40, p: 25}, {min: 41, max: 99, p: 15}], desc: 'Duolingo 12M por link con rangos. (Manual)', tyc: 'Activar dentro de primeras 6h. Todos los links son funcionales. Garantía 3m.', esDuolingoLink: true },
+
+            // Microsoft 365 separado por plazos con rangos
+            { id: 'm365_6m', nombre: '📊 Microsoft 365 Completa (6M)', precio: 50, rangos: [{min: 1, max: 4, p: 50}, {min: 5, max: 9, p: 45}, {min: 10, max: 40, p: 40}, {min: 41, max: 99, p: 30}], desc: 'Licencia 6 meses con rangos. (Manual)', tyc: 'Cambiar contraseña al ingresar.' },
+            { id: 'm365_12m', nombre: '📊 Microsoft 365 Completa (12M)', precio: 90, rangos: [{min: 1, max: 4, p: 90}, {min: 5, max: 9, p: 85}, {min: 10, max: 40, p: 75}, {min: 41, max: 99, p: 60}], desc: 'Licencia 12 meses con rangos. (Manual)', tyc: 'Cambiar contraseña al ingresar.' },
 
             { id: 'nord_comp', nombre: '🔒 NordVPN Completa', precio: 40, desc: '10 dispositivos simultáneos. (Manual)', tyc: 'Garantía activa según vigencia.', esNordComp: true },
             { id: 'outlook_serv', nombre: '📧 Correo Outlook/Hotmail', precio: 5, rangos: [{min: 1, max: 8, p: 5}, {min: 9, max: 45, p: 4}], desc: 'Correos limpios con rangos.', tyc: 'Garantía de primer acceso.' },
@@ -414,7 +367,6 @@
                 let btnAccion = `<button onclick="agregarAlCarritoNormal('${p.nombre}', '${p.id}')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Añadir al Carrito</button>`;
                 let badgeStock = `<span class="bg-zinc-800 text-teal-400 text-[10px] px-2 py-1 rounded-md font-bold">Stock: ${inventario ? inventario.filter(i => i.plataforma.toLowerCase() === p.nombre.toLowerCase()).length : 0} disp.</span>`;
                 
-                // Si el producto tiene rangos, mostramos selector de cantidad; si es modal fijo, no se muestra
                 let controlCantidad = '';
                 if (p.rangos) {
                     controlCantidad = `
@@ -431,9 +383,8 @@
                 if (p.esGemini) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-gemini')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">✨ Ver Opciones</button>`; }
                 else if (p.esMusica) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModalMusica('${p.tipo}')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🎵 Ver Opciones</button>`; }
                 else if (p.esCrunchy12) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-crunchy12')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🍥 Seleccionar Plan</button>`; }
-                else if (p.esCapcut) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-capcut')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🎬 Ver Opciones</button>`; }
+                else if (p.esDuolingoLink) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-duolinking')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🦉 Solicitar Link</button>`; }
                 else if (p.esDuolingo) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-duolingo')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🦉 Ver Opciones</button>`; }
-                else if (p.esM365) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-m365')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">📊 Ver Opciones</button>`; }
                 else if (p.esCanvaEdu) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-canva-edu')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🎨 Ver Plazos</button>`; }
                 else if (p.esCanvaIa) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-canva-ia')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🤖 Ver Plazos</button>`; }
                 else if (p.esNordComp) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-nord-comp')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🔒 Ver Vigencias</button>`; }
@@ -522,6 +473,12 @@
             const correo = document.getElementById('crunchy12-correo').value.trim();
             if(!correo) return alert('Ingresa el correo del cliente.');
             seleccionarServicioManual('Crunchyroll (12M)', 265, `Correo cliente: ${correo} (Queda después de medianoche)`, 'modal-crunchy12');
+        }
+
+        function seleccionarDuolingoLink() {
+            const correo = document.getElementById('duolinking-correo').value.trim();
+            if(!correo) return alert('Ingresa el correo del cliente.');
+            seleccionarServicioManual('Duolingo Súper Link 12M', 40, `Correo cliente: ${correo} (Link de activación)`, 'modal-duolinking');
         }
 
         function seleccionarGeminiFamiliar() {
@@ -673,7 +630,6 @@
                 saldoRevendedor = nuevoSaldo;
                 document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
 
-                // Enviar notificación a Telegram
                 await enviarNotificacionTelegram(productoEnCarrito.nombre, productoEnCarrito.datosExtra, carritoTotal);
 
                 alert(`¡Pedido Manual Solicitado con Éxito!\n\nEnviado a administración (Tiempo estimado: 30 min a 8 hrs).`);
