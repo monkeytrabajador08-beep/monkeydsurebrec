@@ -3,92 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso y Registro - Plataforma de Revendedores</title>
+    <title>Monkey D Surebrec - Portal de Revendedores</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-4">
+<body class="bg-black text-slate-100 min-h-screen flex flex-col justify-between p-4 md:p-8">
 
-    <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
+    <!-- Header / Bienvenida -->
+    <header class="max-w-md mx-auto text-center space-y-2 mt-4">
+        <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Bienvenido a la plataforma</h2>
+        <h1 class="text-2xl md:text-3xl font-black bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">Monkey D Surebrec</h1>
+        <p class="text-xs text-slate-400">Gracias por tu preferencia. Control exclusivo y seguro.</p>
+    </header>
+
+    <!-- Contenedor Principal de Acceso -->
+    <main class="max-w-md w-full mx-auto my-auto bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-2xl shadow-cyan-950/20">
         
-        <!-- Cabecera -->
-        <div class="text-center mb-6">
-            <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-indigo-500 bg-clip-text text-transparent">Portal de Revendedores</h1>
-            <p class="text-xs text-slate-400 mt-1">Acceso exclusivo y control anti-fraude</p>
-        </div>
-
-        <!-- Pestañas para cambiar entre Iniciar Sesión y Registrarse -->
-        <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-medium mb-6">
-            <button onclick="mostrarFormulario('login')" id="btn-tab-login" class="flex-1 py-2 rounded-lg bg-purple-600 text-white transition-all">Iniciar Sesión</button>
-            <button onclick="mostrarFormulario('register')" id="btn-tab-register" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition-all">Solicitar Registro</button>
+        <!-- Pestañas de Navegación -->
+        <div class="flex bg-black p-1 rounded-xl border border-zinc-800 mb-6 text-xs font-semibold">
+            <button onclick="cambiarTab('login')" id="btn-login" class="w-1/2 py-2 rounded-lg bg-teal-500 text-black transition-all">Iniciar Sesión</button>
+            <button onclick="cambiarTab('registro')" id="btn-registro" class="w-1/2 py-2 rounded-lg text-zinc-400 hover:text-white transition-all">Solicitar Registro</button>
         </div>
 
         <!-- Formulario de Iniciar Sesión -->
-        <form id="form-login" class="space-y-4">
+        <form id="form-login" class="space-y-4" onsubmit="event.preventDefault(); window.location.href='cliente.html';">
             <div>
-                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Correo Electrónico</label>
-                <input type="email" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="tucorreo@dominio.com">
+                <label class="block text-[11px] font-semibold uppercase text-zinc-400 mb-1">Correo Electrónico</label>
+                <input type="email" placeholder="tucorreo@dominio.com" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-teal-400 transition-colors">
             </div>
             <div>
-                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Contraseña</label>
-                <input type="password" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="••••••••">
+                <label class="block text-[11px] font-semibold uppercase text-zinc-400 mb-1">Contraseña</label>
+                <input type="password" placeholder="••••••••" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-teal-400 transition-colors">
             </div>
-            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 transition-colors font-medium py-3 rounded-lg text-sm shadow-lg shadow-purple-900/40 mt-2">
-                Ingresar al Panel
-            </button>
+            <button type="submit" class="w-full bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-black font-bold text-sm py-3 rounded-xl transition-all shadow-lg shadow-teal-950">Ingresar al Panel</button>
         </form>
 
-        <!-- Formulario de Registro (Con los campos que pediste) -->
-        <form id="form-register" class="space-y-4 hidden">
+        <!-- Formulario de Registro (Anti-Fraude) -->
+        <form id="form-registro" class="space-y-4 hidden" onsubmit="event.preventDefault(); alert('Solicitud enviada. El administrador revisará tus datos.');">
             <div>
-                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Nombre de Usuario</label>
-                <input type="text" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="TuUsuario">
+                <label class="block text-[11px] font-semibold uppercase text-zinc-400 mb-1">Nombre de Usuario</label>
+                <input type="text" placeholder="Tu alias o nombre" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-teal-400">
             </div>
             <div>
-                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Correo Electrónico</label>
-                <input type="email" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="tucorreo@dominio.com">
+                <label class="block text-[11px] font-semibold uppercase text-zinc-400 mb-1">Correo Electrónico</label>
+                <input type="email" placeholder="tucorreo@dominio.com" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-teal-400">
             </div>
             <div>
-                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Contraseña</label>
-                <input type="password" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="••••••••">
+                <label class="block text-[11px] font-semibold uppercase text-zinc-400 mb-1">WhatsApp / Teléfono</label>
+                <input type="text" placeholder="+52 ..." required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-teal-400">
             </div>
             <div>
-                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Número de Teléfono (WhatsApp)</label>
-                <input type="tel" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="+52 123 456 7890">
+                <label class="block text-[11px] font-semibold uppercase text-zinc-400 mb-1">Contraseña</label>
+                <input type="password" placeholder="••••••••" required class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-teal-400">
             </div>
-            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 transition-colors font-medium py-3 rounded-lg text-sm shadow-lg shadow-purple-900/40 mt-2">
-                Enviar Solicitud
-            </button>
+            <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-black font-bold text-sm py-3 rounded-xl transition-all shadow-lg shadow-cyan-950">Enviar Solicitud de Acceso</button>
         </form>
 
-        <!-- Aviso Oculto al registrarse con éxito -->
-        <div id="notice-pending" class="hidden mt-6 bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 text-center">
-            <h3 class="text-amber-400 font-semibold text-sm mb-1">¡Solicitud Registrada!</h3>
-            <p class="text-xs text-slate-300 mb-3">Tu cuenta se encuentra en estado <b>Pendiente de Aprobación</b> por el administrador.</p>
-        </div>
+    </main>
 
-    </div>
+    <!-- Footer -->
+    <footer class="text-center text-xs text-zinc-600 pb-2">
+        Monkey D Surebrec © 2026 · Todos los derechos reservados.
+    </footer>
 
-    <!-- Script simple para alternar formularios -->
+    <!-- Script para cambiar entre pestañas -->
     <script>
-        function mostrarFormulario(tipo) {
-            const loginForm = document.getElementById('form-login');
-            const registerForm = document.getElementById('form-register');
-            const btnLogin = document.getElementById('btn-tab-login');
-            const btnRegister = document.getElementById('btn-tab-register');
+        function cambiarTab(tipo) {
+            const fLogin = document.getElementById('form-login');
+            const fRegistro = document.getElementById('form-registro');
+            const bLogin = document.getElementById('btn-login');
+            const bRegistro = document.getElementById('btn-registro');
 
             if (tipo === 'login') {
-                loginForm.classList.remove('hidden');
-                registerForm.classList.add('hidden');
-                btnLogin.className = "flex-1 py-2 rounded-lg bg-purple-600 text-white transition-all";
-                btnRegister.className = "flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition-all";
+                fLogin.classList.remove('hidden');
+                fRegistro.classList.add('hidden');
+                bLogin.className = "w-1/2 py-2 rounded-lg bg-teal-500 text-black font-bold transition-all";
+                bRegistro.className = "w-1/2 py-2 rounded-lg text-zinc-400 hover:text-white transition-all";
             } else {
-                loginForm.classList.add('hidden');
-                registerForm.classList.remove('hidden');
-                btnRegister.className = "flex-1 py-2 rounded-lg bg-purple-600 text-white transition-all";
-                btnLogin.className = "flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition-all";
+                fLogin.classList.add('hidden');
+                fRegistro.classList.remove('hidden');
+                bRegistro.className = "w-1/2 py-2 rounded-lg bg-cyan-500 text-black font-bold transition-all";
+                bLogin.className = "w-1/2 py-2 rounded-lg text-zinc-400 hover:text-white transition-all";
             }
         }
     </script>
-
 </body>
 </html>
