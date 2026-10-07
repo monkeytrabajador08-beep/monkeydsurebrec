@@ -96,7 +96,7 @@
                         <select id="admin-plataforma" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
                             <option value="Disney Premium">Disney Premium ($65)</option>
                             <option value="MAX Platino">MAX Platino ($95)</option>
-                            <option value="Prime Video">Prime Video 6M ($65)</option>
+                            <option value="Prime Video">Prime Video ($65)</option>
                             <option value="Crunchyroll CP">Crunchyroll CP ($35)</option>
                             <option value="Netflix Completa">Netflix Completa ($210)</option>
                             <option value="Nord VPN">Nord VPN ($50)</option>
@@ -128,6 +128,20 @@
     </main>
 
     <script>
+        // CONTRASEÑA DE ACCESO AL PANEL DE ADMIN (Modifícala a tu gusto)
+        const PASSWORD_ADMIN = "IshigamiSenku08#";
+
+        function verificarAccesoAdmin() {
+            const claveIngresada = prompt("🔒 Acceso Restringido. Ingresa la contraseña de Administrador:");
+            if (claveIngresada !== PASSWORD_ADMIN) {
+                alert("Contraseña incorrecta. Redirigiendo...");
+                window.location.href = "index.html";
+            }
+        }
+
+        // Ejecutar verificación de seguridad al cargar la página
+        verificarAccesoAdmin();
+
         const SUPABASE_URL = 'https://hlkuleummozpanmtwcxp.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_bzjhhVbFroDaKBWrKu48yA_uFkcfegJ';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
