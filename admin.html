@@ -3,108 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monkey D Surebrec - Panel de Revendedor</title>
+    <title>Monkey D Surebrec - Panel de Administración</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-black text-slate-100 min-h-screen p-4 md:p-8 pb-24 md:pb-8">
 
+    <!-- Menú de Administración Flotante -->
     <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-zinc-900/90 backdrop-blur-md border border-zinc-800 p-2 rounded-2xl shadow-2xl flex items-center gap-2 z-50 overflow-x-auto max-w-full px-4">
-        <button onclick="mostrarSeccion('tienda')" id="nav-tienda" class="px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg">🛍️ Tienda Auto</button>
-        <button onclick="mostrarSeccion('manuales')" id="nav-manuales" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🛠️ Pedidos Manuales</button>
-        <button onclick="mostrarSeccion('cuentas')" id="nav-cuentas" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">📦 Mis Cuentas</button>
-        <button onclick="mostrarSeccion('soporte')" id="nav-soporte" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🔑 Reportes / OTP</button>
-        <a href="https://wa.me/" target="_blank" class="px-3 py-2 rounded-xl bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 text-xs font-semibold whitespace-nowrap transition-all border border-emerald-500/20">💬 Soporte WhatsApp</a>
+        <button onclick="mostrarSeccion('inventario')" id="nav-inventario" class="px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg">📦 Subir Inventario</button>
+        <button onclick="mostrarSeccion('pedidos')" id="nav-pedidos" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🛠️ Pedidos Manuales</button>
+        <button onclick="mostrarSeccion('reportes')" id="nav-reportes" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🔑 Reportes / OTP</button>
+        <button onclick="mostrarSeccion('saldos')" id="nav-saldos" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">💰 Gestionar Saldos</button>
+        <a href="cliente.html" class="px-3 py-2 rounded-xl bg-zinc-800 text-zinc-300 hover:text-white text-xs font-semibold whitespace-nowrap transition-all">🛍️ Ver Tienda</a>
     </nav>
 
+    <!-- Header Admin -->
     <header class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center bg-zinc-900 border border-zinc-800 rounded-2xl p-6 mb-8 shadow-2xl gap-4">
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec</h2>
-            <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel de Revendedor 💼</h1>
-            <p class="text-xs text-zinc-400 mt-1">Catálogo oficial con precios exactos y control de stock.</p>
+            <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel de Administración 🛡️</h1>
+            <p class="text-xs text-zinc-400 mt-1">Control total de stock, pedidos manuales y reportes de revendedores.</p>
         </div>
         <div class="flex items-center gap-4">
-            <div class="text-right">
-                <span class="text-xs text-zinc-400 uppercase font-semibold block">Saldo Disponible</span>
-                <span id="saldo-usuario" class="text-xl font-extrabold text-emerald-400">Cargando...</span>
-            </div>
             <a href="index.html" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-4 py-2.5 rounded-xl transition-colors">Cerrar Sesión</a>
         </div>
     </header>
 
     <main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- 1. TIENDA AUTOMÁTICA -->
-        <section id="sec-tienda" class="space-y-6">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                    <div>
-                        <h2 class="text-base font-bold">🛍️ Catálogo Oficial de Cuentas</h2>
-                        <p class="text-xs text-zinc-400">Selecciona la cantidad deseada y añade al carrito.</p>
-                    </div>
-                    <div class="bg-black border border-zinc-800 px-4 py-2.5 rounded-xl text-xs flex items-center gap-4">
-                        <div>
-                            <span>🛒 <strong id="contador-carrito" class="text-teal-400">0 ítems</strong></span>
-                            <span class="text-zinc-600 mx-1">|</span>
-                            <span>Total: <strong id="total-carrito" class="text-emerald-400">$0.00 MXN</strong></span>
-                        </div>
-                        <button onclick="pagarCarrito()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3.5 py-1.5 rounded-xl transition-colors shadow-lg">Pagar con Saldo</button>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="catalogo-productos">
-                    <div class="bg-black border border-zinc-800 p-5 rounded-xl text-xs text-zinc-500 text-center col-span-full">Cargando catálogo...</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. PEDIDOS MANUALES -->
-        <section id="sec-manuales" class="space-y-6 hidden">
+        <!-- 1. SUBIR INVENTARIO -->
+        <section id="sec-inventario" class="space-y-6">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
-                <h2 class="text-base font-bold">🛠️ Solicitar Servicio Manual</h2>
+                <h2 class="text-base font-bold">📦 Añadir Cuentas al Inventario (Automáticas)</h2>
+                <p class="text-xs text-zinc-400">Sube cuentas en formato <code class="text-teal-400">correo@dominio.com:password</code> para que estén disponibles en la tienda.</p>
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Seleccionar Servicio</label>
-                        <select id="man-servicio" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                            <option value="Smartfit Cuenta Nueva">Smartfit - Cuenta Nueva ($95 MXN)</option>
-                            <option value="Smartfit Renovación">Smartfit - Renovación ($195 MXN)</option>
-                            <option value="Perfil Personalizado / Otro">Otro Servicio Especial</option>
-                        </select>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Nombre de la Plataforma (Exacto al catálogo)</label>
+                        <input type="text" id="inv-plataforma" placeholder="Ej. 🎬 Netflix Completa (1M)" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Datos Requeridos del Cliente</label>
-                        <textarea id="man-datos" rows="3" placeholder="Ingresa los datos necesarios..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Cuentas (Una por línea)</label>
+                        <textarea id="inv-cuentas" rows="5" placeholder="correo1@gmail.com:pass1&#10;correo2@gmail.com:pass2" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white font-mono"></textarea>
                     </div>
-                    <button onclick="enviarPedidoManual()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Pedido Manual</button>
+                    <button onclick="subirInventario()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Subir Stock a Supabase</button>
                 </div>
             </div>
         </section>
 
-        <!-- 3. MIS CUENTAS ADQUIRIDAS -->
-        <section id="sec-cuentas" class="space-y-6 hidden">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
-                <h2 class="text-base font-bold mb-4">📦 Historial de Mis Cuentas Adquiridas</h2>
-                <div id="lista-mis-cuentas" class="space-y-4 text-xs text-zinc-400">Cargando cuentas...</div>
+        <!-- 2. GESTIONAR PEDIDOS MANUALES -->
+        <section id="sec-pedidos" class="space-y-6 hidden">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+                <h2 class="text-base font-bold">🛠️ Pedidos Manuales Pendientes</h2>
+                <p class="text-xs text-zinc-400">Aquí aparecen las solicitudes de Smart Fit, Diamantes, Xbox y recargas que hicieron los revendedores.</p>
+                <div id="lista-pedidos-manuales" class="space-y-3 text-xs text-zinc-400">Cargando pedidos...</div>
             </div>
         </section>
 
-        <!-- 4. REPORTES / OTP -->
-        <section id="sec-soporte" class="space-y-6 hidden">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
-                <h2 class="text-base font-bold">🔑 Reporte de Caídas o Solicitud de Código OTP</h2>
-                
-                <div id="aviso-acceso-otp" class="hidden bg-rose-500/10 border border-rose-500/20 p-4 rounded-xl text-xs text-rose-400">
-                    ⚠️ Tu cuenta no tiene activado el acceso automático al panel de códigos. Contacta al administrador.
-                </div>
+        <!-- 3. REPORTES / OTP -->
+        <section id="sec-reportes" class="space-y-6 hidden">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+                <h2 class="text-base font-bold">🔑 Reportes de Caídas y Solicitudes OTP</h2>
+                <div id="lista-reportes" class="space-y-3 text-xs text-zinc-400">Cargando reportes...</div>
+            </div>
+        </section>
 
+        <!-- 4. GESTIONAR SALDOS -->
+        <section id="sec-saldos" class="space-y-6 hidden">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+                <h2 class="text-base font-bold">💰 Asignar o Modificar Saldo a Revendedor</h2>
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
-                    <input type="text" id="rep-correo" placeholder="Correo de la cuenta con problema..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <select id="rep-tipo" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                        <option value="otp">Solicitar Código OTP / Hogar</option>
-                        <option value="caida">Cuenta Caída / Reportar Falla</option>
-                    </select>
-                    <textarea id="rep-desc" placeholder="Detalles adicionales..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
-                    <button onclick="enviarReporteFalla()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Reporte</button>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo del Revendedor</label>
+                        <input type="text" id="saldo-correo" placeholder="correo@revendedor.com" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Nuevo Saldo Total o Monto a Sumar (MXN)</label>
+                        <input type="number" id="saldo-monto" placeholder="Ej. 500" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                    </div>
+                    <button onclick="actualizarSaldoRevendedor()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Actualizar Saldo en Base de Datos</button>
                 </div>
             </div>
         </section>
@@ -116,240 +93,121 @@
         const SUPABASE_ANON_KEY = 'sb_publishable_bzjhhVbFroDaKBWrKu48yA_uFkcfegJ';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        let correoUsuarioActual = localStorage.getItem('user_correo') || 'cliente@surebrec.com';
-        let saldoRevendedor = 0;
-        let carritoItems = 0;
-        let carritoTotal = 0;
-        let productoEnCarrito = null;
-
-        // Catálogo oficial completo con tus productos y T&C exactos
-        const catalogoOficial = [
-            { id: 'disney_1m', nombre: 'Disney Premium (1M)', precio: 65, desc: 'Sin ESPN.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'max_1m', nombre: 'HBO MAX (1 Mes)', precio: 33, desc: 'Estándar/platino bug.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'prime_1m', nombre: 'Prime Video (1M)', precio: 20, desc: 'Con anuncios. No renovable.', tyc: 'No cambiar datos (correo). No cambiar contraseña. No realizar compras ni suscripciones. Garantía de 25 días.' },
-            { id: 'prime_6m', nombre: 'Prime Video (6M)', precio: 65, desc: 'Con anuncios. No renovable.', tyc: 'No cambiar datos (correo). No cambiar contraseña. No realizar compras ni suscripciones. Garantía de 4 meses.' },
-            { id: 'apple_1m', nombre: 'Apple TV MLS + F1TV (1M)', precio: 30, desc: 'Renovable', tyc: 'No cambiar datos (correo). No realizar compras ni suscripciones. Garantía de 25 días.' },
-            { id: 'apple_3m', nombre: 'Apple TV MLS + F1TV (3M)', precio: 65, desc: 'Renovable', tyc: 'No cambiar datos (correo). No realizar compras ni suscripciones. Garantía de 75 días.' },
-            { id: 'crunchycp_1m', nombre: 'Crunchyroll CP (1M)', precio: 35, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'netflix_1m', nombre: 'Netflix Completa (1M)', precio: 210, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'nord_1m', nombre: 'Nord VPN (1M)', precio: 50, desc: 'Renovable. 10 dispositivos en simultaneo.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'vix_1m', nombre: 'VIX (1M)', precio: 13, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'disney_juanpa', nombre: 'Disney Premium JUANPA (1M)', precio: 85, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'disney_espn', nombre: 'Disney Premium ESPN (1M)', precio: 145, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'disney_estandar', nombre: 'Disney Estándar (1M)', precio: 40, desc: 'Renovable. Con panel. Sin anuncios.', tyc: 'Garantía activa durante la vigencia.' },
-            { id: 'max_bug_1m', nombre: 'MAX Estándar BUG (1M)', precio: 33, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'max_bug_3m', nombre: 'MAX Estándar BUG (3M)', precio: 90, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'vix_2m', nombre: 'VIX (2M)', precio: 18, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'vix_6m', nombre: 'VIX (6M)', precio: 35, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 4 meses.' },
-            { id: 'crunchy_sp_1m', nombre: 'Crunchyroll SP (1M)', precio: 35, desc: 'Renovable. Sin panel.', tyc: 'Garantía de 25 días.' },
-            { id: 'fox_one_1m', nombre: 'Fox One (1M)', precio: 35, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'paramount_1m', nombre: 'Paramount + (1M)', precio: 45, desc: 'No renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'formula_1_1m', nombre: 'Formula 1 TV (1M)', precio: 30, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'viki_rakuten', nombre: 'Viki Rakuten (1M)', precio: 38, desc: 'Renovable. Sin panel.', tyc: 'Garantía de 25 días.' },
-            { id: 'crunchy_12m', nombre: 'Crunchyroll (12M)', precio: 265, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 10 meses.' },
-            { id: 'spotify_1m', nombre: 'Spotify Individual (1M)', precio: 45, desc: 'Renovable. Alquiler.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'canva_edu_1m', nombre: 'Canva Pro EDU (1M)', precio: 2, desc: 'Renovable.', tyc: 'Activación a datos del cliente.' },
-            { id: 'capcut_30d', nombre: 'CapCut Pro Completa (1M)', precio: 65, desc: 'CapCut Pro Completa por 30 días.', tyc: 'Garantía 6 días. No realizar compras. Máximo 3 dispositivos.' },
-            { id: 'gemini_1m', nombre: 'Gemini Invitación (1M)', precio: 20, desc: 'Renovable. Incluye GOOGLE ONE.', tyc: 'Activación a datos del cliente.' }
-        ];
-
-        async function inicializarCliente() {
-            const { data } = await supabaseClient
-                .from('usuarios')
-                .select('*')
-                .eq('correo', correoUsuarioActual)
-                .single();
-
-            if (data) {
-                saldoRevendedor = data.saldo || 0;
-                document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
-
-                const tieneAccesoBot = data.acceso_bot === true || correoUsuarioActual.endsWith('@littlemonkey.lat') || correoUsuarioActual === 'cliente@surebrec.com';
-                if (!tieneAccesoBot) {
-                    document.getElementById('aviso-acceso-otp').classList.remove('hidden');
-                }
-            } else {
-                document.getElementById('saldo-usuario').innerText = '$500.00 MXN';
-                saldoRevendedor = 500.00;
-            }
-
-            cargarCatalogoStock();
-        }
-
-        async function cargarCatalogoStock() {
-            const { data: inventario } = await supabaseClient
-                .from('inventario')
-                .select('*')
-                .eq('estado', 'disponible');
-
-            const contenedor = document.getElementById('catalogo-productos');
-
-            contenedor.innerHTML = catalogoOficial.map((p) => {
-                const stockCount = inventario ? inventario.filter(i => i.plataforma.toLowerCase() === p.nombre.toLowerCase()).length : 0;
-
-                return `
-                    <div class="bg-black border border-zinc-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
-                        <div>
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-bold text-white text-base">${p.nombre}</h3>
-                                <span class="bg-zinc-800 text-teal-400 text-[10px] px-2 py-1 rounded-md font-bold">Stock: ${stockCount} disp.</span>
-                            </div>
-                            <p class="text-xs text-zinc-400 mt-1">${p.desc}</p>
-                            <p class="text-2xl font-black text-emerald-400 mt-3">$${p.precio}.00 <span class="text-xs text-zinc-400 font-normal">MXN</span></p>
-                        </div>
-                        
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-xl">
-                                <span class="text-xs text-zinc-400">Cantidad:</span>
-                                <div class="flex items-center gap-2">
-                                    <button onclick="cambiarCantidad('${p.id}', -1)" class="w-6 h-6 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">-</button>
-                                    <span id="qty-${p.id}" class="text-xs font-bold text-white w-4 text-center">1</span>
-                                    <button onclick="cambiarCantidad('${p.id}', 1)" class="w-6 h-6 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">+</button>
-                                </div>
-                            </div>
-
-                            <details class="bg-zinc-900/60 border border-zinc-800/80 rounded-xl p-2 text-[11px] text-zinc-400">
-                                <summary class="cursor-pointer font-semibold text-teal-400 hover:text-teal-300">📄 Términos y Condiciones (T&C)</summary>
-                                <p class="mt-2 text-zinc-300 leading-relaxed">${p.tyc}</p>
-                            </details>
-
-                            <button onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, ${stockCount}, '${p.id}')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Añadir al Carrito</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        let cantidadesTemp = {};
-        function cambiarCantidad(id, delta) {
-            if(!cantidadesTemp[id]) cantidadesTemp[id] = 1;
-            cantidadesTemp[id] += delta;
-            if(cantidadesTemp[id] < 1) cantidadesTemp[id] = 1;
-            
-            const spanQty = document.getElementById(`qty-${id}`);
-            if(spanQty) spanQty.innerText = cantidadesTemp[id];
-        }
-
         function mostrarSeccion(seccion) {
-            ['tienda', 'manuales', 'cuentas', 'soporte'].forEach(s => {
+            ['inventario', 'pedidos', 'reportes', 'saldos'].forEach(s => {
                 document.getElementById('sec-' + s).classList.add('hidden');
                 document.getElementById('nav-' + s).className = "px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all";
             });
             document.getElementById('sec-' + seccion).classList.remove('hidden');
             document.getElementById('nav-' + seccion).className = "px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg";
 
-            if(seccion === 'cuentas') cargarMisCuentas();
+            if(seccion === 'pedidos') cargarPedidosManuales();
+            if(seccion === 'reportes') cargarReportesAdmin();
         }
 
-        function agregarAlCarrito(nombre, precio, stock, id) {
-            const cantidad = cantidadesTemp[id] || 1;
+        // Subir inventario masivo
+        async function subirInventario() {
+            const plataforma = document.getElementById('inv-plataforma').value.trim();
+            const textoCuentas = document.getElementById('inv-cuentas').value.trim();
+            if(!plataforma || !textoCuentas) return alert('Completa todos los campos.');
+
+            const lineas = textoCuentas.split('\n');
+            let insertados = 0;
+
+            for(let linea of lineas) {
+                const partes = linea.trim().split(':');
+                if(partes.length >= 2) {
+                    const correo = partes[0].trim();
+                    const password = partes.slice(1).join(':').trim();
+                    
+                    await supabaseClient.from('inventario').insert([{
+                        plataforma: plataforma,
+                        correo_cuenta: correo,
+                        password_cuenta: password,
+                        estado: 'disponible'
+                    }]);
+                    insertados++;
+                }
+            }
+
+            alert(`¡Se subieron ${insertados} cuentas correctamente a la plataforma "${plataforma}"!`);
+            document.getElementById('inv-plataforma').value = '';
+            document.getElementById('inv-cuentas').value = '';
+        }
+
+        // Cargar pedidos manuales para administrar
+        async function cargarPedidosManuales() {
+            const { data } = await supabaseClient.from('pedidos_manuales').select('*').order('id', { ascending: false });
+            const contenedor = document.getElementById('lista-pedidos-manuales');
             
-            if(stock <= 0) return alert('Lo sentimos, no hay stock disponible.');
-            if(cantidad > stock) return alert(`Solo hay ${stock} unidades disponibles.`);
-
-            productoEnCarrito = { nombre, precio, cantidad };
-            carritoItems = cantidad;
-            carritoTotal = precio * cantidad;
-
-            document.getElementById('contador-carrito').innerText = cantidad + ' ítems';
-            document.getElementById('total-carrito').innerText = '$' + carritoTotal.toFixed(2) + ' MXN';
-            alert(`¡Se añadió ${cantidad}x ${nombre} al carrito!`);
-        }
-
-        async function pagarCarrito() {
-            if (!productoEnCarrito || carritoTotal === 0) return alert("Tu carrito está vacío.");
-            if (saldoRevendedor < carritoTotal) return alert("Saldo insuficiente.");
-
-            const { data: stockItems } = await supabaseClient
-                .from('inventario')
-                .select('*')
-                .ilike('plataforma', productoEnCarrito.nombre)
-                .eq('estado', 'disponible')
-                .limit(productoEnCarrito.cantidad);
-
-            if (!stockItems || stockItems.length < productoEnCarrito.cantidad) {
-                return alert("Stock insuficiente al intentar procesar.");
-            }
-
-            for (let cuenta of stockItems) {
-                await supabaseClient.from('inventario').update({
-                    estado: 'asignada',
-                    fecha_compra: new Date(),
-                    asignado_a: correoUsuarioActual
-                }).eq('id', cuenta.id);
-            }
-
-            const nuevoSaldo = saldoRevendedor - carritoTotal;
-            await supabaseClient.from('usuarios').update({ saldo: nuevoSaldo }).eq('correo', correoUsuarioActual);
-
-            saldoRevendedor = nuevoSaldo;
-            document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
-
-            let detalleCuentas = stockItems.map(c => `• ${c.correo_cuenta} / Pass: ${c.password_cuenta}`).join('\n');
-            alert(`¡Compra Exitosa!\n\nTus cuentas:\n${detalleCuentas}`);
-
-            productoEnCarrito = null;
-            carritoItems = 0;
-            carritoTotal = 0;
-            document.getElementById('contador-carrito').innerText = '0 ítems';
-            document.getElementById('total-carrito').innerText = '$0.00 MXN';
-            cargarCatalogoStock();
-        }
-
-        async function enviarPedidoManual() {
-            const servicio = document.getElementById('man-servicio').value;
-            const datos = document.getElementById('man-datos').value.trim();
-            if(!datos) return alert('Ingresa los datos requeridos.');
-
-            await supabaseClient.from('pedidos_manuales').insert([{
-                usuario_correo: correoUsuarioActual,
-                servicio: servicio,
-                datos_cliente: datos,
-                estado: 'pendiente'
-            }]);
-
-            alert('¡Pedido manual enviado con éxito!');
-            document.getElementById('man-datos').value = '';
-        }
-
-        async function cargarMisCuentas() {
-            const { data } = await supabaseClient.from('inventario').select('*').eq('asignado_a', correoUsuarioActual);
-            const contenedor = document.getElementById('lista-mis-cuentas');
             if(!data || data.length === 0) {
-                contenedor.innerHTML = `<div class="bg-black border border-zinc-800 p-4 rounded-xl text-center text-xs text-zinc-500">No tienes cuentas compradas.</div>`;
+                contenedor.innerHTML = `<div class="bg-black border border-zinc-800 p-4 rounded-xl text-center text-xs text-zinc-500">No hay pedidos manuales pendientes.</div>`;
                 return;
             }
-            contenedor.innerHTML = data.map(c => `
-                <div class="bg-black border border-zinc-800 p-4 rounded-xl flex justify-between items-center">
+
+            contenedor.innerHTML = data.map(p => `
+                <div class="bg-black border border-zinc-800 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
                     <div>
-                        <span class="text-teal-400 font-semibold uppercase">${c.plataforma}</span>
-                        <p class="text-white font-mono mt-1">${c.correo_cuenta} / Pass: ${c.password_cuenta}</p>
+                        <span class="text-teal-400 font-bold uppercase">Revendedor: ${p.usuario_correo}</span>
+                        <p class="text-white font-semibold mt-0.5">🛠️ Servicio: ${p.servicio}</p>
+                        <p class="text-zinc-300 font-mono text-[11px] mt-1 bg-zinc-900 p-2 rounded border border-zinc-800">📝 Datos: ${p.datos_cliente}</p>
+                        <span class="text-[10px] text-amber-400 uppercase font-bold mt-1 inline-block">Estado: ${p.estado}</span>
                     </div>
-                    <span class="bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded text-[10px] font-bold">Activa</span>
+                    <button onclick="completarPedido(${p.id})" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 rounded-xl transition-colors">Marcar Completado</button>
                 </div>
             `).join('');
         }
 
-        async function enviarReporteFalla() {
-            const correo = document.getElementById('rep-correo').value;
-            const tipo = document.getElementById('rep-tipo').value;
-            const desc = document.getElementById('rep-desc').value;
-            if(!correo || !desc) return alert('Llena todos los campos.');
-
-            await supabaseClient.from('reportes').insert([{
-                usuario_correo: correoUsuarioActual,
-                plataforma: 'General',
-                correo_cuenta: correo,
-                tipo_solicitud: tipo,
-                descripcion: desc
-            }]);
-
-            alert('¡Reporte enviado!');
-            document.getElementById('rep-correo').value = '';
-            document.getElementById('rep-desc').value = '';
+        async function completarPedido(id) {
+            await supabaseClient.from('pedidos_manuales').update({ estado: 'completado' }).eq('id', id);
+            alert('¡Pedido marcado como completado!');
+            cargarPedidosManuales();
         }
 
-        window.onload = inicializarCliente;
+        // Cargar reportes y códigos OTP
+        async function cargarReportesAdmin() {
+            const { data } = await supabaseClient.from('reportes').select('*').order('id', { ascending: false });
+            const contenedor = document.getElementById('lista-reportes');
+
+            if(!data || data.length === 0) {
+                contenedor.innerHTML = `<div class="bg-black border border-zinc-800 p-4 rounded-xl text-center text-xs text-zinc-500">No hay reportes ni solicitudes OTP.</div>`;
+                return;
+            }
+
+            contenedor.innerHTML = data.map(r => `
+                <div class="bg-black border border-zinc-800 p-4 rounded-xl flex flex-col gap-2">
+                    <div class="flex justify-between items-start">
+                        <span class="text-rose-400 font-bold uppercase">Tipo: ${r.tipo_solicitud}</span>
+                        <span class="text-zinc-500 text-[10px]">${r.usuario_correo}</span>
+                    </div>
+                    <p class="text-white font-mono text-xs">Cuenta: ${r.correo_cuenta}</p>
+                    <p class="text-zinc-300 text-xs bg-zinc-900 p-2 rounded border border-zinc-800">Detalle: ${r.descripcion}</p>
+                </div>
+            `).join('');
+        }
+
+        // Actualizar saldo de revendedor
+        async function actualizarSaldoRevendedor() {
+            const correo = document.getElementById('saldo-correo').value.trim();
+            const monto = parseFloat(document.getElementById('saldo-monto').value);
+            if(!correo || isNaN(monto)) return alert('Ingresa un correo válido y un monto correcto.');
+
+            // Buscar si ya existe el usuario
+            const { data: usuario } = await supabaseClient.from('usuarios').select('*').eq('correo', correo).single();
+
+            if(usuario) {
+                const nuevoSaldo = (usuario.saldo || 0) + monto;
+                await supabaseClient.from('usuarios').update({ saldo: nuevoSaldo }).eq('correo', correo);
+                alert(`¡Saldo actualizado con éxito! Nuevo saldo para ${correo}: $${nuevoSaldo.toFixed(2)} MXN`);
+            } else {
+                // Si no existe, lo creamos con el saldo inicial
+                await supabaseClient.from('usuarios').insert([{ correo: correo, saldo: monto, acceso_bot: true }]);
+                alert(`¡Usuario creado e inicializado con $${monto.toFixed(2)} MXN!`);
+            }
+
+            document.getElementById('saldo-correo').value = '';
+            document.getElementById('saldo-monto').value = '';
+        }
     </script>
 </body>
 </html>
