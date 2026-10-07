@@ -148,7 +148,7 @@
             <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🏋️ Trámites Smart Fit</h3><button onclick="cerrarModal('modal-smartfit')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
             <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
             <div class="space-y-3">
-                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Selecciona el Trámite</label><select id="smart-tipo" onchange="actualizarCamposSmart()" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"><option value="nueva">Cuenta Nueva ($95)</option><option value="nuevados">Nuevas 2M ($265)</option><option value="falsa">Cuenta Nueva Falsa ($150)</option><option value="renovacion">Renovación 1M ($195)</option><option value="renovaciondos">Renovación por 2M ($350)</option><option value="adeudos">Adeudos / Mantenimiento ($35)</option></select></div>
+                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Selecciona la Membresía</label><select id="smart-tipo" onchange="actualizarCamposSmart()" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"><option value="nueva">Cuenta Nueva ($95)</option><option value="nuevados">Nuevas 2M ($265)</option><option value="falsa">Cuenta Nueva Falsa ($150)</option><option value="renovacion">Renovación 1M ($195)</option><option value="renovaciondos">Renovación por 2M ($350)</option><option value="adeudos">Adeudos / Mantenimiento ($35)</option></select></div>
                 <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1" id="label-smart-datos">Ingresa los datos requeridos:</label><textarea id="smart-datos-input" rows="4" placeholder="Completa los datos..." class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white font-mono"></textarea></div>
             </div>
             <div class="border-t border-zinc-800 pt-3 flex justify-between items-center"><div><span class="text-xs text-zinc-400">Total a pagar:</span><p id="smart-precio-txt" class="text-emerald-400 font-extrabold text-lg">$95.00 MXN</p></div><button onclick="agregarSmartfitAlCarrito()" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-4 py-2.5 rounded-xl transition-colors">Añadir al Carrito</button></div>
@@ -378,8 +378,8 @@
             { id: 'viki_rakuten', nombre: 'Viki Rakuten (1M)', precio: 38, rangos: [{min: 1, max: 9, p: 35}, {min: 10, max: 40, p: 30}], desc: 'Renovable. Sin panel.', tyc: 'Garantía de 25 días.' },
 
             // 7. MÚSICA Y YOUTUBE
-            { id: 'spotify_serv', nombre: '🎧 Spotify Individual', precio: 45, rangos: [{min: 1, max: 3, p: 45}, {min: 4, max: 5, p: 43}, {min: 6, max: 10, p: 40}], desc: 'Alquiler (1M, 2M, 3M). (Manual)', tyc: 'No cambiar datos. Garantía de 25 días.', esMusica: true, tipo: 'spotify' },
-            { id: 'youtube_serv', nombre: '▶️ YouTube Individual / Fam.', precio: 15, desc: 'A tus datos (Correo nuevo y contraseña). (Manual)', tyc: 'Garantía de 25 días.', esMusica: true, tipo: 'youtube' },
+            { id: 'spotify_serv', nombre: '🎧 Spotify Individual', precio: 45, rangos: [{min: 1, max: 3, p: 45}, {min: 4, max: 5, p: 43}, {min: 6, max: 10, p: 40}], desc: 'Alquiler (1M, 2M, 3M). (Manual)', tyc: 'No cambiar datos. Garantía de 25, 55 y 75 días.', esMusica: true, tipo: 'spotify' },
+            { id: 'youtube_serv', nombre: '▶️ YouTube Individual / Fam.', precio: 15, desc: 'No renovable. A tus datos. (Manual)', tyc: 'Garantía de 25 días.', esMusica: true, tipo: 'youtube' },
             { id: 'tidal_serv', nombre: '🌊 Tidal Individual / Fam.', precio: 15, desc: 'Alquiler (Admin da datos). (Manual)', tyc: 'No cambiar datos. Garantía de 25 días.', esMusica: true, tipo: 'tidal' },
             { id: 'deezer_serv', nombre: '🎶 Deezer (1M)', precio: 15, desc: 'No renovable. (Manual)', tyc: 'Garantía de 25 días.', esMusica: true, tipo: 'deezer' },
 
@@ -394,12 +394,11 @@
             { id: 'm365_serv', nombre: '📊 Microsoft 365 Completa', precio: 50, desc: '6M y 12M. (Manual)', tyc: 'Cambiar contraseña al ingresar.', esM365: true },
 
             // 10. SEGURIDAD Y OTROS
-            { id: 'nord_1m', nombre: 'Nord VPN (1M - Auto)', precio: 50, rangos: [{min: 1, max: 4, p: 50}, {min: 5, max: 9, p: 45}, {min: 10, max: 40, p: 40}], desc: 'Renovable. 10 dispositivos en simultaneo.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'nord_comp', nombre: '🔒 NordVPN Completa (Alquiler)', precio: 40, desc: '10 dispositivos simultáneos. (Manual)', tyc: 'Garantía activa según vigencia.', esNordComp: true },
+            { id: 'nord_comp', nombre: '🔒 NordVPN Completa', precio: 40, desc: '10 dispositivos simultáneos. (Manual)', tyc: 'Garantía activa según vigencia.', esNordComp: true },
             { id: 'outlook_serv', nombre: '📧 Correo Outlook/Hotmail', precio: 5, rangos: [{min: 1, max: 8, p: 5}, {min: 9, max: 45, p: 4}], desc: 'Correos limpios.', tyc: 'Garantía de primer acceso.' },
 
             // 11. SERVICIOS MANUALES, GIMNASIO Y RECARGAS
-            { id: 'smart_fit', nombre: '🏋️ Smart Fit (Trámites)', precio: 95, desc: 'Cuenta nueva, falsa, renovación o adeudos. (Manual)', tyc: 'Proporcionar datos correctos según el trámite.', esSmartfit: true },
+            { id: 'smart_fit', nombre: '🏋️ Smart Fit (Membresías)', precio: 95, desc: 'Cuenta nueva, falsa, renovación o adeudos. (Manual)', tyc: 'Proporcionar datos correctos según la membresía.', esSmartfit: true },
             { id: 'xbox_pass', nombre: '🎮 Xbox Game Pass (Alquiler)', precio: 105, desc: 'Essential, Premium o Ultimate (No renovables). (Manual)', tyc: 'Proporcionar datos correctos de la cuenta Xbox.', esXbox: true },
             { id: 'recarga_telcel', nombre: '📱 Recarga Telcel ($200)', precio: 135, desc: 'Recarga manual.', tyc: 'Proporcionar número, compañía y tipo correctos.', esRecarga: true, tipoRecarga: 'Telcel' },
             { id: 'recarga_bait', nombre: '📱 Recarga Bait ($200)', precio: 135, desc: 'Recarga manual.', tyc: 'Proporcionar número, compañía y tipo correctos.', esRecarga: true, tipoRecarga: 'Bait' },
@@ -438,7 +437,7 @@
                 else if (p.esCanvaEdu) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-canva-edu')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🎨 Ver Plazos</button>`; }
                 else if (p.esCanvaIa) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-canva-ia')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🤖 Ver Plazos</button>`; }
                 else if (p.esNordComp) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-nord-comp')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🔒 Ver Vigencias</button>`; }
-                else if (p.esSmartfit) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-smartfit')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🏋️ Ver Trámites</button>`; }
+                else if (p.esSmartfit) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-smartfit')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🏋️ Ver Membresías</button>`; }
                 else if (p.esDiamantes) { badgeStock = ''; btnAccion = `<button onclick="abrirModalDiamantes('${p.tipo}')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">💎 Ver Paquetes</button>`; }
                 else if (p.esXbox) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-xbox')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🎮 Ver Membresías</button>`; }
                 else if (p.esRecarga) { badgeStock = ''; btnAccion = `<button onclick="abrirModalRecarga('${p.tipoRecarga}')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">📱 Solicitar Recarga</button>`; }
@@ -618,9 +617,9 @@
             const datos = document.getElementById('smart-datos-input').value.trim();
             if(!datos) return alert('Llena los datos requeridos.');
             let nombreServicio = 'Smart Fit Cuenta Nueva', precio = 95;
-            if(tipo === 'nuevados') { nombreServicio = 'Smart Fit Nuevas 2M'; precio = 265; }
+            if(tipo === 'nuevados') { nombreServicio = 'Smart Fit Cuenta Nueva 2M'; precio = 265; }
             if(tipo === 'falsa') { nombreServicio = 'Smart Fit Cuenta Nueva Falsa'; precio = 150; }
-            if(tipo === 'renovacion') { nombreServicio = 'Smart Fit Renovaciones 1M'; precio = 195; }
+            if(tipo === 'renovacion') { nombreServicio = 'Smart Fit Renovación 1M'; precio = 195; }
             if(tipo === 'renovaciondos') { nombreServicio = 'Smart Fit Renovación 2M'; precio = 350; }
             if(tipo === 'adeudos') { nombreServicio = 'Smart Fit Adeudos/Mantenimiento'; precio = 35; }
             seleccionarServicioManual(nombreServicio, precio, datos, 'modal-smartfit');
