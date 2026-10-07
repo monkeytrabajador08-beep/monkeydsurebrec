@@ -12,8 +12,8 @@
     <header class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center bg-zinc-900 border border-zinc-800 rounded-2xl p-6 mb-8 shadow-2xl shadow-cyan-950/20 gap-4">
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec · Admin</h2>
-            <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel Maestro · Control Financiero y Stock 👑</h1>
-            <p class="text-xs text-zinc-400 mt-1">Dashboard de ganancias, control de stock disponible y gestión de pedidos</p>
+            <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel Maestro · Control y Clientes Finales 👑</h1>
+            <p class="text-xs text-zinc-400 mt-1">Gestión de stock, ganancias, aprobaciones y asignación manual</p>
         </div>
         <div>
             <a href="index.html" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-4 py-2.5 rounded-xl transition-colors">Cerrar Sesión</a>
@@ -22,7 +22,7 @@
 
     <main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- 1. DASHBOARD DE GANANCIAS Y ESTADO DE INVENTARIO -->
+        <!-- 1. DASHBOARD DE GANANCIAS Y ESTADO -->
         <section class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
                 <span class="text-xs font-semibold uppercase text-zinc-400">Ganancias Web (Mes)</span>
@@ -46,7 +46,31 @@
             </div>
         </section>
 
-        <!-- 2. APROBACIONES DE REVENDEDORES -->
+        <!-- 2. NUEVA SECCIÓN: CREAR CLIENTE FINAL / ASIGNAR CUENTA MANUAL -->
+        <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+            <h2 class="text-base font-bold flex items-center gap-2">👤 Registrar Cliente Final y Asignar Cuenta</h2>
+            <p class="text-xs text-zinc-400">Crea un registro para tu cliente final, asígnale su cuenta y define su fecha de vencimiento para seguimiento.</p>
+            
+            <form class="grid grid-cols-1 md:grid-cols-4 gap-4" onsubmit="registrarClienteFinal(event)">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Nombre del Cliente</label>
+                    <input type="text" id="cli-nombre" placeholder="Ej. Juan Pérez" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo / Contacto</label>
+                    <input type="text" id="cli-correo" placeholder="cliente@correo.com" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Cuenta Asignada (Correo:Pass)</label>
+                    <input type="text" id="cli-cuenta" placeholder="cuenta@stream.com:pass123" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white font-mono" required>
+                </div>
+                <div class="flex items-end">
+                    <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Guardar Cliente</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- 3. APROBACIONES DE REVENDEDORES -->
         <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
             <h2 class="text-base font-bold mb-4 flex items-center gap-2">👥 Solicitudes de Registro Pendientes</h2>
             <div class="overflow-x-auto">
@@ -66,7 +90,7 @@
             </div>
         </section>
 
-        <!-- 3. GESTIÓN DE PEDIDOS MANUALES -->
+        <!-- 4. GESTIÓN DE PEDIDOS MANUALES -->
         <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
             <h2 class="text-base font-bold mb-4 flex items-center gap-2">🛠️ Pedidos Manuales (Servicios con Datos Especiales)</h2>
             <div class="overflow-x-auto">
@@ -86,7 +110,7 @@
             </div>
         </section>
 
-        <!-- 4. ALTA DE INVENTARIO AUTOMÁTICO -->
+        <!-- 5. ALTA DE INVENTARIO AUTOMÁTICO -->
         <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
             <h2 class="text-base font-bold mb-4">📦 Alta de Inventario Automático (Cuentas y Lotes)</h2>
             <form class="space-y-4" onsubmit="guardarInventarioAdmin(event)">
@@ -94,13 +118,16 @@
                     <div>
                         <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Plataforma</label>
                         <select id="admin-plataforma" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
-                            <option value="Disney Premium">Disney Premium ($65)</option>
-                            <option value="MAX Platino">MAX Platino ($95)</option>
-                            <option value="Prime Video">Prime Video ($65)</option>
-                            <option value="Crunchyroll CP">Crunchyroll CP ($35)</option>
-                            <option value="Netflix Completa">Netflix Completa ($210)</option>
-                            <option value="Nord VPN">Nord VPN ($50)</option>
-                            <option value="VIX">VIX ($35)</option>
+                            <option value="Disney Premium (1 Mes)">Disney Premium (1 Mes) - $65</option>
+                            <option value="MAX Platino (1 Mes)">MAX Platino (1 Mes) - $95</option>
+                            <option value="Prime Video (1 Mes)">Prime Video (1 Mes) - $20</option>
+                            <option value="Prime Video (6 Meses)">Prime Video (6 Meses) - $65</option>
+                            <option value="Apple TV MLS+F1 (1 Mes)">Apple TV (1 Mes) - $30</option>
+                            <option value="Crunchyroll CP (1 Mes)">Crunchyroll CP (1 Mes) - $35</option>
+                            <option value="Netflix Completa (1 Mes)">Netflix Completa (1 Mes) - $210</option>
+                            <option value="Netflix Individual (1 Mes)">Netflix Individual (1 Mes) - $50</option>
+                            <option value="Nord VPN (1 Mes)">Nord VPN (1 Mes) - $50</option>
+                            <option value="VIX (1 Mes)">VIX (1 Mes) - $35</option>
                         </select>
                     </div>
                     <div>
@@ -109,8 +136,6 @@
                             <option value="individual">Unidad Individual (1x)</option>
                             <option value="lote_5">Lote de 5 Unidades</option>
                             <option value="lote_10">Lote de 10 Unidades</option>
-                            <option value="lote_50">Lote de 50 Unidades</option>
-                            <option value="lote_100">Lote de 100 Unidades</option>
                         </select>
                     </div>
                     <div>
@@ -128,8 +153,7 @@
     </main>
 
     <script>
-        // CONTRASEÑA DE ACCESO AL PANEL DE ADMIN (Modifícala a tu gusto)
-        const PASSWORD_ADMIN = "IshigamiSenku08#";
+        const PASSWORD_ADMIN = "MonkeyAdmin2026";
 
         function verificarAccesoAdmin() {
             const claveIngresada = prompt("🔒 Acceso Restringido. Ingresa la contraseña de Administrador:");
@@ -139,7 +163,6 @@
             }
         }
 
-        // Ejecutar verificación de seguridad al cargar la página
         verificarAccesoAdmin();
 
         const SUPABASE_URL = 'https://hlkuleummozpanmtwcxp.supabase.co';
@@ -204,6 +227,34 @@
             await supabaseClient.from('usuarios').update({ estado: 'aprobado' }).eq('id', id);
             alert('¡Usuario aprobado con éxito!');
             cargarDashboardYDatos();
+        }
+
+        async function registrarClienteFinal(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('cli-nombre').value;
+            const correo = document.getElementById('cli-correo').value;
+            const cuenta = document.getElementById('cli-cuenta').value;
+
+            const partes = cuenta.split(':');
+            if(partes.length < 2) return alert('Formato de cuenta inválido. Usa correo:contraseña');
+
+            const { error } = await supabaseClient.from('inventario').insert([{
+                plataforma: 'Cliente Final Manual',
+                tipo_paquete: 'individual',
+                correo_cuenta: partes[0].trim(),
+                password_cuenta: partes[1].trim(),
+                estado: 'asignada',
+                asignado_a: correo
+            }]);
+
+            if(error) alert('Error al registrar cliente: ' + error.message);
+            else {
+                alert(`¡Cliente ${nombre} registrado y cuenta asignada con éxito!`);
+                document.getElementById('cli-nombre').value = '';
+                document.getElementById('cli-correo').value = '';
+                document.getElementById('cli-cuenta').value = '';
+                cargarDashboardYDatos();
+            }
         }
 
         async function completarPedidoManual(id) {
