@@ -21,7 +21,7 @@
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec</h2>
             <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel de Revendedor 💼</h1>
-            <p class="text-xs text-zinc-400 mt-1">Catálogo oficial con selección exacta de plazos y precios.</p>
+            <p class="text-xs text-zinc-400 mt-1">Catálogo oficial con precios exactos y control de stock.</p>
         </div>
         <div class="flex items-center gap-4">
             <div class="text-right">
@@ -39,8 +39,8 @@
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                     <div>
-                        <h2 class="text-base font-bold">🛍️ Catálogo de Cuentas y Duración</h2>
-                        <p class="text-xs text-zinc-400">Elige el servicio, el plazo correspondiente y añade al carrito.</p>
+                        <h2 class="text-base font-bold">🛍️ Catálogo de Cuentas y Plazos</h2>
+                        <p class="text-xs text-zinc-400">Selecciona la cantidad y revisa las condiciones de cada servicio.</p>
                     </div>
                     <div class="bg-black border border-zinc-800 px-4 py-2.5 rounded-xl text-xs flex items-center gap-4">
                         <div>
@@ -88,11 +88,18 @@
             </div>
         </section>
 
-        <!-- 4. REPORTES / OTP -->
+        <!-- 4. REPORTES / OTP (VALIDADO POR PERMISO EN BASE DE DATOS) -->
         <section id="sec-soporte" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
                 <h2 class="text-base font-bold">🔑 Reporte de Caídas o Solicitud de Código OTP</h2>
-                <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
+                
+                <!-- Aviso si no tiene acceso al bot -->
+                <div id="aviso-acceso-otp" class="hidden bg-rose-500/10 border border-rose-500/20 p-4 rounded-xl text-xs text-rose-400">
+                    ⚠️ Tu cuenta de correo (Outlook/Gmail) no tiene activado el acceso automático al panel de códigos del bot. Solicita la activación a la administración.
+                </div>
+
+                <!-- Formulario de Soporte / OTP -->
+                <div id="formulario-otp" class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
                     <input type="text" id="rep-correo" placeholder="Correo de la cuenta con problema..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
                     <select id="rep-tipo" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
                         <option value="otp">Solicitar Código OTP / Hogar</option>
@@ -117,11 +124,10 @@
         let carritoTotal = 0;
         let productoEnCarrito = null;
 
-        // Catálogo oficial con opciones independientes de meses, precios reales y T&C
         const catalogoOficial = [
-            { id: 'disney_1m', nombre: 'Disney Premium (1 Mes)', precio: 65, desc: 'Cuenta completa oficial por 1 Mes.', tyc: 'Garantía por 1 mes. No cambiar correo ni contraseña.' },
-            { id: 'max_1m', nombre: 'MAX Platino (1 Mes)', precio: 95, desc: 'Platino calidad máxima por 1 Mes.', tyc: 'Uso exclusivo en dispositivos permitidos.' },
-            { id: 'prime_1m', nombre: 'Prime Video (1 Mes)', precio: 20, desc: 'Acceso completo por 1 Mes (Fija).', tyc: 'Cuenta fija de 1 mes sin renovación.' },
+            { id: 'disney_1m', nombre: 'Disney Premium (1 Mes)', precio: 65, desc: 'Cuenta completa oficial.', tyc: 'Garantía por 1 mes. No cambiar credenciales.' },
+            { id: 'max_1m', nombre: 'MAX Platino (1 Mes)', precio: 95, desc: 'Platino calidad máxima.', tyc: 'Uso exclusivo en dispositivos permitidos.' },
+            { id: 'prime_1m', nombre: 'Prime Video (1 Mes)', precio: 20, desc: 'Acceso completo por 1 Mes (Fija).', tyc: 'Cuenta fija sin renovación automática.' },
             { id: 'prime_6m', nombre: 'Prime Video (6 Meses)', precio: 65, desc: 'Acceso completo por 6 Meses (Fija).', tyc: 'Cuenta fija de 6 meses sin renovación.' },
             { id: 'apple_1m', nombre: 'Apple TV MLS+F1 (1 Mes)', precio: 30, desc: 'Acceso por 1 Mes.', tyc: 'Respetar políticas de acceso.' },
             { id: 'apple_3m', nombre: 'Apple TV MLS+F1 (3 Meses)', precio: 65, desc: 'Acceso por 3 Meses.', tyc: 'Garantía durante el trimestre adquirido.' },
@@ -129,10 +135,11 @@
             { id: 'netflix_1m', nombre: 'Netflix Completa (1 Mes)', precio: 210, desc: 'Netflix Completa C/P 1 Mes.', tyc: 'Mantener el hogar configurado.' },
             { id: 'netflix_ind', nombre: 'Netflix Individual (1 Mes)', precio: 50, desc: 'Perfil individual.', tyc: 'Usar solo en el dispositivo asignado.' },
             { id: 'nord_1m', nombre: 'Nord VPN (1 Mes)', precio: 50, desc: 'Acceso completo VPN.', tyc: 'No revender accesos simultáneos.' },
-            { id: 'vix_1m', nombre: 'VIX Completa (1 Mes)', precio: 35, desc: 'VIX Completa 1 Mes.', tyc: 'Garantía activa durante la vigencia.' }
+            { id: 'vix_1m', nombre: 'VIX (1 Mes)', precio: 35, desc: 'VIX Completa 1 Mes.', tyc: 'Garantía activa durante la vigencia.' }
         ];
 
         async function inicializarCliente() {
+            // Consultar datos del usuario y su permiso de acceso al bot en Supabase
             const { data } = await supabaseClient
                 .from('usuarios')
                 .select('*')
@@ -142,6 +149,13 @@
             if (data) {
                 saldoRevendedor = data.saldo || 0;
                 document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
+
+                // Validar si tiene acceso al bot por base de datos O si es dominio @littlemonkey.lat
+                const tieneAccesoBot = data.acceso_bot === true || correoUsuarioActual.endsWith('@littlemonkey.lat') || correoUsuarioActual === 'cliente@surebrec.com';
+
+                if (!tieneAccesoBot) {
+                    document.getElementById('aviso-acceso-otp').classList.remove('hidden');
+                }
             } else {
                 document.getElementById('saldo-usuario').innerText = '$500.00 MXN';
                 saldoRevendedor = 500.00;
@@ -158,7 +172,7 @@
 
             const contenedor = document.getElementById('catalogo-productos');
 
-            contenedor.innerHTML = catalogoOficial.map((p, index) => {
+            contenedor.innerHTML = catalogoOficial.map((p) => {
                 const stockCount = inventario ? inventario.filter(i => i.plataforma.toLowerCase() === p.nombre.toLowerCase()).length : 0;
 
                 return `
@@ -172,7 +186,6 @@
                             <p class="text-2xl font-black text-emerald-400 mt-3">$${p.precio}.00 <span class="text-xs text-zinc-400 font-normal">MXN</span></p>
                         </div>
                         
-                        <!-- Control de Cantidad y Términos -->
                         <div class="space-y-3">
                             <div class="flex items-center justify-between bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-xl">
                                 <span class="text-xs text-zinc-400">Cantidad:</span>
@@ -183,7 +196,6 @@
                                 </div>
                             </div>
 
-                            <!-- Desplegable de Términos y Condiciones -->
                             <details class="bg-zinc-900/60 border border-zinc-800/80 rounded-xl p-2 text-[11px] text-zinc-400">
                                 <summary class="cursor-pointer font-semibold text-teal-400 hover:text-teal-300">📄 Términos y Condiciones (T&C)</summary>
                                 <p class="mt-2 text-zinc-300 leading-relaxed">${p.tyc}</p>
