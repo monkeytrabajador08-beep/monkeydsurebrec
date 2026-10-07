@@ -9,12 +9,13 @@
 </head>
 <body class="bg-black text-slate-100 min-h-screen p-4 md:p-8 pb-24 md:pb-8">
 
-    <!-- Menú Flotante Inferior -->
+    <!-- Menú Flotante Inferior (Con Códigos y Reportes separados) -->
     <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-zinc-900/90 backdrop-blur-md border border-zinc-800 p-2 rounded-2xl shadow-2xl flex items-center gap-2 z-50 overflow-x-auto max-w-full px-4">
         <button onclick="mostrarSeccion('tienda')" id="nav-tienda" class="px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg">🛍️ Tienda Auto</button>
         <button onclick="mostrarSeccion('manuales')" id="nav-manuales" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🛠️ Pedidos Manuales</button>
         <button onclick="mostrarSeccion('cuentas')" id="nav-cuentas" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">📦 Mis Cuentas</button>
-        <button onclick="mostrarSeccion('soporte')" id="nav-soporte" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🔑 Códigos / OTP / Hogar</button>
+        <button onclick="mostrarSeccion('codigos')" id="nav-codigos" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🔑 Códigos / OTP / Hogar</button>
+        <button onclick="mostrarSeccion('reportes')" id="nav-reportes" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">⚠️ Reportar Caída</button>
         <a href="https://wa.me/529516364695" target="_blank" class="px-3 py-2 rounded-xl bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 text-xs font-semibold whitespace-nowrap transition-all border border-emerald-500/20">💬 Soporte WhatsApp</a>
     </nav>
 
@@ -23,7 +24,7 @@
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec</h2>
             <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">¡Qué tengas un buen día, lo estás haciendo muy bien! 💼</h1>
-            <p class="text-xs text-zinc-400 mt-1">Panel de Revendedor Oficial con botones personalizados por categoría.</p>
+            <p class="text-xs text-zinc-400 mt-1">Panel de Revendedor Oficial con catálogo completo.</p>
         </div>
         <div class="flex items-center gap-4">
             <div class="text-right">
@@ -89,15 +90,12 @@
             </div>
         </section>
 
-        <!-- 4. CÓDIGOS / OTP / HOGAR / REPORTES (Con selección de plataforma y recuadro de respuesta) -->
-        <section id="sec-soporte" class="space-y-6 hidden">
+        <!-- 4. SOLICITUD DE CÓDIGOS / OTP / HOGAR / LINKS (SEPARADO) -->
+        <section id="sec-codigos" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
-                <h2 class="text-base font-bold text-teal-400">🔑 Solicitud de Códigos, OTP, Hogar y Reportes</h2>
+                <h2 class="text-base font-bold text-teal-400">🔑 Solicitud de Códigos, OTP y Links</h2>
+                <p class="text-xs text-zinc-400">Selecciona la plataforma y el correo de tu cuenta activa para solicitar el código o enlace correspondiente.</p>
                 
-                <div id="aviso-acceso-otp" class="hidden bg-rose-500/10 border border-rose-500/20 p-4 rounded-xl text-xs text-rose-400">
-                    ⚠️ Tu cuenta no tiene activado el acceso automático al panel de códigos. Contacta al administrador.
-                </div>
-
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
                     <div>
                         <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Selecciona la Plataforma</label>
@@ -114,32 +112,55 @@
 
                     <div>
                         <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo de la Cuenta Activa</label>
-                        <input type="text" id="rep-correo" placeholder="correo@cuenta.com" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <input type="text" id="cod-correo" placeholder="correo@cuenta.com" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Tipo de Solicitud</label>
-                        <select id="rep-tipo" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">¿Qué necesitas?</label>
+                        <select id="cod-tipo" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                            <option value="Link">Link</option>
                             <option value="Código">Código</option>
                             <option value="Código verificación Netflix">Código verificación Netflix</option>
                             <option value="Link (Cambio de contraseña / Verificación)">Link (Cambio de contraseña / Verificación)</option>
                             <option value="Hogar (Netflix)">Hogar (Netflix)</option>
-                            <option value="Cuenta Caída / Reportar Falla">Cuenta Caída / Reportar Falla</option>
                         </select>
                     </div>
 
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Detalles adicionales o Falla</label>
-                        <textarea id="rep-desc" rows="3" placeholder="Detalles..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
-                    </div>
-
-                    <button onclick="enviarReporteFalla()" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Solicitud / Reporte</button>
+                    <button onclick="solicitarCodigoOtp()" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Solicitud de Código / Link</button>
 
                     <!-- Recuadro donde aparecerá la respuesta automática del código o link -->
                     <div id="resultado-codigo-container" class="hidden mt-4 bg-zinc-900 border border-teal-500/40 p-4 rounded-xl space-y-2">
                         <span class="text-[10px] uppercase font-bold text-teal-400 block">⚡ Respuesta del Sistema / Administrador:</span>
                         <div id="resultado-codigo-texto" class="text-xs text-white font-mono bg-black p-3 rounded-lg border border-zinc-800 select-all">Esperando respuesta...</div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. REPORTAR CAÍDAS / FALLAS CON FOTO (SEPARADO) -->
+        <section id="sec-reportes" class="space-y-6 hidden">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
+                <h2 class="text-base font-bold text-rose-400">⚠️ Reportar Cuenta Caída o Falla</h2>
+                <p class="text-xs text-zinc-400">Reporta si una cuenta dejó de funcionar antes de su garantía para validación y reposición.</p>
+                
+                <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Plataforma</label>
+                        <input type="text" id="rep-plataforma" placeholder="Ej. Netflix Completa" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo de la Cuenta con Falla</label>
+                        <input type="text" id="rep-correo" placeholder="correo@cuenta.com" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Descripción de la Falla</label>
+                        <textarea id="rep-desc" rows="3" placeholder="Detalla el problema..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Evidencia (Foto / Captura de pantalla)</label>
+                        <input type="file" id="rep-foto" accept="image/*" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-400 file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-teal-500 file:text-black hover:file:bg-teal-400">
+                    </div>
+                    <button onclick="enviarReporteFalla()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Reporte de Falla</button>
                 </div>
             </div>
         </section>
@@ -327,7 +348,7 @@
             { cantidad: 1166, precio: 145 }, { cantidad: 2398, precio: 275 }, { cantidad: 6160, precio: 680 }
         ];
 
-        // 🌟 CATÁLOGO MAESTRO AL 100% (Con absolutamente todos los productos, modales y plazos)
+        // 🌟 CATÁLOGO OFICIAL 100% INTACTO CON TODOS LOS PRODUCTOS
         const catalogoOficial = [
             { id: 'netflix_1m', nombre: '🎬 Netflix Completa (1M)', precio: 210, rangos: [{min: 1, max: 4, p: 210}, {min: 5, max: 9, p: 200}, {min: 10, max: 40, p: 190}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.', colorBtn: 'bg-red-700 hover:bg-red-600 text-white' },
             { id: 'netflixindivpass_1m', nombre: '🎬 Netflix Individual (Con Contraseña) (1M)', precio: 55, rangos: [{min: 1, max: 4, p: 55}, {min: 5, max: 9, p: 53}], desc: 'Renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-red-700 hover:bg-red-600 text-white' },
@@ -720,12 +741,16 @@
         }
 
         function mostrarSeccion(seccion) {
-            ['tienda', 'manuales', 'cuentas', 'soporte'].forEach(s => {
-                document.getElementById('sec-' + s).classList.add('hidden');
-                document.getElementById('nav-' + s).className = "px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all";
+            ['tienda', 'manuales', 'cuentas', 'codigos', 'reportes'].forEach(s => {
+                const el = document.getElementById('sec-' + s);
+                const nav = document.getElementById('nav-' + s);
+                if(el) el.classList.add('hidden');
+                if(nav) nav.className = "px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all";
             });
-            document.getElementById('sec-' + seccion).classList.remove('hidden');
-            document.getElementById('nav-' + seccion).className = "px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg";
+            const secTarget = document.getElementById('sec-' + seccion);
+            const navTarget = document.getElementById('nav-' + seccion);
+            if(secTarget) secTarget.classList.remove('hidden');
+            if(navTarget) navTarget.className = "px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg";
             if(seccion === 'cuentas') cargarMisCuentas();
         }
 
@@ -759,12 +784,11 @@
             `).join('');
         }
 
-        // SOLICITUD DE CÓDIGOS, OTP, HOGAR Y REPORTES CON RECUADRO DE RESPUESTA
-        async function enviarReporteFalla() {
+        // 1. SOLICITUD DE CÓDIGOS, OTP Y HOGAR (SEPARADO)
+        async function solicitarCodigoOtp() {
             const plataforma = document.getElementById('cod-plataforma').value;
-            const correo = document.getElementById('rep-correo').value.trim();
-            const tipo = document.getElementById('rep-tipo').value;
-            const desc = document.getElementById('rep-desc').value.trim();
+            const correo = document.getElementById('cod-correo').value.trim();
+            const tipo = document.getElementById('cod-tipo').value;
             if(!correo) return alert('Ingresa el correo de la cuenta.');
 
             await supabaseClient.from('reportes').insert([{ 
@@ -772,19 +796,50 @@
                 plataforma: plataforma, 
                 correo_cuenta: correo, 
                 tipo_solicitud: tipo, 
-                descripcion: desc || 'Sin descripción adicional' 
+                descripcion: `Solicitud de Código/Link: ${tipo}` 
             }]);
 
-            const mensajeTelegram = `🔑 *¡Nueva Solicitud / Reporte!* ⚡\n\n👤 *Revendedor:* \`${correoUsuarioActual}\`\n🎮 *Plataforma:* ${plataforma}\n📧 *Cuenta:* ${correo}\n📋 *Tipo:* ${tipo}\n📝 *Detalle:* ${desc}`;
-            await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(mensajeTelegram)}&parse_mode=Markdown`);
+            const mensajeOtp = `🔑 *¡Solicitud de Código / Link!* ⚡\n\n👤 *Revendedor:* \`${correoUsuarioActual}\`\n🎮 *Plataforma:* ${plataforma}\n📧 *Cuenta:* ${correo}\n📋 *Necesita:* ${tipo}`;
+            await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(mensajeOtp)}&parse_mode=Markdown`);
 
-            // Mostramos el recuadro de respuesta automática abajo
             const container = document.getElementById('resultado-codigo-container');
             const textoBox = document.getElementById('resultado-codigo-texto');
             container.classList.remove('hidden');
-            textoBox.innerText = `Solicitud enviada para [${plataforma}] - ${correo}.\nTipo: ${tipo}\n\n⏳ Tu código, enlace o respuesta del administrador aparecerá aquí en cuanto se procese...`;
+            textoBox.innerText = `Solicitud enviada para [${plataforma}] - ${correo}.\nTipo: ${tipo}\n\n⏳ Esperando respuesta del administrador (el código, enlace o respuesta aparecerá aquí en cuanto se procese)...`;
 
-            alert('¡Solicitud / Reporte enviado con éxito!');
+            alert('¡Solicitud enviada con éxito!');
+        }
+
+        // 2. REPORTAR CUENTA CAÍDA O FALLA CON FOTO (SEPARADO)
+        async function enviarReporteFalla() {
+            const plataforma = document.getElementById('rep-plataforma').value.trim();
+            const correo = document.getElementById('rep-correo').value.trim();
+            const desc = document.getElementById('rep-desc').value.trim();
+            const inputFile = document.getElementById('rep-foto');
+            
+            if(!plataforma || !correo || !desc) return alert('Llena todos los campos obligatorios del reporte.');
+
+            let nombreArchivo = 'Sin foto adjunta';
+            if(inputFile && inputFile.files.length > 0) {
+                nombreArchivo = inputFile.files[0].name;
+            }
+
+            await supabaseClient.from('reportes').insert([{
+                usuario_correo: correoUsuarioActual,
+                plataforma: plataforma,
+                correo_cuenta: correo,
+                tipo_solicitud: 'caida',
+                descripcion: `Falla: ${desc} | Evidencia: ${nombreArchivo}`
+            }]);
+
+            const mensajeFalla = `⚠️ *¡Reporte de Cuenta Caída!* 🛑\n\n👤 *Revendedor:* \`${correoUsuarioActual}\`\n🎮 *Plataforma:* ${plataforma}\n📧 *Cuenta:* ${correo}\n📝 *Detalle:* ${desc}\n🖼️ *Archivo:* ${nombreArchivo}`;
+            await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(mensajeFalla)}&parse_mode=Markdown`);
+
+            alert('¡Reporte de caída enviado con éxito!');
+            document.getElementById('rep-plataforma').value = '';
+            document.getElementById('rep-correo').value = '';
+            document.getElementById('rep-desc').value = '';
+            if(inputFile) inputFile.value = '';
         }
 
         window.onload = inicializarCliente;
