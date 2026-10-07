@@ -117,15 +117,18 @@
         let carritoTotal = 0;
         let productoEnCarrito = null;
 
-        // Catálogo oficial con opciones de meses y términos (T&C)
+        // Catálogo oficial con variantes, plazos y T&C configurables fácilmente aquí
         const catalogoOficial = [
-            { nombre: 'Disney Premium', precio: 65, plazos: [1, 3, 6], desc: 'Cuenta completa oficial.', tyc: 'Garantía por el plazo adquirido. No cambiar correo ni contraseña.' },
-            { nombre: 'MAX Platino', precio: 95, plazos: [1, 3, 12], desc: 'Platino calidad máxima.', tyc: 'Uso exclusivo en dispositivos permitidos. Respetar pantallas.' },
-            { nombre: 'Prime Video', precio: 65, plazos: [1, 6], desc: 'Acceso completo.', tyc: 'Cuenta con garantía total ante caídas dentro del periodo.' },
-            { nombre: 'Crunchyroll CP', precio: 35, plazos: [1, 12], desc: 'Cuenta principal (CP).', tyc: 'No modificar perfiles principales creados para el revendedor.' },
-            { nombre: 'Netflix Completa', precio: 210, plazos: [1], desc: 'Netflix Completa C/P.', tyc: 'Mantener el hogar configurado correctamente.' },
-            { nombre: 'Nord VPN', precio: 50, plazos: [1, 12], desc: 'Acceso completo VPN.', tyc: 'No revender accesos simultáneos fuera de lo permitido.' },
-            { nombre: 'VIX', precio: 35, plazos: [1, 6], desc: 'VIX Completa.', tyc: 'Garantía activa durante la vigencia.' }
+            { nombre: 'Disney Premium', precio: 65, plazos: ['1 Mes', '3 Meses', '6 Meses'], desc: 'Cuenta completa oficial.', tyc: 'Garantía por el plazo adquirido. No cambiar correo ni contraseña.' },
+            { nombre: 'MAX Platino', precio: 95, plazos: ['1 Mes', '3 Meses', '12 Meses'], desc: 'Platino calidad máxima.', tyc: 'Uso exclusivo en dispositivos permitidos. Respetar pantallas.' },
+            { nombre: 'Prime Video 1M', precio: 20, plazos: ['1 Mes'], desc: 'Prime Video 1 Mes.', tyc: 'Cuenta con garantía total ante caídas dentro del periodo.' },
+            { nombre: 'Prime Video 6M', precio: 65, plazos: ['6 Meses'], desc: 'Prime Video 6 Meses.', tyc: 'Cuenta con garantía total ante caídas dentro del periodo.' },
+            { nombre: 'Apple TV', precio: 30, plazos: ['1 Mes', '3 Meses'], desc: 'Apple TV MLS + F1.', tyc: 'Respetar las políticas de acceso de la plataforma.' },
+            { nombre: 'Crunchyroll CP', precio: 35, plazos: ['1 Mes', '12 Meses'], desc: 'Cuenta principal (CP).', tyc: 'No modificar perfiles principales creados para el revendedor.' },
+            { nombre: 'Netflix Completa', precio: 210, plazos: ['1 Mes'], desc: 'Netflix Completa C/P.', tyc: 'Mantener el hogar configurado correctamente.' },
+            { nombre: 'Netflix Individual', precio: 50, plazos: ['1 Mes'], desc: 'Netflix Individual Code/Pass.', tyc: 'Usar únicamente en el dispositivo asignado.' },
+            { nombre: 'Nord VPN', precio: 50, plazos: ['1 Mes', '12 Meses'], desc: 'Acceso completo VPN.', tyc: 'No revender accesos simultáneos fuera de lo permitido.' },
+            { nombre: 'VIX', precio: 35, plazos: ['1 Mes', '6 Meses'], desc: 'VIX Completa.', tyc: 'Garantía activa durante la vigencia.' }
         ];
 
         async function inicializarCliente() {
@@ -157,7 +160,7 @@
             contenedor.innerHTML = catalogoOficial.map((p, index) => {
                 const stockCount = inventario ? inventario.filter(i => i.plataforma.toLowerCase().includes(p.nombre.toLowerCase())).length : 0;
                 
-                let opcionesPlazos = p.plazos.map(mes => `<option value="${mes}">${mes} ${mes === 1 ? 'Mes' : 'Meses'}</option>`).join('');
+                let opcionesPlazos = p.plazos.map(mes => `<option value="${mes}">${mes}</option>`).join('');
 
                 return `
                     <div class="bg-black border border-zinc-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
@@ -238,7 +241,7 @@
 
             document.getElementById('contador-carrito').innerText = cantidad + ' ítems';
             document.getElementById('total-carrito').innerText = '$' + carritoTotal.toFixed(2) + ' MXN';
-            alert(`¡Se añadió ${cantidad}x ${nombre} (${plazoSeleccionado} Mes/es) al carrito!`);
+            alert(`¡Se añadió ${cantidad}x ${nombre} (${plazoSeleccionado}) al carrito!`);
         }
 
         async function pagarCarrito() {
@@ -271,7 +274,7 @@
             document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
 
             let detalleCuentas = stockItems.map(c => `• ${c.correo_cuenta} / Pass: ${c.password_cuenta}`).join('\n');
-            alert(`¡Compra Exitosa (${productoEnCarrito.plazo} Mes/es)!\n\nTus cuentas:\n${detalleCuentas}`);
+            alert(`¡Compra Exitosa (${productoEnCarrito.plazo})!\n\nTus cuentas:\n${detalleCuentas}`);
 
             productoEnCarrito = null;
             carritoItems = 0;
