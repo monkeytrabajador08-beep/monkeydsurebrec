@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Revendedor - Catálogo y Subclientes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 md:p-8">
+
+    <!-- Header del Revendedor -->
+    <header class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-8 shadow-xl gap-4">
+        <div>
+            <h1 class="text-xl font-bold bg-gradient-to-r from-purple-400 to-indigo-500 bg-clip-text text-transparent">Panel de Revendedor 💼</h1>
+            <p class="text-xs text-slate-400 mt-1">Gestiona tu saldo, compra stock y administra a tus subclientes</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2 rounded-lg transition-colors">Cerrar Sesión</a>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto space-y-8">
+
+        <!-- Saldo y Estado -->
+        <div class="flex flex-col md:flex-row justify-between items-center bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl gap-4">
+            <div>
+                <h2 class="text-lg font-bold">Bienvenido de nuevo</h2>
+                <p class="text-xs text-slate-400 mt-0.5">Tu saldo actual disponible para compras automáticas:</p>
+            </div>
+            <div class="text-center md:text-right">
+                <span class="text-3xl font-extrabold text-emerald-400">$450.00 MXN</span>
+                <br>
+                <button class="text-xs text-purple-400 hover:underline mt-1 font-medium inline-block">Solicitar Recarga de Saldo +</button>
+            </div>
+        </div>
+
+        <!-- Tienda de Revendedor (Gancho y Precios) -->
+        <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+            <h2 class="text-base font-bold mb-4">🛍️ Catálogo Exclusivo</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2.5 py-1 rounded-md font-semibold">1 MES</span>
+                        <h3 class="font-bold mt-3 text-white text-base">Netflix (Miembro Extra)</h3>
+                        <p class="text-2xl font-black text-emerald-400 mt-2">$35.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                    </div>
+                    <button class="mt-5 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">Comprar con Saldo</button>
+                </div>
+                <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col justify-between">
+                    <div>
+                        <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2.5 py-1 rounded-md font-semibold">1 MES</span>
+                        <h3 class="font-bold mt-3 text-white text-base">Disney+ Estándar</h3>
+                        <p class="text-2xl font-black text-emerald-400 mt-2">$25.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                    </div>
+                    <button class="mt-5 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">Comprar con Saldo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gestión de Subclientes -->
+        <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                <div>
+                    <h2 class="text-base font-bold">👤 Mis Subclientes / Equipo</h2>
+                    <p class="text-xs text-slate-400">Crea accesos para tus sub-revendedores y asígnales cuentas de tu stock.</p>
+                </div>
+                <button class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-4 py-2.5 rounded-lg font-medium transition-colors">+ Crear Nuevo Subcliente</button>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-slate-950 text-slate-400 uppercase text-xs">
+                        <tr>
+                            <th class="p-3">Subcliente</th>
+                            <th class="p-3">Correo Asignado</th>
+                            <th class="p-3">Cuentas Activas</th>
+                            <th class="p-3 text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800 text-slate-300">
+                        <tr>
+                            <td class="p-3 font-medium text-white">Subcliente_Pedro</td>
+                            <td class="p-3">pedro_sub@gmail.com</td>
+                            <td class="p-3">1 Cuenta</td>
+                            <td class="p-3 text-right">
+                                <button class="bg-slate-800 hover:bg-slate-700 text-white text-xs px-3 py-1.5 rounded-lg">Asignar Cuenta</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
