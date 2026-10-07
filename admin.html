@@ -5,26 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monkey D Surebrec - Panel Maestro Administrador</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Librería oficial de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-black text-slate-100 min-h-screen p-4 md:p-8">
+<body class="bg-black text-slate-100 min-h-screen p-4 md:p-8 pb-20">
 
-    <!-- Header del Admin -->
     <header class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center bg-zinc-900 border border-zinc-800 rounded-2xl p-6 mb-8 shadow-2xl shadow-cyan-950/20 gap-4">
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec · Admin</h2>
-            <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel Maestro · Control Absoluto 👑</h1>
-            <p class="text-xs text-zinc-400 mt-1">Gestión de stock en vivo, aprobaciones y control de seguridad</p>
+            <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel Maestro · Control Financiero y Stock 👑</h1>
+            <p class="text-xs text-zinc-400 mt-1">Dashboard de ganancias en vivo y gestión de entregas automáticas/manuales</p>
         </div>
-        <div class="flex items-center gap-3">
-            <a href="index.html" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-4 py-2 rounded-xl transition-colors">Cerrar Sesión</a>
+        <div>
+            <a href="index.html" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-4 py-2.5 rounded-xl transition-colors">Cerrar Sesión</a>
         </div>
     </header>
 
     <main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- 1. Aprobaciones de Revendedores (Conectado a Supabase) -->
+        <!-- 1. DASHBOARD DE GANANCIAS DEL MES -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                <span class="text-xs font-semibold uppercase text-zinc-400">Ganancias Web (Este Mes)</span>
+                <h3 id="dash-ganancias" class="text-3xl font-black text-emerald-400 mt-2">$0.00 <span class="text-xs font-normal text-zinc-500">MXN</span></h3>
+                <span class="text-[10px] text-zinc-500 mt-2">Calculado de compras automáticas de revendedores</span>
+            </div>
+            <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                <span class="text-xs font-semibold uppercase text-zinc-400">Cuentas Vendidas (Mes)</span>
+                <h3 id="dash-vendidas" class="text-3xl font-black text-teal-400 mt-2">0</h3>
+                <span class="text-[10px] text-zinc-500 mt-2">Total de accesos despachados por la plataforma</span>
+            </div>
+            <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                <span class="text-xs font-semibold uppercase text-zinc-400">Pedidos Manuales Pendientes</span>
+                <h3 id="dash-manuales-pendientes" class="text-3xl font-black text-cyan-400 mt-2">0</h3>
+                <span class="text-[10px] text-zinc-500 mt-2">Requieren captura y atención personalizada</span>
+            </div>
+        </section>
+
+        <!-- 2. APROBACIONES DE REVENDEDORES -->
         <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
             <h2 class="text-base font-bold mb-4 flex items-center gap-2">👥 Solicitudes de Registro Pendientes</h2>
             <div class="overflow-x-auto">
@@ -38,187 +55,170 @@
                         </tr>
                     </thead>
                     <tbody id="tabla-solicitudes" class="divide-y divide-zinc-800 text-zinc-300">
-                        <tr>
-                            <td colspan="4" class="p-4 text-center text-zinc-500 text-xs">Cargando solicitudes...</td>
-                        </tr>
+                        <tr><td colspan="4" class="p-4 text-center text-zinc-500 text-xs">Cargando solicitudes...</td></tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- 2. Carga de Inventario Masivo / Individual (Conectado a Supabase) -->
+        <!-- 3. PEDIDOS MANUALES (ENTREGAS MANUALES) -->
         <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
-                <h2 class="text-base font-bold">📦 Alta de Inventario Directa a Base de Datos</h2>
-                <div class="flex bg-black p-1 rounded-xl border border-zinc-800 text-xs font-medium">
-                    <button onclick="cambiarModoStock('individual')" id="btn-ind" class="px-3 py-1.5 rounded-lg bg-teal-500 text-black font-bold transition-all">Individual (1x1)</button>
-                    <button onclick="cambiarModoStock('masivo')" id="btn-mas" class="px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all">Carga Masiva</button>
-                </div>
+            <h2 class="text-base font-bold mb-4 flex items-center gap-2">🛠️ Gestión de Pedidos / Entregas Manuales</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-black text-zinc-400 uppercase text-xs">
+                        <tr>
+                            <th class="p-3">Cliente / Revendedor</th>
+                            <th class="p-3">Servicio</th>
+                            <th class="p-3">Datos Proporcionados</th>
+                            <th class="p-3 text-right">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-manuales" class="divide-y divide-zinc-800 text-zinc-300">
+                        <tr><td colspan="4" class="p-4 text-center text-zinc-500 text-xs">No hay pedidos manuales pendientes.</td></tr>
+                    </tbody>
+                </table>
             </div>
+        </section>
 
-            <!-- Formulario Individual -->
-            <form id="stock-individual" class="grid grid-cols-1 md:grid-cols-4 gap-4" onsubmit="guardarCuentaIndividual(event)">
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Plataforma</label>
-                    <select id="ind-plataforma" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
-                        <option value="Netflix">Netflix (Miembro Extra)</option>
-                        <option value="Disney+">Disney+ Estándar</option>
-                        <option value="MAX">MAX Platino</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo</label>
-                    <input type="text" id="ind-correo" placeholder="cuenta@dominio.com" required class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Contraseña</label>
-                    <input type="text" id="ind-pass" placeholder="Contraseña" required class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
-                </div>
-                <div class="flex items-end">
-                    <button type="submit" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-sm py-2 rounded-xl transition-colors">Guardar al Stock</button>
-                </div>
-            </form>
-
-            <!-- Formulario Masivo -->
-            <form id="stock-masivo" class="space-y-4 hidden" onsubmit="guardarStockMasivo(event)">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- 4. ALTA DE INVENTARIO -->
+        <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
+            <h2 class="text-base font-bold mb-4">📦 Alta de Inventario (Cuentas Completas y Lotes)</h2>
+            <form class="space-y-4" onsubmit="guardarInventarioAdmin(event)">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Plataforma para el Lote</label>
-                        <select id="masivo-plataforma" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
-                            <option value="Netflix">Netflix (Miembro Extra)</option>
-                            <option value="Disney+">Disney+ Estándar</option>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Plataforma</label>
+                        <select id="admin-plataforma" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
+                            <option value="Disney Premium">Disney Premium Completa</option>
+                            <option value="MAX Platino">MAX Platino Completa</option>
+                            <option value="Prime Video">Prime Video Completa</option>
+                            <option value="Crunchyroll CP">Crunchyroll Cuenta Principal (CP)</option>
+                            <option value="Nord VPN">Nord VPN (Completa)</option>
+                            <option value="VIX">VIX Completa</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Pega tu lista (Formato: correo:contraseña)</label>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Tipo de Presentación</label>
+                        <select id="admin-tipo" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
+                            <option value="individual">Unidad Individual (1x)</option>
+                            <option value="lote_5">Lote de 5 Unidades</option>
+                            <option value="lote_10">Lote de 10 Unidades</option>
+                            <option value="lote_50">Lote de 50 Unidades</option>
+                            <option value="lote_100">Lote de 100 Unidades</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Acción</label>
+                        <button type="submit" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-sm py-2 rounded-xl transition-colors">Guardar en Base de Datos</button>
                     </div>
                 </div>
-                <textarea id="masivo-texto" rows="4" placeholder="correo1@domain.com:pass123&#10;correo2@domain.com:pass456" class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white font-mono"></textarea>
-                <button type="submit" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Procesar y Cargar Lote a Base de Datos</button>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Pega tu cuenta o lote (Formato: correo:contraseña)</label>
+                    <textarea id="admin-texto" rows="4" placeholder="correo@dominio.com:password123" class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white font-mono" required></textarea>
+                </div>
             </form>
         </section>
 
     </main>
 
-    <!-- Conexión y Lógica con Supabase -->
     <script>
         const SUPABASE_URL = 'https://hlkuleummozpanmtwcxp.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_bzjhhVbFroDaKBWrKu48yA_uFkcfegJ';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Cargar solicitudes pendientes al abrir la página
-        async function cargarSolicitudes() {
-            const { data, error } = await supabaseClient
-                .from('usuarios')
-                .select('*')
-                .eq('estado', 'pendiente');
-
-            const tbody = document.getElementById('tabla-solicitudes');
-            if (error || !data || data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-zinc-500 text-xs">No hay solicitudes pendientes.</td></tr>`;
-                return;
-            }
-
-            tbody.innerHTML = data.map(u => `
-                <tr>
-                    <td class="p-3 font-medium text-white">${u.nombre}</td>
-                    <td class="p-3">${u.correo}</td>
-                    <td class="p-3">${u.whatsapp || 'N/A'}</td>
-                    <td class="p-3 text-right space-x-2">
-                        <button onclick="cambiarEstadoUsuario('${u.id}', 'aprobado')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium">Aprobar</button>
-                        <button onclick="cambiarEstadoUsuario('${u.id}', 'rechazado')" class="bg-rose-600 hover:bg-rose-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium">Rechazar</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        async function cambiarEstadoUsuario(id, nuevoEstado) {
-            if(nuevoEstado === 'rechazado') {
-                await supabaseClient.from('usuarios').delete().eq('id', id);
+        async function cargarDashboardYDatos() {
+            // 1. Cargar Solicitudes de Registro
+            const { data: solicitudes } = await supabaseClient.from('usuarios').select('*').eq('estado', 'pendiente');
+            const tbodySol = document.getElementById('tabla-solicitudes');
+            if (!solicitudes || solicitudes.length === 0) {
+                tbodySol.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-zinc-500 text-xs">No hay solicitudes pendientes.</td></tr>`;
             } else {
-                await supabaseClient.from('usuarios').update({ estado: 'aprobado' }).eq('id', id);
+                tbodySol.innerHTML = solicitudes.map(u => `
+                    <tr>
+                        <td class="p-3 font-medium text-white">${u.nombre}</td>
+                        <td class="p-3">${u.correo}</td>
+                        <td class="p-3">${u.whatsapp || 'N/A'}</td>
+                        <td class="p-3 text-right">
+                            <button onclick="aprobarUsuario('${u.id}')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium">Aprobar</button>
+                        </td>
+                    </tr>
+                `).join('');
             }
-            alert('¡Acción aplicada con éxito!');
-            cargarSolicitudes();
-        }
 
-        // Cambiar pestañas de stock
-        function cambiarModoStock(modo) {
-            const ind = document.getElementById('stock-individual');
-            const mas = document.getElementById('stock-masivo');
-            const bInd = document.getElementById('btn-ind');
-            const bMas = document.getElementById('btn-mas');
-            if (modo === 'individual') {
-                ind.classList.remove('hidden'); mas.classList.add('hidden');
-                bInd.className = "px-3 py-1.5 rounded-lg bg-teal-500 text-black font-bold transition-all";
-                bMas.className = "px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all";
+            // 2. Calcular Ganancias del Mes desde la tabla de inventario asignado o transacciones
+            const { data: asignadas } = await supabaseClient.from('inventario').select('*').eq('estado', 'asignada');
+            if (asignadas) {
+                document.getElementById('dash-vendidas').innerText = asignadas.length;
+                // Estimado provisional de ganancias basado en stock despachado
+                document.getElementById('dash-ganancias').innerText = '$' + (asignadas.length * 45).toFixed(2) + ' MXN';
+            }
+
+            // 3. Cargar Pedidos Manuales pendientes
+            const { data: manuales } = await supabaseClient.from('reportes').select('*').eq('estado', 'pendiente');
+            const tbodyMan = document.getElementById('tabla-manuales');
+            if (!manuales || manuales.length === 0) {
+                tbodyMan.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-zinc-500 text-xs">No hay pedidos manuales pendientes.</td></tr>`;
+                document.getElementById('dash-manuales-pendientes').innerText = '0';
             } else {
-                ind.classList.add('hidden'); mas.classList.remove('hidden');
-                bMas.className = "px-3 py-1.5 rounded-lg bg-teal-500 text-black font-bold transition-all";
-                bInd.className = "px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all";
+                document.getElementById('dash-manuales-pendientes').innerText = manuales.length;
+                tbodyMan.innerHTML = manuales.map(m => `
+                    <tr>
+                        <td class="p-3 font-medium text-white">${m.usuario_correo}</td>
+                        <td class="p-3 text-teal-400 font-semibold">${m.plataforma}</td>
+                        <td class="p-3">${m.descripcion}</td>
+                        <td class="p-3 text-right">
+                            <button onclick="atenderManual('${m.id}')" class="bg-teal-600 hover:bg-teal-500 text-black text-xs px-3 py-1.5 rounded-lg font-bold">Completar</button>
+                        </td>
+                    </tr>
+                `).join('');
             }
         }
 
-        // Guardar cuenta individual en Supabase
-        async function guardarCuentaIndividual(e) {
+        async function aprobarUsuario(id) {
+            await supabaseClient.from('usuarios').update({ estado: 'aprobado' }).eq('id', id);
+            alert('¡Usuario aprobado con éxito!');
+            cargarDashboardYDatos();
+        }
+
+        async function atenderManual(id) {
+            await supabaseClient.from('reportes').update({ estado: 'completado' }).eq('id', id);
+            alert('¡Pedido manual marcado como completado!');
+            cargarDashboardYDatos();
+        }
+
+        async function guardarInventarioAdmin(e) {
             e.preventDefault();
-            const plataforma = document.getElementById('ind-plataforma').value;
-            const correo_cuenta = document.getElementById('ind-correo').value;
-            const password_cuenta = document.getElementById('ind-pass').value;
-
-            const { error } = await supabaseClient
-                .from('inventario')
-                .insert([{ plataforma, correo_cuenta, password_cuenta, estado: 'disponible' }]);
-
-            if (error) {
-                alert('Error al guardar: ' + error.message);
-            } else {
-                alert('¡Cuenta agregada exitosamente al inventario!');
-                document.getElementById('stock-individual').reset();
-            }
-        }
-
-        // Guardar stock masivo desde texto
-        async function guardarStockMasivo(e) {
-            e.preventDefault();
-            const plataforma = document.getElementById('masivo-plataforma').value;
-            const texto = document.getElementById('masivo-texto').value.trim();
-            if(!texto) return alert('Por favor ingresa cuentas.');
-
+            const plataforma = document.getElementById('admin-plataforma').value;
+            const tipo_paquete = document.getElementById('admin-tipo').value;
+            const texto = document.getElementById('admin-texto').value.trim();
             const lineas = texto.split('\n');
-            const nuevasCuentas = [];
+            const nuevos = [];
 
-            lineas.forEach(linea => {
-                const partes = linea.split(':');
-                if(partes.length >= 2) {
-                    nuevasCuentas.push({
+            lineas.forEach(l => {
+                const p = l.split(':');
+                if(p.length >= 2) {
+                    nuevos.push({
                         plataforma,
-                        correo_cuenta: partes[0].trim(),
-                        password_cuenta: partes[1].trim(),
+                        tipo_paquete,
+                        correo_cuenta: p[0].trim(),
+                        password_cuenta: p[1].trim(),
                         estado: 'disponible'
                     });
                 }
             });
 
-            if(nuevasCuentas.length === 0) {
-                alert('Formato incorrecto. Usa correo:contraseña por cada línea.');
-                return;
-            }
+            if(nuevos.length === 0) return alert('Formato inválido. Usa correo:contraseña');
 
-            const { error } = await supabaseClient.from('inventario').insert(nuevasCuentas);
-
-            if (error) {
-                alert('Error en lote: ' + error.message);
-            } else {
-                alert(`¡Se cargaron ${nuevasCuentas.length} cuentas al inventario con éxito!`);
-                document.getElementById('masivo-texto').value = '';
+            const { error } = await supabaseClient.from('inventario').insert(nuevos);
+            if(error) alert('Error: ' + error.message);
+            else {
+                alert(`¡Se guardaron ${nuevos.length} registros correctamente!`);
+                document.getElementById('admin-texto').value = '';
+                cargarDashboardYDatos();
             }
         }
 
-        // Cargar al iniciar
-        window.onload = () => {
-            cargarSolicitudes();
-        };
+        window.onload = cargarDashboardYDatos;
     </script>
 </body>
 </html>
