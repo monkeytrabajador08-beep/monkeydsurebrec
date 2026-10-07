@@ -12,7 +12,7 @@
     <header class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-8 shadow-xl gap-4">
         <div>
             <h1 class="text-xl font-bold bg-gradient-to-r from-purple-400 to-indigo-500 bg-clip-text text-transparent">Panel Maestro · Administrador 👑</h1>
-            <p class="text-xs text-slate-400 mt-1">Control absoluto de inventario, stock masivo con .txt, vencimientos y reportes</p>
+            <p class="text-xs text-slate-400 mt-1">Control absoluto de inventario, stock masivo con .txt, vencimientos y reportes detallados</p>
         </div>
         <div class="flex items-center gap-3">
             <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2 rounded-lg transition-colors">Cerrar Sesión</a>
@@ -21,7 +21,7 @@
 
     <main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- Métricas Rápidas -->
+        <!-- Métricas Rápidas (Incluyendo Reportes Totales de Caídas) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
                 <p class="text-[11px] text-slate-400 uppercase font-semibold">Pendientes Aprobación</p>
@@ -40,8 +40,8 @@
                 <h3 class="text-xl font-bold text-slate-300 mt-1.5">12 Listas</h3>
             </div>
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-                <p class="text-[11px] text-slate-400 uppercase font-semibold">Reportes de Soporte</p>
-                <h3 class="text-xl font-bold text-blue-400 mt-1.5">3 Nuevos</h3>
+                <p class="text-[11px] text-slate-400 uppercase font-semibold">Total Cuentas Caídas</p>
+                <h3 class="text-xl font-bold text-blue-400 mt-1.5">3 Reportes</h3>
             </div>
         </div>
 
@@ -73,7 +73,7 @@
             </div>
         </section>
 
-        <!-- 2. Carga y Gestión de Inventario (Con Lógica Real de .txt) -->
+        <!-- 2. Carga y Gestión de Inventario -->
         <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
                 <h2 class="text-base font-bold">📦 Alta de Inventario / Stock</h2>
@@ -107,7 +107,7 @@
                 </div>
             </form>
 
-            <!-- Formulario Masivo (.txt con Lectura Real) -->
+            <!-- Formulario Masivo (.txt) -->
             <form id="stock-masivo" class="space-y-4 hidden" onsubmit="procesarArchivoTxt(event)">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -124,28 +124,31 @@
                         <input type="file" id="archivo-txt" accept=".txt" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-400 file:mr-4 file:py-1.5 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-500">
                     </div>
                 </div>
-                <p class="text-[11px] text-slate-400">Formato esperado por línea en el archivo: <code class="bg-slate-950 px-2 py-0.5 rounded text-indigo-400">correo@dominio.com:contraseña</code></p>
+                <p class="text-[11px] text-slate-400">Formato esperado por línea: <code class="bg-slate-950 px-2 py-0.5 rounded text-indigo-400">correo@dominio.com:contraseña</code></p>
                 <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">Procesar y Cargar Lote Completo</button>
             </form>
         </section>
 
-        <!-- 3. Semáforo de Vencimientos y Asignación Manual -->
+        <!-- 3. Semáforo de Vencimientos (Con botón de WhatsApp Semiautomático) y Asignación Manual -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
             <!-- Semáforo de Vencimientos -->
             <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                <h2 class="text-base font-bold mb-4">⏰ Control de Vencimientos (3 Días / Liberadas)</h2>
+                <h2 class="text-base font-bold mb-4">⏰ Control de Vencimientos (Semiautomático WhatsApp)</h2>
                 <div class="space-y-3">
                     <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl flex justify-between items-center text-xs">
                         <div>
-                            <span class="text-rose-400 font-bold">Vence en 2 días</span>
+                            <span class="text-rose-400 font-bold">⚠️ Vence en 2 días</span>
                             <p class="text-white font-medium mt-0.5">Netflix · client_carlos</p>
                         </div>
-                        <button class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-1 rounded-lg">Renovar</button>
+                        <div class="flex gap-2">
+                            <a href="https://wa.me/?text=Hola%20Carlos,%20te%20recuerdo%20que%20tu%20cuenta%20de%20Netflix%20est%C3%A1%20a%20punto%20de%20vencer%20en%202%20d%C3%ADas.%20%C2%BFDeseas%20renovarla?" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded-lg flex items-center gap-1 font-medium">💬 WhatsApp</a>
+                            <button class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-1 rounded-lg">Renovar</button>
+                        </div>
                     </div>
                     <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl flex justify-between items-center text-xs">
                         <div>
-                            <span class="text-slate-300 font-bold">Liberada (Vencida)</span>
+                            <span class="text-slate-300 font-bold">🟢 Liberada (Vencida)</span>
                             <p class="text-white font-medium mt-0.5">Disney+ · client_ana</p>
                         </div>
                         <button class="bg-slate-800 hover:bg-slate-700 text-white px-3 py-1 rounded-lg">Reciclar / Editar Pass</button>
@@ -156,7 +159,7 @@
             <!-- Asignación Manual Optimizada -->
             <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
                 <h2 class="text-base font-bold mb-4">✍️ Asignación Manual Optimizada</h2>
-                <form class="space-y-3" onsubmit="event.preventDefault(); alert('Cuenta asignada correctamente al usuario.');">
+                <form class="space-y-3" onsubmit="event.preventDefault(); alert('Cuenta asignada correctamente.');">
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">1. Seleccionar Usuario / Revendedor</label>
                         <select class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white">
@@ -169,7 +172,6 @@
                         <select class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white">
                             <option>Netflix (Miembro Extra) - (14 disponibles)</option>
                             <option>Disney+ Estándar - (8 disponibles)</option>
-                            <option>MAX Platino - (5 disponibles)</option>
                         </select>
                     </div>
                     <div>
@@ -185,15 +187,20 @@
 
         </div>
 
-        <!-- 4. Apartado de Reportes y Soporte -->
+        <!-- 4. Bandeja de Reportes de Caídas (Con Fecha de Compra, Vencimiento y Evidencia) -->
         <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-            <h2 class="text-base font-bold mb-4 flex items-center gap-2">🚨 Bandeja de Reportes y Caídas</h2>
+            <h2 class="text-base font-bold mb-4 flex items-center gap-2">🚨 Bandeja de Reportes de Cuentas Caídas</h2>
             <div class="space-y-4">
                 <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
+                    <div class="space-y-1">
                         <span class="text-xs text-purple-400 font-semibold">Subcliente_Pedro · Netflix (correo@toxapa.com)</span>
-                        <p class="text-sm text-amber-400 mt-1">"Termina de configurar este TV para el hogar"</p>
-                        <button onclick="alert('Abriendo captura de pantalla adjunta por el usuario...')" class="mt-2 inline-flex items-center gap-1 text-[11px] bg-slate-900 hover:bg-slate-800 border border-slate-800 text-blue-400 px-2.5 py-1 rounded-md transition-colors font-medium">📎 Ver Captura / Evidencia</button>
+                        <p class="text-sm text-amber-400">"Termina de configurar este TV para el hogar"</p>
+                        <!-- Fechas automáticas de compra y vencimiento -->
+                        <div class="flex flex-wrap gap-4 text-[11px] text-slate-400 pt-1">
+                            <span>📅 Fecha Compra: <strong class="text-emerald-400">09 de Octubre, 2026</strong></span>
+                            <span>⏳ Fecha Vencimiento: <strong class="text-rose-400">09 de Noviembre, 2026</strong></span>
+                        </div>
+                        <button onclick="alert('Abriendo captura de pantalla adjunta...')" class="mt-2 inline-flex items-center gap-1 text-[11px] bg-slate-900 hover:bg-slate-800 border border-slate-800 text-blue-400 px-2.5 py-1 rounded-md transition-colors font-medium">📎 Ver Captura / Evidencia</button>
                     </div>
                     <div class="flex flex-wrap gap-2 w-full md:w-auto">
                         <button class="bg-purple-600 hover:bg-purple-500 text-white text-xs px-3 py-2 rounded-lg font-medium">Resolver Hogar</button>
@@ -204,7 +211,7 @@
                 <!-- Cuadro para redactar mensaje de rechazo personalizado -->
                 <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-3">
                     <span class="text-xs font-bold text-slate-300 uppercase">Responder / Denegar Reporte con Mensaje Personalizado</span>
-                    <textarea rows="2" placeholder="Escribe aquí el motivo del rechazo o la instrucción para el usuario..." class="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-purple-500"></textarea>
+                    <textarea rows="2" placeholder="Escribe aquí el motivo del rechazo..." class="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-purple-500"></textarea>
                     <div class="flex justify-end">
                         <button onclick="alert('Mensaje de respuesta enviado al usuario correctamente.')" class="bg-slate-800 hover:bg-slate-700 text-rose-400 border border-rose-500/20 text-xs px-4 py-2 rounded-lg font-medium">Enviar Mensaje y Denegar Reporte</button>
                     </div>
@@ -214,9 +221,8 @@
 
     </main>
 
-    <!-- Scripts de Interacción -->
+    <!-- Script de Pestañas Stock -->
     <script>
-        // Alternar entre pestañas de Alta Individual y Masiva
         function cambiarModoStock(modo) {
             const indForm = document.getElementById('stock-individual');
             const masForm = document.getElementById('stock-masivo');
@@ -236,39 +242,20 @@
             }
         }
 
-        // Lógica real para leer y procesar el archivo .txt de cuentas masivas
         function procesarArchivoTxt(event) {
             event.preventDefault();
             const inputArchivo = document.getElementById('archivo-txt');
             const plataforma = document.getElementById('plataforma-lote').value;
-
-            if (inputArchivo.files.length === 0) {
-                alert("Por favor selecciona un archivo .txt");
-                return;
-            }
+            if (inputArchivo.files.length === 0) return;
 
             const archivo = inputArchivo.files[0];
             const lector = new FileReader();
-
             lector.onload = function(e) {
-                const contenido = e.target.result;
-                // Separar el texto por saltos de línea
-                const lineas = contenido.split(/\r?\n/);
-                let cuentasValidas = 0;
-
-                lineas.forEach(linea => {
-                    linea = linea.trim();
-                    if (linea.includes(':')) {
-                        cuentasValidas++;
-                        // Aquí es donde posteriormente guardaremos en la base de datos:
-                        // const [correo, password] = linea.split(':');
-                    }
-                });
-
-                alert(`¡Lote procesado con éxito!\nPlataforma: ${plataforma}\nCuentas cargadas al stock: ${cuentasValidas}`);
-                inputArchivo.value = ""; // Limpiar campo
+                const lineas = e.target.result.split(/\r?\n/);
+                let validas = lineas.filter(l => l.trim().includes(':')).length;
+                alert(`¡Lote procesado!\nPlataforma: ${plataforma}\nCuentas cargadas: ${validas}`);
+                inputArchivo.value = "";
             };
-
             lector.readAsText(archivo);
         }
     </script>
