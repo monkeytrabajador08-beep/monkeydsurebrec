@@ -32,62 +32,97 @@
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto">
+    <main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- SECCIÓN 1: TIENDA / CATÁLOGO (Principal) -->
+        <!-- SECCIÓN 1: TIENDA, CARRITO Y TyC -->
         <section id="sec-tienda" class="space-y-6">
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                <h2 class="text-base font-bold mb-4">🛍️ Catálogo Exclusivo (Compra Directa con Saldo)</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col justify-between">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                    <div>
+                        <h2 class="text-base font-bold">🛍️ Catálogo y Carrito de Compras</h2>
+                        <p class="text-xs text-slate-400">Selecciona varias cuentas, revisa los Términos y Condiciones y procesa tu compra.</p>
+                    </div>
+                    <div class="bg-slate-950 border border-slate-800 px-4 py-2 rounded-xl text-xs flex items-center gap-3">
+                        <span>🛒 Carrito: <strong class="text-purple-400">2 ítems</strong></span>
+                        <button onclick="alert('Procesando compra del carrito con saldo disponible...')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg transition-colors">Pagar Carrito</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Producto 1 -->
+                    <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
                         <div>
                             <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2.5 py-1 rounded-md font-semibold">1 MES</span>
                             <h3 class="font-bold mt-3 text-white text-base">Netflix (Miembro Extra)</h3>
-                            <p class="text-2xl font-black text-emerald-400 mt-2">$35.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                            <p class="text-2xl font-black text-emerald-400 mt-1">$35.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                            
+                            <!-- Términos y Condiciones / Especificaciones -->
+                            <div class="mt-4 bg-slate-900 border border-slate-800 p-3 rounded-lg text-[11px] text-slate-300 space-y-1">
+                                <p class="font-semibold text-purple-300 uppercase text-[10px]">TyC / Especificaciones:</p>
+                                <p>• Cuenta perfil extra / No cambiar correo ni contraseña.</p>
+                                <p>• Garantía de 30 días contra caídas de hogar.</p>
+                            </div>
                         </div>
-                        <button onclick="alert('¡Compra exitosa! La cuenta se ha añadido a tu inventario de cuentas activas.')" class="mt-5 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">Comprar Cuenta</button>
+                        <button onclick="alert('Netflix añadida al carrito de compras.')" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">+ Añadir al Carrito</button>
                     </div>
-                    <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col justify-between">
+
+                    <!-- Producto 2 -->
+                    <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
                         <div>
                             <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2.5 py-1 rounded-md font-semibold">1 MES</span>
                             <h3 class="font-bold mt-3 text-white text-base">Disney+ Estándar</h3>
-                            <p class="text-2xl font-black text-emerald-400 mt-2">$25.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                            <p class="text-2xl font-black text-emerald-400 mt-1">$25.00 <span class="text-xs text-slate-400 font-normal">MXN</span></p>
+                            
+                            <!-- TyC -->
+                            <div class="mt-4 bg-slate-900 border border-slate-800 p-3 rounded-lg text-[11px] text-slate-300 space-y-1">
+                                <p class="font-semibold text-purple-300 uppercase text-[10px]">TyC / Especificaciones:</p>
+                                <p>• Cuenta completa o perfil asignado según stock.</p>
+                                <p>• Soporte activo durante todo el mes de servicio.</p>
+                            </div>
                         </div>
-                        <button onclick="alert('¡Compra exitosa! La cuenta se ha añadido a tu inventario de cuentas activas.')" class="mt-5 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">Comprar Cuenta</button>
+                        <button onclick="alert('Disney+ añadida al carrito de compras.')" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-lg shadow-purple-950">+ Añadir al Carrito</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 2: MIS CUENTAS / INVENTARIO -->
+        <!-- SECCIÓN 2: MIS CUENTAS (Con Opción de Asignar a Subcliente) -->
         <section id="sec-cuentas" class="space-y-6 hidden">
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
                 <h2 class="text-base font-bold mb-4">📦 Inventario de Mis Cuentas Activas</h2>
                 <div class="space-y-3">
-                    <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex justify-between items-center text-xs">
+                    <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs">
                         <div>
                             <span class="text-purple-400 font-semibold uppercase">Netflix (Miembro Extra)</span>
                             <p class="text-white font-mono mt-1">correo_ejemplo@toxapa.com / Pass: W2590094</p>
-                            <p class="text-[10px] text-slate-400 mt-0.5">Vence: 12 de Noviembre, 2026</p>
+                            <p class="text-[10px] text-slate-400 mt-0.5">Compra: 12 de Octubre, 2026 · Vence: 12 de Noviembre, 2026</p>
                         </div>
-                        <span class="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-lg font-medium">Activa</span>
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                            <span class="bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded-lg font-medium">Activa</span>
+                            <button onclick="alert('Abriendo selector para transferir/asignar esta cuenta a tu subcliente...')" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg font-medium">➡️ Asignar a Subcliente</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 3: CÓDIGOS, SOPORTE Y REPORTES (Con Evidencia Fotográfica) -->
+        <!-- SECCIÓN 3: CÓDIGOS Y REPORTES (Filtrado por Plataforma y Búsqueda por Correo) -->
         <section id="sec-soporte" class="space-y-6 hidden">
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
-                <h2 class="text-base font-bold">🔑 Panel de Códigos y Solicitud de Soporte</h2>
+                <h2 class="text-base font-bold">🔑 Panel de Códigos y Reportes con Búsqueda Inteligente</h2>
                 
-                <!-- Pedir código rápido -->
+                <!-- Solicitud de Códigos (Plataforma -> Correo) -->
                 <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-3">
                     <h3 class="text-xs font-bold uppercase text-purple-400">Solicitar Código OTP / Link / Hogar</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
-                            <option>Seleccionar tu cuenta activa...</option>
-                            <option>Netflix - correo_ejemplo@toxapa.com</option>
+                            <option>1. Seleccionar Plataforma...</option>
+                            <option>Netflix (Miembro Extra)</option>
+                            <option>Disney+ Estándar</option>
+                        </select>
+                        <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+                            <option>2. Buscar / Seleccionar Correo...</option>
+                            <option>correo_ejemplo@toxapa.com</option>
                         </select>
                         <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
                             <option>🔑 Pedir Código OTP</option>
@@ -95,41 +130,49 @@
                             <option>📺 Actualizar Dispositivo / Hogar</option>
                         </select>
                     </div>
-                    <button onclick="alert('Solicitud enviada al administrador con éxito.')" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">Enviar Solicitud al Sistema</button>
+                    <button onclick="alert('Solicitud enviada correctamente.')" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">Enviar Solicitud al Sistema</button>
                 </div>
 
-                <!-- Reportar caída con foto -->
+                <!-- Reporte de Caída (Fecha automática e imagen obligatoria) -->
                 <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-3">
-                    <h3 class="text-xs font-bold uppercase text-rose-400">🚨 Reportar Cuenta Caída / Error (Obligatorio Foto)</h3>
-                    <input type="text" placeholder="Describe brevemente el problema (ej. Error de hogar, contraseña incorrecta)..." class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+                    <h3 class="text-xs font-bold uppercase text-rose-400">🚨 Reportar Cuenta Caída (Fecha automática de compra)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+                            <option>1. Seleccionar Plataforma...</option>
+                            <option>Netflix (Miembro Extra)</option>
+                        </select>
+                        <input type="text" placeholder="2. Ingresar Correo de la Cuenta..." class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+                    </div>
+                    <input type="text" placeholder="Describe brevemente el problema..." class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+                    <p class="text-[11px] text-slate-400">📅 Fecha de compra registrada en el sistema: <strong class="text-emerald-400">12 de Octubre, 2026</strong> (Se adjuntará automáticamente al reporte).</p>
                     <div>
-                        <label class="block text-[11px] text-slate-400 mb-1">Adjuntar Captura de Pantalla / Evidencia:</label>
+                        <label class="block text-[11px] text-slate-400 mb-1">Adjuntar Captura de Pantalla / Evidencia (Obligatorio):</label>
                         <input type="file" accept="image/*" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-400 file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-rose-600 file:text-white hover:file:bg-rose-500">
                     </div>
-                    <button onclick="alert('Reporte y evidencia fotográfica enviados al administrador.')" class="w-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">Enviar Reporte con Foto</button>
+                    <button onclick="alert('Reporte enviado con la fecha de compra y foto adjunta en automático.')" class="w-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold py-2.5 rounded-lg transition-colors">Enviar Reporte con Foto</button>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 4: SUBCLIENTES -->
+        <!-- SECCIÓN 4: SUBCLIENTES (Creación de accesos) -->
         <section id="sec-subclientes" class="space-y-6 hidden">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                <div class="flex justify-between items-center mb-4">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
                         <h2 class="text-base font-bold">👥 Gestión de Subclientes</h2>
-                        <p class="text-xs text-slate-400">Crea accesos y asigna cuentas a tu equipo.</p>
+                        <p class="text-xs text-slate-400">Crea usuario y contraseña para tu sub-revendedor.</p>
                     </div>
-                    <button onclick="alert('Ventana para crear nuevo subcliente.')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-4 py-2 rounded-lg font-medium">+ Crear Subcliente</button>
+                    <button onclick="alert('Abriendo formulario de creación de credenciales para subcliente...')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-4 py-2.5 rounded-lg font-medium">+ Crear Credenciales de Subcliente</button>
                 </div>
                 <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl text-center text-xs text-slate-400">
-                    No tienes subclientes registrados todavía.
+                    No tienes subclientes activos todavía.
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Script para alternar las secciones con el menú flotante -->
+    <!-- Script para navegación flotante -->
     <script>
         function mostrarSeccion(seccion) {
             const secs = ['tienda', 'cuentas', 'soporte', 'subclientes'];
