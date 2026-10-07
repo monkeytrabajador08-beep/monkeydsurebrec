@@ -13,7 +13,7 @@
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec · Admin</h2>
             <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel Maestro · Control Financiero y Stock 👑</h1>
-            <p class="text-xs text-zinc-400 mt-1">Dashboard de ganancias en vivo y gestión de entregas automáticas/manuales</p>
+            <p class="text-xs text-zinc-400 mt-1">Dashboard de ganancias, solicitudes de registro y pedidos manuales separados</p>
         </div>
         <div>
             <a href="index.html" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-4 py-2.5 rounded-xl transition-colors">Cerrar Sesión</a>
@@ -37,7 +37,7 @@
             <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
                 <span class="text-xs font-semibold uppercase text-zinc-400">Pedidos Manuales Pendientes</span>
                 <h3 id="dash-manuales-pendientes" class="text-3xl font-black text-cyan-400 mt-2">0</h3>
-                <span class="text-[10px] text-zinc-500 mt-2">Requieren captura y atención personalizada</span>
+                <span class="text-[10px] text-zinc-500 mt-2">Servicios que requieren gestión personalizada</span>
             </div>
         </section>
 
@@ -61,29 +61,29 @@
             </div>
         </section>
 
-        <!-- 3. PEDIDOS MANUALES (ENTREGAS MANUALES) -->
+        <!-- 3. GESTIÓN DE PEDIDOS MANUALES (NUEVA TABLA) -->
         <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
-            <h2 class="text-base font-bold mb-4 flex items-center gap-2">🛠️ Gestión de Pedidos / Entregas Manuales</h2>
+            <h2 class="text-base font-bold mb-4 flex items-center gap-2">🛠️ Pedidos Manuales (Servicios con Datos Especiales)</h2>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">
                     <thead class="bg-black text-zinc-400 uppercase text-xs">
                         <tr>
-                            <th class="p-3">Cliente / Revendedor</th>
-                            <th class="p-3">Servicio</th>
+                            <th class="p-3">Revendedor / Cliente</th>
+                            <th class="p-3">Servicio Solicitado</th>
                             <th class="p-3">Datos Proporcionados</th>
                             <th class="p-3 text-right">Acción</th>
                         </tr>
                     </thead>
-                    <tbody id="tabla-manuales" class="divide-y divide-zinc-800 text-zinc-300">
+                    <tbody id="tabla-pedidos-manuales" class="divide-y divide-zinc-800 text-zinc-300">
                         <tr><td colspan="4" class="p-4 text-center text-zinc-500 text-xs">No hay pedidos manuales pendientes.</td></tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- 4. ALTA DE INVENTARIO -->
+        <!-- 4. ALTA DE INVENTARIO AUTOMÁTICO -->
         <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
-            <h2 class="text-base font-bold mb-4">📦 Alta de Inventario (Cuentas Completas y Lotes)</h2>
+            <h2 class="text-base font-bold mb-4">📦 Alta de Inventario Automático (Cuentas y Lotes)</h2>
             <form class="space-y-4" onsubmit="guardarInventarioAdmin(event)">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
@@ -145,17 +145,16 @@
                 `).join('');
             }
 
-            // 2. Calcular Ganancias del Mes desde la tabla de inventario asignado o transacciones
+            // 2. Ganancias del Mes y Estadísticas
             const { data: asignadas } = await supabaseClient.from('inventario').select('*').eq('estado', 'asignada');
             if (asignadas) {
                 document.getElementById('dash-vendidas').innerText = asignadas.length;
-                // Estimado provisional de ganancias basado en stock despachado
                 document.getElementById('dash-ganancias').innerText = '$' + (asignadas.length * 45).toFixed(2) + ' MXN';
             }
 
-            // 3. Cargar Pedidos Manuales pendientes
-            const { data: manuales } = await supabaseClient.from('reportes').select('*').eq('estado', 'pendiente');
-            const tbodyMan = document.getElementById('tabla-manuales');
+            // 3. Cargar Pedidos Manuales desde la nueva tabla 'pedidos_manuales'
+            const { data: manuales } = await supabaseClient.from('pedidos_manuales').select('*').eq('estado', 'pendiente');
+            const tbodyMan = document.getElementById('tabla-pedidos-manuales');
             if (!manuales || manuales.length === 0) {
                 tbodyMan.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-zinc-500 text-xs">No hay pedidos manuales pendientes.</td></tr>`;
                 document.getElementById('dash-manuales-pendientes').innerText = '0';
@@ -164,10 +163,10 @@
                 tbodyMan.innerHTML = manuales.map(m => `
                     <tr>
                         <td class="p-3 font-medium text-white">${m.usuario_correo}</td>
-                        <td class="p-3 text-teal-400 font-semibold">${m.plataforma}</td>
-                        <td class="p-3">${m.descripcion}</td>
+                        <td class="p-3 text-teal-400 font-semibold">${m.servicio}</td>
+                        <td class="p-3 text-zinc-300 font-mono">${m.datos_cliente}</td>
                         <td class="p-3 text-right">
-                            <button onclick="atenderManual('${m.id}')" class="bg-teal-600 hover:bg-teal-500 text-black text-xs px-3 py-1.5 rounded-lg font-bold">Completar</button>
+                            <button onclick="completarPedidoManual('${m.id}')" class="bg-teal-600 hover:bg-teal-500 text-black text-xs px-3 py-1.5 rounded-lg font-bold">Marcar Entregado</button>
                         </td>
                     </tr>
                 `).join('');
@@ -180,9 +179,9 @@
             cargarDashboardYDatos();
         }
 
-        async function atenderManual(id) {
-            await supabaseClient.from('reportes').update({ estado: 'completado' }).eq('id', id);
-            alert('¡Pedido manual marcado como completado!');
+        async function completarPedidoManual(id) {
+            await supabaseClient.from('pedidos_manuales').update({ estado: 'completado' }).eq('id', id);
+            alert('¡Pedido manual completado!');
             cargarDashboardYDatos();
         }
 
@@ -212,7 +211,7 @@
             const { error } = await supabaseClient.from('inventario').insert(nuevos);
             if(error) alert('Error: ' + error.message);
             else {
-                alert(`¡Se guardaron ${nuevos.length} registros correctamente!`);
+                alert(`¡Se guardaron ${nuevos.length} registros en el inventario automático!`);
                 document.getElementById('admin-texto').value = '';
                 cargarDashboardYDatos();
             }
