@@ -14,7 +14,7 @@
         <div class="bg-zinc-900 border border-zinc-800 w-full max-w-sm rounded-2xl p-6 space-y-4 shadow-2xl text-center">
             <h3 class="text-base font-bold text-teal-400">🛡️ Acceso de Administrador</h3>
             <p class="text-xs text-zinc-400">Ingresa la contraseña maestra para continuar.</p>
-            <input type="password" id="admin-pass" placeholder="Contraseña..." class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white text-center">
+            <input type="password" id="admin-pass" placeholder="Contraseña..." class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white text-center mb-2">
             <button onclick="verificarPasswordAdmin()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Ingresar al Panel</button>
         </div>
     </div>
@@ -83,9 +83,9 @@
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">👥 Gestión de Clientes y Subclientes</h2>
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
-                    <div class="flex gap-2">
+                    <div class="flex flex-col md:flex-row gap-2">
                         <input type="text" id="saldo-correo" placeholder="correo@revendedor.com" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                        <input type="number" id="saldo-monto" placeholder="Monto a sumar/restar" class="w-36 bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <input type="number" id="saldo-monto" placeholder="Monto a sumar/restar" class="w-full md:w-36 bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
                         <button onclick="actualizarSaldoRevendedor()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition-colors">Guardar Saldo</button>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
         // Contraseña maestra de administración
         function verificarPasswordAdmin() {
             const pass = document.getElementById('admin-pass').value.trim();
-            if (pass === 'MonkeyAdmin2026*') { // Puedes cambiar tu contraseña aquí
+            if (pass === 'MonkeyAdmin2026*') {
                 document.getElementById('modal-login-admin').classList.add('hidden');
                 cargarReporteGeneral();
             } else {
@@ -195,7 +195,7 @@
                 contenedorCaidas.innerHTML = `<span class="text-zinc-500">No hay cuentas caídas reportadas.</span>`;
             } else {
                 contenedorCaidas.innerHTML = rep.slice(0, 5).map(r => `
-                    <div class="bg-zinc-900 p-2.5 rounded border border-zinc-800 flex justify-between items-center">
+                    <div class="bg-zinc-900 p-2.5 rounded border border-zinc-800 flex justify-between items-center text-xs">
                         <span>${r.plataforma} (${r.correo_cuenta}) - <strong>${r.tipo_solicitud}</strong></span>
                         <span class="text-zinc-500 text-[10px]">${r.usuario_correo}</span>
                     </div>
@@ -216,7 +216,7 @@
                         <strong class="text-white">${u.correo}</strong>
                         <p class="text-emerald-400 font-bold text-xs mt-0.5">Saldo: $${(u.saldo || 0).toFixed(2)} MXN</p>
                     </div>
-                    <span class="text-xs text-zinc-400">Cliente Activo</span>
+                    <span class="text-xs text-zinc-400">Cliente / Revendedor</span>
                 </div>
             `).join('');
         }
