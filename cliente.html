@@ -23,7 +23,7 @@
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec</h2>
             <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel de Revendedor 💼</h1>
-            <p class="text-xs text-zinc-400 mt-1">Catálogo oficial con precios por volumen y rangos automáticos.</p>
+            <p class="text-xs text-zinc-400 mt-1">Catálogo oficial ordenado por categorías y con precios por volumen.</p>
         </div>
         <div class="flex items-center gap-4">
             <div class="text-right">
@@ -41,8 +41,8 @@
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                     <div>
-                        <h2 class="text-base font-bold">🛍️ Catálogo Oficial de Cuentas y Servicios</h2>
-                        <p class="text-xs text-zinc-400">El precio se actualiza de forma automática según la cantidad de cuentas que elijas.</p>
+                        <h2 class="text-base font-bold">🛍️ Catálogo Oficial Organizado</h2>
+                        <p class="text-xs text-zinc-400">El precio se actualiza automáticamente según el volumen de cuentas.</p>
                     </div>
                     <div class="bg-black border border-zinc-800 px-4 py-2.5 rounded-xl text-xs flex items-center gap-4">
                         <div>
@@ -130,14 +130,13 @@
     <!-- VENTANA MODAL PARA XBOX -->
     <div id="modal-xbox" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🎮 Xbox Game Pass (1M)</h3><button onclick="cerrarModal('modal-xbox')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
-            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
-            <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Datos de tu cuenta Xbox (Correo y Contraseña)</label><textarea id="modal-datos-xbox" rows="3" placeholder="correo@outlook.com:contraseña" class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white font-mono"></textarea></div>
+            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🎮 Xbox Game Pass (1M - Alquiler)</h3><button onclick="cerrarModal('modal-xbox')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs (No renovable)</p>
             <div class="border-t border-zinc-800 pt-3">
                 <div class="space-y-2">
-                    <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Essential (1M)</strong><p class="text-emerald-400 font-bold text-xs">$105.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Essential (1M)', 105, document.getElementById('modal-datos-xbox').value, 'modal-xbox')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                    <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Premium (1M)</strong><p class="text-emerald-400 font-bold text-xs">$155.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Premium (1M)', 155, document.getElementById('modal-datos-xbox').value, 'modal-xbox')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                    <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Ultimate (1M)</strong><p class="text-emerald-400 font-bold text-xs">$265.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Ultimate (1M)', 265, document.getElementById('modal-datos-xbox').value, 'modal-xbox')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                    <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Essential (1M)</strong><p class="text-emerald-400 font-bold text-xs">$105.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Essential (1M)', 105, 'Alquiler (Datos otorgados por el admin)', 'modal-xbox')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                    <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Premium (1M)</strong><p class="text-emerald-400 font-bold text-xs">$155.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Premium (1M)', 155, 'Alquiler (Datos otorgados por el admin)', 'modal-xbox')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                    <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Ultimate (1M)</strong><p class="text-emerald-400 font-bold text-xs">$265.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Ultimate (1M)', 265, 'Alquiler (Datos otorgados por el admin)', 'modal-xbox')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
                 </div>
             </div>
         </div>
@@ -149,8 +148,8 @@
             <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🏋️ Trámites Smart Fit</h3><button onclick="cerrarModal('modal-smartfit')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
             <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
             <div class="space-y-3">
-                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Selecciona el Trámite</label><select id="smart-tipo" onchange="actualizarCamposSmart()" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"><option value="nueva">Cuenta Nueva ($95)</option><option value="falsa">Cuenta Nueva Falsa ($150)</option><option value="renovacion">Renovación ($195)</option><option value="adeudos">Adeudos / Mantenimiento ($35)</option></select></div>
-                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Ingresa los datos requeridos:</label><textarea id="smart-datos-input" rows="4" placeholder="Completa los datos..." class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white font-mono"></textarea></div>
+                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Selecciona el Trámite</label><select id="smart-tipo" onchange="actualizarCamposSmart()" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"><option value="nueva">Cuenta Nueva ($95)</option><option value="nuevados">Nuevas 2M ($265)</option><option value="falsa">Cuenta Nueva Falsa ($150)</option><option value="renovacion">Renovación 1M ($195)</option><option value="renovaciondos">Renovación por 2M ($350)</option><option value="adeudos">Adeudos / Mantenimiento ($35)</option></select></div>
+                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1" id="label-smart-datos">Ingresa los datos requeridos:</label><textarea id="smart-datos-input" rows="4" placeholder="Completa los datos..." class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white font-mono"></textarea></div>
             </div>
             <div class="border-t border-zinc-800 pt-3 flex justify-between items-center"><div><span class="text-xs text-zinc-400">Total a pagar:</span><p id="smart-precio-txt" class="text-emerald-400 font-extrabold text-lg">$95.00 MXN</p></div><button onclick="agregarSmartfitAlCarrito()" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-4 py-2.5 rounded-xl transition-colors">Añadir al Carrito</button></div>
         </div>
@@ -159,19 +158,24 @@
     <!-- VENTANA MODAL PARA GEMINI / GOOGLE ONE -->
     <div id="modal-gemini" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">✨ Google One / Gemini Invitación</h3><button onclick="cerrarModal('modal-gemini')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">✨ Google One / Gemini</h3><button onclick="cerrarModal('modal-gemini')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
             <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
-            <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo Gmail (Nuevo o sin grupo familiar último año)</label><input type="text" id="gemini-correo" placeholder="correo@gmail.com" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"></div>
             <div class="border-t border-zinc-800 pt-3">
                 <p class="text-[11px] text-zinc-400 mb-2">Selecciona el plan:</p>
-                <div class="space-y-2 max-h-48 overflow-y-auto">
-                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (1M)</strong><p class="text-emerald-400 font-bold text-xs">$20.00 MXN</p></div><button onclick="seleccionarGemini('Gemini Invitación (1M)', 20)" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (3M)</strong><p class="text-emerald-400 font-bold text-xs">$50.00 MXN</p></div><button onclick="seleccionarGemini('Gemini Invitación (3M)', 50)" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (6M)</strong><p class="text-emerald-400 font-bold text-xs">$75.00 MXN</p></div><button onclick="seleccionarGemini('Gemini Invitación (6M)', 75)" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (12M)</strong><p class="text-emerald-400 font-bold text-xs">$125.00 MXN</p></div><button onclick="seleccionarGemini('Gemini Invitación (12M)', 125)" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">LINK Gemini (18M) [Garantía Act.]</strong><p class="text-emerald-400 font-bold text-xs">$35.00 MXN</p></div><button onclick="seleccionarGemini('LINK Gemini (18M) - G. Act.', 35)" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">LINK Gemini (18M) [Garantía 2M]</strong><p class="text-emerald-400 font-bold text-xs">$50.00 MXN</p></div><button onclick="seleccionarGemini('LINK Gemini (18M) - G. 2M', 50)" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Familiar (12M)</strong><p class="text-emerald-400 font-bold text-xs">$290.00 MXN</p></div><button onclick="seleccionarGemini('Gemini Familiar (12M)', 290)" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="space-y-2 max-h-60 overflow-y-auto">
+                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (1M)</strong><p class="text-emerald-400 font-bold text-xs">$20.00 MXN (Sin correo)</p></div><button onclick="seleccionarServicioManual('Gemini Invitación (1M)', 20, 'Sin correo (Invitación)', 'modal-gemini')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (3M)</strong><p class="text-emerald-400 font-bold text-xs">$50.00 MXN (Sin correo)</p></div><button onclick="seleccionarServicioManual('Gemini Invitación (3M)', 50, 'Sin correo (Invitación)', 'modal-gemini')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (6M)</strong><p class="text-emerald-400 font-bold text-xs">$75.00 MXN (Sin correo)</p></div><button onclick="seleccionarServicioManual('Gemini Invitación (6M)', 75, 'Sin correo (Invitación)', 'modal-gemini')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (12M)</strong><p class="text-emerald-400 font-bold text-xs">$125.00 MXN (Sin correo)</p></div><button onclick="seleccionarServicioManual('Gemini Invitación (12M)', 125, 'Sin correo (Invitación)', 'modal-gemini')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">LINK Gemini (18M) [Garantía Act.]</strong><p class="text-emerald-400 font-bold text-xs">$35.00 MXN (Sin correo)</p></div><button onclick="seleccionarServicioManual('LINK Gemini (18M) - G. Act.', 35, 'Sin correo (Link)', 'modal-gemini')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                    <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">LINK Gemini (18M) [Garantía 2M]</strong><p class="text-emerald-400 font-bold text-xs">$50.00 MXN (Sin correo)</p></div><button onclick="seleccionarServicioManual('LINK Gemini (18M) - G. 2M', 50, 'Sin correo (Link)', 'modal-gemini')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-[10px] px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                    
+                    <!-- Gemini Familiar (Pide correo y contraseña) -->
+                    <div class="pt-2 border-t border-zinc-800">
+                        <label class="block text-[11px] text-zinc-400 mb-1">Gemini Familiar (12M) - Pide Correo y Contraseña:</label>
+                        <input type="text" id="gemini-fam-creds" placeholder="correo@gmail.com:password" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white mb-2 font-mono">
+                        <button onclick="seleccionarGeminiFamiliar()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2 rounded-xl transition-colors">Seleccionar Gemini Familiar ($290)</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -183,8 +187,8 @@
             <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🎬 CapCut Pro Completa</h3><button onclick="cerrarModal('modal-capcut')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
             <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
             <div class="border-t border-zinc-800 pt-3 space-y-2">
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">CapCut Pro Completa (7D)</strong><p class="text-emerald-400 font-bold text-xs">$15.00 MXN</p></div><button onclick="seleccionarServicioManual('CapCut Pro Completa (7D)', 15, 'N/A', 'modal-capcut')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">CapCut Pro Completa (1M)</strong><p class="text-emerald-400 font-bold text-xs">$65.00 MXN</p></div><button onclick="seleccionarServicioManual('CapCut Pro Completa (1M)', 65, 'N/A', 'modal-capcut')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">CapCut Pro Completa (7D)</strong><p class="text-emerald-400 font-bold text-xs">$15.00 MXN (Rangos aplicados)</p></div><button onclick="seleccionarServicioManual('CapCut Pro Completa (7D)', 15, 'N/A', 'modal-capcut')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">CapCut Pro Completa (1M)</strong><p class="text-emerald-400 font-bold text-xs">$65.00 MXN (Rangos aplicados)</p></div><button onclick="seleccionarServicioManual('CapCut Pro Completa (1M)', 65, 'N/A', 'modal-capcut')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
             </div>
         </div>
     </div>
@@ -195,9 +199,9 @@
             <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🦉 Duolingo Súper</h3><button onclick="cerrarModal('modal-duolingo')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
             <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
             <div class="border-t border-zinc-800 pt-3 space-y-2">
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Duolingo Individual (1M)</strong><p class="text-emerald-400 font-bold text-xs">$10.00 MXN</p></div><button onclick="seleccionarServicioManual('Duolingo Individual (1M)', 10, 'N/A', 'modal-duolingo')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Duolingo Individual (12M)</strong><p class="text-emerald-400 font-bold text-xs">$40.00 MXN</p></div><button onclick="seleccionarServicioManual('Duolingo Individual (12M)', 40, 'N/A', 'modal-duolingo')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Duolingo Familiar (1M)</strong><p class="text-emerald-400 font-bold text-xs">$25.00 MXN</p></div><button onclick="seleccionarServicioManual('Duolingo Familiar (1M)', 25, 'N/A', 'modal-duolingo')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Duolingo Súper Individual (1M)</strong><p class="text-emerald-400 font-bold text-xs">$10.00 MXN</p></div><button onclick="seleccionarServicioManual('Duolingo Súper Individual (1M)', 10, 'N/A', 'modal-duolingo')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Duolingo Súper Individual (12M)</strong><p class="text-emerald-400 font-bold text-xs">$40.00 MXN</p></div><button onclick="seleccionarServicioManual('Duolingo Súper Individual (12M)', 40, 'N/A', 'modal-duolingo')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Duolingo Súper Familiar (1M)</strong><p class="text-emerald-400 font-bold text-xs">$25.00 MXN</p></div><button onclick="seleccionarServicioManual('Duolingo Súper Familiar (1M)', 25, 'N/A', 'modal-duolingo')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
             </div>
         </div>
     </div>
@@ -219,13 +223,29 @@
         <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center"><h3 id="titulo-modal-musica" class="text-base font-bold text-teal-400">🎵 Plataforma de Música</h3><button onclick="cerrarModal('modal-musica')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
             <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
-            <div id="input-datos-musica" class="hidden">
-                <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo del cliente (para activación)</label>
-                <input type="text" id="musica-correo-cliente" placeholder="correo@gmail.com" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white mb-2">
+            
+            <!-- Solo se muestra si es YouTube (pide correo nuevo y contraseña) -->
+            <div id="input-datos-youtube" class="hidden">
+                <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo NUEVO y Contraseña (para YouTube)</label>
+                <textarea id="youtube-creds" rows="2" placeholder="correo@gmail.com:contraseña" class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white mb-2 font-mono"></textarea>
             </div>
+
             <div class="border-t border-zinc-800 pt-3">
                 <div class="max-h-48 overflow-y-auto space-y-2 pr-1" id="lista-paquetes-musica"></div>
             </div>
+        </div>
+    </div>
+
+    <!-- VENTANA MODAL PARA CRUNCHYROLL 12M (Pide correo) -->
+    <div id="modal-crunchy12" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🍥 Crunchyroll (12M)</h3><button onclick="cerrarModal('modal-crunchy12')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs (Quedan después de medianoche)</p>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo del cliente (para activación)</label>
+                <input type="text" id="crunchy12-correo" placeholder="correo@gmail.com" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white mb-2">
+            </div>
+            <button onclick="seleccionarCrunchy12()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Seleccionar Crunchyroll (12M)</button>
         </div>
     </div>
 
@@ -267,12 +287,26 @@
     <div id="modal-nord-comp" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🔒 NordVPN Completa</h3><button onclick="cerrarModal('modal-nord-comp')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
-            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
+            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs (Alquiler)</p>
             <div class="border-t border-zinc-800 pt-3 space-y-2">
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">NordVPN Completa (1M)</strong><p class="text-emerald-400 font-bold text-xs">$40.00 MXN</p></div><button onclick="seleccionarServicioManual('NordVPN Completa (1M)', 40, 'N/A', 'modal-nord-comp')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">NordVPN Completa (2M)</strong><p class="text-emerald-400 font-bold text-xs">$70.00 MXN</p></div><button onclick="seleccionarServicioManual('NordVPN Completa (2M)', 70, 'N/A', 'modal-nord-comp')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
-                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">NordVPN Completa (3M)</strong><p class="text-emerald-400 font-bold text-xs">$100.00 MXN</p></div><button onclick="seleccionarServicioManual('NordVPN Completa (3M)', 100, 'N/A', 'modal-nord-comp')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">NordVPN Completa (1M)</strong><p class="text-emerald-400 font-bold text-xs">$40.00 MXN</p></div><button onclick="seleccionarServicioManual('NordVPN Completa (1M)', 40, 'Alquiler (Datos otorgados por admin)', 'modal-nord-comp')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">NordVPN Completa (2M)</strong><p class="text-emerald-400 font-bold text-xs">$70.00 MXN</p></div><button onclick="seleccionarServicioManual('NordVPN Completa (2M)', 70, 'Alquiler (Datos otorgados por admin)', 'modal-nord-comp')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">NordVPN Completa (3M)</strong><p class="text-emerald-400 font-bold text-xs">$100.00 MXN</p></div><button onclick="seleccionarServicioManual('NordVPN Completa (3M)', 100, 'Alquiler (Datos otorgados por admin)', 'modal-nord-comp')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
             </div>
+        </div>
+    </div>
+
+    <!-- VENTANA MODAL PARA RECARGAS TELECOM -->
+    <div id="modal-recarga" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center"><h3 id="titulo-modal-recarga" class="text-base font-bold text-teal-400">📱 Recarga Telefónica ($200)</h3><button onclick="cerrarModal('modal-recarga')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
+            <div class="space-y-3">
+                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Número Telefónico (10 dígitos)</label><input type="text" id="recarga-numero" placeholder="Ej. 9511234567" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"></div>
+                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Compañía</label><input type="text" id="recarga-compania" placeholder="Telcel / Bait" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"></div>
+                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Tipo de Línea</label><select id="recarga-tipo" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"><option value="Normal / Prepago">Normal / Prepago</option><option value="Plan">Plan</option></select></div>
+            </div>
+            <button onclick="confirmarRecarga()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Solicitar Recarga ($135)</button>
         </div>
     </div>
 
@@ -286,6 +320,7 @@
         let carritoItems = 0;
         let carritoTotal = 0;
         let productoEnCarrito = null;
+        let servicioRecargaActual = '';
 
         const paquetesDiamantes1v = [
             { cantidad: 110, precio: 15 }, { cantidad: 341, precio: 35 }, { cantidad: 572, precio: 60 },
@@ -305,48 +340,69 @@
             { cantidad: 'Combo 8086', precio: 890 }, { cantidad: 'Combo 8558', precio: 935 }, { cantidad: 'Combo 10296', precio: 1115 }
         ];
 
-        // Catálogo completo integrado con rangos de mayoreo exactos
+        // 🌟 CATÁLOGO OFICIAL ORDENADO POR CATEGORÍAS Y CON RANGOS EXACTOS
         const catalogoOficial = [
-            { id: 'disney_1m', nombre: 'Disney Premium (1M)', precio: 65, rangos: [{min: 1, max: 9, p: 65}, {min: 10, max: 50, p: 55}], desc: 'Sin ESPN.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'max_1m', nombre: 'HBO MAX (1M)', precio: 33, rangos: [{min: 1, max: 4, p: 33}, {min: 5, max: 9, p: 30}, {min: 10, max: 40, p: 23}, {min: 41, max: 50, p: 20}, {min: 51, max: 100, p: 16}], desc: 'Estándar/platino bug.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'prime_1m', nombre: 'Prime Video (1M)', precio: 20, rangos: [{min: 1, max: 4, p: 20}, {min: 5, max: 9, p: 15}, {min: 10, max: 40, p: 13}, {min: 41, max: 50, p: 11}, {min: 51, max: 100, p: 9}], desc: 'Con anuncios. No renovable.', tyc: 'No cambiar datos (correo). No cambiar contraseña. No realizar compras ni suscripciones. Garantía de 25 días.' },
-            { id: 'prime_6m', nombre: 'Prime Video (6M)', precio: 65, rangos: [{min: 1, max: 4, p: 65}, {min: 5, max: 9, p: 60}, {min: 10, max: 10, p: 48}], desc: 'Con anuncios. No renovable.', tyc: 'No cambiar datos (correo). No cambiar contraseña. No realizar compras ni suscripciones. Garantía de 4 meses.' },
-            { id: 'apple_1m', nombre: 'Apple TV MLS + F1TV (1M)', precio: 30, rangos: [{min: 1, max: 4, p: 30}, {min: 5, max: 9, p: 25}, {min: 10, max: 40, p: 20}, {min: 41, max: 50, p: 18}, {min: 51, max: 100, p: 13}], desc: 'Renovable', tyc: 'No cambiar datos (correo). No realizar compras ni suscripciones. Garantía de 25 días.' },
-            { id: 'apple_3m', nombre: 'Apple TV MLS + F1TV (3M)', precio: 65, rangos: [{min: 1, max: 4, p: 65}, {min: 5, max: 9, p: 60}, {min: 10, max: 40, p: 55}, {min: 41, max: 50, p: 50}, {min: 51, max: 100, p: 40}], desc: 'Renovable', tyc: 'No cambiar datos (correo). No realizar compras ni suscripciones. Garantía de 75 días.' },
-            { id: 'crunchycp_1m', nombre: 'Crunchyroll CP (1M)', precio: 35, rangos: [{min: 1, max: 9, p: 35}, {min: 10, max: 40, p: 30}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
+            // 1. NETFLIX
             { id: 'netflix_1m', nombre: 'Netflix Completa (1M)', precio: 210, rangos: [{min: 1, max: 4, p: 210}, {min: 5, max: 9, p: 200}, {min: 10, max: 40, p: 190}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'netflixindivpass_1m', nombre: 'Netflix Individual (1M)', precio: 55, rangos: [{min: 1, max: 4, p: 55}, {min: 5, max: 9, p: 53}, {min: 10, max: 40, p: 50}, {min: 41, max: 50, p: 48}, {min: 51, max: 100, p: 45}], desc: 'Con contraseña. Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'netflixindivnopass_1m', nombre: 'Netflix Individual (1M)', precio: 50, rangos: [{min: 1, max: 4, p: 50}, {min: 5, max: 9, p: 48}, {min: 10, max: 40, p: 45}, {min: 41, max: 50, p: 43}, {min: 51, max: 100, p: 40}], desc: 'Sin contraseña. Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'nord_1m', nombre: 'Nord VPN (1M)', precio: 50, rangos: [{min: 1, max: 4, p: 50}, {min: 5, max: 9, p: 45}, {min: 10, max: 40, p: 40}], desc: 'Renovable. 10 dispositivos en simultaneo.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'vix_1m', nombre: 'VIX (1M)', precio: 13, rangos: [{min: 1, max: 4, p: 13}, {min: 5, max: 9, p: 11}, {min: 10, max: 40, p: 8}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
+            { id: 'netflixindivpass_1m', nombre: 'Netflix Individual (Con Contraseña) (1M)', precio: 55, rangos: [{min: 1, max: 4, p: 55}, {min: 5, max: 9, p: 53}, {min: 10, max: 40, p: 50}, {min: 41, max: 50, p: 48}, {min: 51, max: 100, p: 45}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
+            { id: 'netflixindivnopass_1m', nombre: 'Netflix Individual (Sin Contraseña) (1M)', precio: 50, rangos: [{min: 1, max: 4, p: 50}, {min: 5, max: 9, p: 48}, {min: 10, max: 40, p: 45}, {min: 41, max: 50, p: 43}, {min: 51, max: 100, p: 40}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
+
+            // 2. DISNEY
+            { id: 'disney_1m', nombre: 'Disney Premium (1M)', precio: 65, rangos: [{min: 1, max: 9, p: 65}, {min: 10, max: 50, p: 55}], desc: 'Sin ESPN.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
+            { id: 'disney_estandar', nombre: 'Disney Estándar (1M)', precio: 40, rangos: [{min: 1, max: 4, p: 40}, {min: 5, max: 9, p: 36}, {min: 10, max: 40, p: 33}, {min: 41, max: 50, p: 28}, {min: 51, max: 100, p: 25}], desc: 'Renovable. Con panel. Sin anuncios.', tyc: 'Garantía activa durante la vigencia.' },
             { id: 'disney_juanpa', nombre: 'Disney Premium JUANPA (1M)', precio: 85, desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
             { id: 'disney_espn', nombre: 'Disney Premium ESPN (1M)', precio: 145, rangos: [{min: 1, max: 9, p: 145}, {min: 10, max: 40, p: 125}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
-            { id: 'disney_estandar', nombre: 'Disney Estándar (1M)', precio: 40, rangos: [{min: 1, max: 4, p: 40}, {min: 5, max: 9, p: 36}, {min: 10, max: 40, p: 33}, {min: 41, max: 50, p: 28}, {min: 51, max: 100, p: 25}], desc: 'Renovable. Con panel. Sin anuncios.', tyc: 'Garantía activa durante la vigencia.' },
-            { id: 'max_bug_3m', nombre: 'HBO MAX (3M)', precio: 90, rangos: [{min: 1, max: 4, p: 90}, {min: 5, max: 9, p: 48}, {min: 10, max: 40, p: 93}, {min: 41, max: 50, p: 88}, {min: 51, max: 100, p: 80}], desc: 'Plan estándar/platino bug. Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 75 días.' },
+
+            // 3. HBO MAX
+            { id: 'max_1m', nombre: 'HBO MAX (1M)', precio: 33, rangos: [{min: 1, max: 4, p: 33}, {min: 5, max: 9, p: 30}, {min: 10, max: 40, p: 23}, {min: 41, max: 50, p: 20}, {min: 51, max: 100, p: 16}], desc: 'Estándar/platino bug.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
+            { id: 'max_bug_3m', nombre: 'HBO MAX (3M)', precio: 90, rangos: [{min: 1, max: 4, p: 90}, {min: 5, max: 9, p: 48}, {min: 10, max: 40, p: 93}, {min: 41, max: 50, p: 88}, {min: 51, max: 100, p: 80}], desc: 'Plan estándar/platino bug. Renovable.', tyc: 'No cambiar datos (correo). Garantía de 75 días.' },
+
+            // 4. PRIME VIDEO
+            { id: 'prime_1m', nombre: 'Prime Video (1M)', precio: 20, rangos: [{min: 1, max: 4, p: 20}, {min: 5, max: 9, p: 15}, {min: 10, max: 40, p: 13}, {min: 41, max: 50, p: 11}, {min: 51, max: 100, p: 9}], desc: 'Con anuncios. No renovable.', tyc: 'No cambiar datos (correo). No cambiar contraseña. Garantía de 25 días.' },
+            { id: 'prime_6m', nombre: 'Prime Video (6M)', precio: 65, rangos: [{min: 1, max: 4, p: 65}, {min: 5, max: 9, p: 60}, {min: 10, max: 10, p: 48}], desc: 'Con anuncios. No renovable.', tyc: 'No cambiar datos (correo). No cambiar contraseña. Garantía de 4 meses.' },
+
+            // 5. VIX
+            { id: 'vix_1m', nombre: 'VIX (1M)', precio: 13, rangos: [{min: 1, max: 4, p: 13}, {min: 5, max: 9, p: 11}, {min: 10, max: 40, p: 8}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
             { id: 'vix_2m', nombre: 'VIX (2M)', precio: 18, rangos: [{min: 1, max: 4, p: 18}, {min: 5, max: 9, p: 17}, {min: 10, max: 40, p: 15}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
             { id: 'vix_6m', nombre: 'VIX (6M)', precio: 35, rangos: [{min: 1, max: 4, p: 35}, {min: 5, max: 9, p: 33}, {min: 10, max: 40, p: 30}, {min: 41, max: 50, p: 25}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 4 meses.' },
+
+            // 6. APPLE TV Y OTROS STREAMING
+            { id: 'apple_1m', nombre: 'Apple TV MLS + F1TV (1M)', precio: 30, rangos: [{min: 1, max: 4, p: 30}, {min: 5, max: 9, p: 25}, {min: 10, max: 40, p: 20}, {min: 41, max: 50, p: 18}, {min: 51, max: 100, p: 13}], desc: 'Renovable', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
+            { id: 'apple_3m', nombre: 'Apple TV MLS + F1TV (3M)', precio: 65, rangos: [{min: 1, max: 4, p: 65}, {min: 5, max: 9, p: 60}, {min: 10, max: 40, p: 55}, {min: 41, max: 50, p: 50}, {min: 51, max: 100, p: 40}], desc: 'Renovable', tyc: 'No cambiar datos (correo). Garantía de 75 días.' },
+            { id: 'crunchycp_1m', nombre: 'Crunchyroll CP (1M)', precio: 35, rangos: [{min: 1, max: 9, p: 35}, {min: 10, max: 40, p: 30}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
             { id: 'crunchy_sp_1m', nombre: 'Crunchyroll SP (1M)', precio: 35, rangos: [{min: 1, max: 9, p: 35}, {min: 10, max: 40, p: 30}], desc: 'Renovable. Sin panel.', tyc: 'Garantía de 25 días.' },
-            { id: 'fox_one_1m', nombre: 'Fox One (1M)', precio: 35, rangos: [{min: 1, max: 9, p: 35}, {min: 10, max: 40, p: 25}, {min: 41, max: 50, p: 20}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
+            { id: 'crunchy_12m', nombre: 'Crunchyroll (12M)', precio: 265, rangos: [{min: 1, max: 4, p: 265}, {min: 5, max: 9, p: 250}, {min: 10, max: 40, p: 225}], desc: 'Renovable. Con panel. Quedan después de medianoche.', tyc: 'No cambiar datos (correo). Garantía de 10 meses.', esCrunchy12: true },
             { id: 'paramount_1m', nombre: 'Paramount + (1M)', precio: 40, rangos: [{min: 1, max: 4, p: 40}, {min: 5, max: 9, p: 35}, {min: 10, max: 40, p: 30}], desc: 'No renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
             { id: 'formula_1_1m', nombre: 'Formula 1 TV (1M)', precio: 30, rangos: [{min: 1, max: 4, p: 30}, {min: 5, max: 9, p: 28}, {min: 10, max: 40, p: 25}, {min: 41, max: 50, p: 20}, {min: 51, max: 100, p: 15}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
+            { id: 'fox_one_1m', nombre: 'Fox One (1M)', precio: 35, rangos: [{min: 1, max: 9, p: 35}, {min: 10, max: 40, p: 25}, {min: 41, max: 50, p: 20}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
             { id: 'viki_rakuten', nombre: 'Viki Rakuten (1M)', precio: 38, rangos: [{min: 1, max: 9, p: 35}, {min: 10, max: 40, p: 30}], desc: 'Renovable. Sin panel.', tyc: 'Garantía de 25 días.' },
-            { id: 'crunchy_12m', nombre: 'Crunchyroll (12M)', precio: 265, rangos: [{min: 1, max: 4, p: 265}, {min: 5, max: 9, p: 250}, {min: 10, max: 40, p: 225}], desc: 'Renovable. Con panel.', tyc: 'No cambiar datos (correo). Garantía de 10 meses.' },
-            { id: 'gemini_inv', nombre: '✨ Google One / Gemini', precio: 20, desc: 'Invitaciones y Links (1M a 18M). (Manual)', tyc: 'Activación a datos del cliente.', esGemini: true },
-            { id: 'spotify_serv', nombre: '🎧 Spotify Individual', precio: 45, desc: 'Alquiler (1M, 2M, 3M). (Manual)', tyc: 'No cambiar datos. Garantía de 25 días.', esMusica: true, tipo: 'spotify' },
-            { id: 'youtube_serv', nombre: '▶️ YouTube Individual / Fam.', precio: 15, desc: 'A tus datos. (Manual)', tyc: 'Garantía de 25 días.', esMusica: true, tipo: 'youtube' },
-            { id: 'tidal_serv', nombre: '🌊 Tidal Individual / Fam.', precio: 15, desc: 'No renovable. (Manual)', tyc: 'No cambiar datos. Garantía de 25 días.', esMusica: true, tipo: 'tidal' },
+
+            // 7. MÚSICA Y YOUTUBE
+            { id: 'spotify_serv', nombre: '🎧 Spotify Individual', precio: 45, rangos: [{min: 1, max: 3, p: 45}, {min: 4, max: 5, p: 43}, {min: 6, max: 10, p: 40}], desc: 'Alquiler (1M, 2M, 3M). (Manual)', tyc: 'No cambiar datos. Garantía de 25 días.', esMusica: true, tipo: 'spotify' },
+            { id: 'youtube_serv', nombre: '▶️ YouTube Individual / Fam.', precio: 15, desc: 'A tus datos (Correo nuevo y contraseña). (Manual)', tyc: 'Garantía de 25 días.', esMusica: true, tipo: 'youtube' },
+            { id: 'tidal_serv', nombre: '🌊 Tidal Individual / Fam.', precio: 15, desc: 'Alquiler (Admin da datos). (Manual)', tyc: 'No cambiar datos. Garantía de 25 días.', esMusica: true, tipo: 'tidal' },
             { id: 'deezer_serv', nombre: '🎶 Deezer (1M)', precio: 15, desc: 'No renovable. (Manual)', tyc: 'Garantía de 25 días.', esMusica: true, tipo: 'deezer' },
-            { id: 'capcut_serv', nombre: '🎬 CapCut Pro Completa', precio: 15, desc: '7D y 1M. (Manual)', tyc: 'Garantía 6 días. Máximo 3 dispositivos.', esCapcut: true },
-            { id: 'duolingo_serv', nombre: '🦉 Duolingo Plus', precio: 10, desc: 'Individual y Familiar. (Manual)', tyc: 'Garantía activa.', esDuolingo: true },
-            { id: 'm365_serv', nombre: '📊 Microsoft 365 Completa', precio: 50, desc: '6M y 12M. (Manual)', tyc: 'Cambiar contraseña al ingresar.', esM365: true },
-            { id: 'outlook_serv', nombre: '📧 Correo Outlook/Hotmail', precio: 5, desc: 'Correos limpios. (Auto)', tyc: 'Garantía de primer acceso.' },
-            { id: 'recarga_telcel', nombre: '📱 Recarga Telcel ($200)', precio: 135, desc: 'Recarga manual.', tyc: 'Proporcionar número y compañía correctos.' },
-            { id: 'recarga_bait', nombre: '📱 Recarga Bait ($200)', precio: 135, desc: 'Recarga manual.', tyc: 'Proporcionar número y compañía correctos.' },
+
+            // 8. HERRAMIENTAS Y PRODUCTIVIDAD
             { id: 'canva_edu', nombre: '🎨 Canva Pro EDU', precio: 2, desc: 'Plazos 1M a 24M. (Manual)', tyc: 'Activación a datos del cliente.', esCanvaEdu: true },
             { id: 'canva_ia', nombre: '🤖 Canva Pro IA (Kit Marca)', precio: 15, desc: 'Plazos 1M a 6M. (Manual)', tyc: 'Activación a datos del cliente.', esCanvaIa: true },
-            { id: 'nord_comp', nombre: '🔒 NordVPN Completa', precio: 40, desc: '10 dispositivos simultáneos. (Manual)', tyc: 'Garantía activa según vigencia.', esNordComp: true },
+            { id: 'capcut_serv', nombre: '🎬 CapCut Pro Completa', precio: 15, desc: '7D y 1M con rangos. (Manual)', tyc: 'Garantía 6 días. Máximo 3 dispositivos.', esCapcut: true },
+            { id: 'gemini_inv', nombre: '✨ Google One / Gemini', precio: 20, desc: 'Invitaciones y Links (Sin correo) y Familiar. (Manual)', tyc: 'Activación a datos del cliente.', esGemini: true },
+
+            // 9. IDIOMAS Y OFIMÁTICA
+            { id: 'duolingo_serv', nombre: '🦉 Duolingo Súper', precio: 10, desc: 'Individual y Familiar. (Manual)', tyc: 'Garantía activa.', esDuolingo: true },
+            { id: 'm365_serv', nombre: '📊 Microsoft 365 Completa', precio: 50, desc: '6M y 12M. (Manual)', tyc: 'Cambiar contraseña al ingresar.', esM365: true },
+
+            // 10. SEGURIDAD Y OTROS
+            { id: 'nord_1m', nombre: 'Nord VPN (1M - Auto)', precio: 50, rangos: [{min: 1, max: 4, p: 50}, {min: 5, max: 9, p: 45}, {min: 10, max: 40, p: 40}], desc: 'Renovable. 10 dispositivos en simultaneo.', tyc: 'No cambiar datos (correo). Garantía de 25 días.' },
+            { id: 'nord_comp', nombre: '🔒 NordVPN Completa (Alquiler)', precio: 40, desc: '10 dispositivos simultáneos. (Manual)', tyc: 'Garantía activa según vigencia.', esNordComp: true },
+            { id: 'outlook_serv', nombre: '📧 Correo Outlook/Hotmail', precio: 5, rangos: [{min: 1, max: 8, p: 5}, {min: 9, max: 45, p: 4}], desc: 'Correos limpios.', tyc: 'Garantía de primer acceso.' },
+
+            // 11. SERVICIOS MANUALES, GIMNASIO Y RECARGAS
             { id: 'smart_fit', nombre: '🏋️ Smart Fit (Trámites)', precio: 95, desc: 'Cuenta nueva, falsa, renovación o adeudos. (Manual)', tyc: 'Proporcionar datos correctos según el trámite.', esSmartfit: true },
-            { id: 'xbox_pass', nombre: '🎮 Xbox Game Pass (1M)', precio: 105, desc: 'Essential, Premium o Ultimate. (Manual)', tyc: 'Proporcionar datos correctos de la cuenta Xbox.', esXbox: true },
+            { id: 'xbox_pass', nombre: '🎮 Xbox Game Pass (Alquiler)', precio: 105, desc: 'Essential, Premium o Ultimate (No renovables). (Manual)', tyc: 'Proporcionar datos correctos de la cuenta Xbox.', esXbox: true },
+            { id: 'recarga_telcel', nombre: '📱 Recarga Telcel ($200)', precio: 135, desc: 'Recarga manual.', tyc: 'Proporcionar número, compañía y tipo correctos.', esRecarga: true, tipoRecarga: 'Telcel' },
+            { id: 'recarga_bait', nombre: '📱 Recarga Bait ($200)', precio: 135, desc: 'Recarga manual.', tyc: 'Proporcionar número, compañía y tipo correctos.', esRecarga: true, tipoRecarga: 'Bait' },
             { id: 'diamantes_1v', nombre: '💎 Diamantes Free Fire (1ra Vez)', precio: 15, desc: 'Recarga UID. (Manual)', tyc: 'Proporcionar ID y Nickname correctos.', esDiamantes: true, tipo: '1v' },
             { id: 'diamantes_ili', nombre: '💎 Diamantes Free Fire (Ilimitados)', precio: 17, desc: 'Recarga UID y Combos. (Manual)', tyc: 'Proporcionar ID y Nickname correctos.', esDiamantes: true, tipo: 'ili' }
         ];
@@ -375,6 +431,7 @@
 
                 if (p.esGemini) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-gemini')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">✨ Ver Opciones</button>`; }
                 else if (p.esMusica) { badgeStock = ''; btnAccion = `<button onclick="abrirModalMusica('${p.tipo}')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🎵 Ver Opciones</button>`; }
+                else if (p.esCrunchy12) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-crunchy12')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🍥 Seleccionar Plan</button>`; }
                 else if (p.esCapcut) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-capcut')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🎬 Ver Opciones</button>`; }
                 else if (p.esDuolingo) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-duolingo')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🦉 Ver Opciones</button>`; }
                 else if (p.esM365) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-m365')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">📊 Ver Opciones</button>`; }
@@ -384,6 +441,7 @@
                 else if (p.esSmartfit) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-smartfit')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🏋️ Ver Trámites</button>`; }
                 else if (p.esDiamantes) { badgeStock = ''; btnAccion = `<button onclick="abrirModalDiamantes('${p.tipo}')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">💎 Ver Paquetes</button>`; }
                 else if (p.esXbox) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-xbox')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">🎮 Ver Membresías</button>`; }
+                else if (p.esRecarga) { badgeStock = ''; btnAccion = `<button onclick="abrirModalRecarga('${p.tipoRecarga}')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">📱 Solicitar Recarga</button>`; }
 
                 return `
                     <div class="bg-black border border-zinc-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
@@ -396,7 +454,7 @@
                             <p class="text-2xl font-black text-emerald-400 mt-3" id="precio-txt-${p.id}">$${p.precio}.00 <span class="text-xs text-zinc-400 font-normal">MXN</span></p>
                         </div>
                         <div class="space-y-3">
-                            ${!p.esGemini && !p.esMusica && !p.esCapcut && !p.esDuolingo && !p.esM365 && !p.esCanvaEdu && !p.esCanvaIa && !p.esNordComp && !p.esSmartfit && !p.esDiamantes && !p.esXbox ? `
+                            ${!p.esGemini && !p.esMusica && !p.esCrunchy12 && !p.esCapcut && !p.esDuolingo && !p.esM365 && !p.esCanvaEdu && !p.esCanvaIa && !p.esNordComp && !p.esSmartfit && !p.esDiamantes && !p.esXbox && !p.esRecarga ? `
                             <div class="flex items-center justify-between bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-xl">
                                 <span class="text-xs text-zinc-400">Cantidad:</span>
                                 <div class="flex items-center gap-2">
@@ -419,35 +477,76 @@
         function abrirModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function cerrarModal(id) { document.getElementById(id).classList.add('hidden'); }
 
+        // Música (Spotify sin correo, YouTube sí correo, Tidal/Deezer sin correo)
         function abrirModalMusica(tipo) {
             const titulo = document.getElementById('titulo-modal-musica');
             const contenedor = document.getElementById('lista-paquetes-musica');
-            const divCorreo = document.getElementById('input-datos-musica');
-            divCorreo.classList.remove('hidden');
+            const divYouTube = document.getElementById('input-datos-youtube');
+            divYouTube.classList.add('hidden');
             let paquetes = [];
-            if (tipo === 'spotify') { titulo.innerText = '🎧 Spotify Individual'; paquetes = [{ n: 'Spotify Individual (1M)', p: 45 }, { n: 'Spotify Individual (2M)', p: 65 }, { n: 'Spotify Individual (3M)', p: 85 }]; }
-            else if (tipo === 'youtube') { titulo.innerText = '▶️ YouTube'; paquetes = [{ n: 'YouTube Individual (1M)', p: 15 }, { n: 'YouTube Familiar (1M)', p: 15 }]; }
-            else if (tipo === 'tidal') { titulo.innerText = '🌊 Tidal'; paquetes = [{ n: 'Tidal Individual (1M)', p: 15 }, { n: 'Tidal Familiar (1M)', p: 25 }]; }
-            else if (tipo === 'deezer') { titulo.innerText = '🎶 Deezer'; paquetes = [{ n: 'Deezer (1M)', p: 15 }]; }
+
+            if (tipo === 'spotify') {
+                titulo.innerText = '🎧 Spotify Individual (Alquiler)';
+                paquetes = [{ n: 'Spotify Individual (1M)', p: 45 }, { n: 'Spotify Individual (2M)', p: 65 }, { n: 'Spotify Individual (3M)', p: 85 }];
+            } else if (tipo === 'youtube') {
+                titulo.innerText = '▶️ YouTube (A tus datos)';
+                divYouTube.classList.remove('hidden');
+                paquetes = [{ n: 'YouTube Individual (1M)', p: 15 }, { n: 'YouTube Familiar (1M)', p: 15 }];
+            } else if (tipo === 'tidal') {
+                titulo.innerText = '🌊 Tidal (Alquiler)';
+                paquetes = [{ n: 'Tidal Individual (1M)', p: 15 }, { n: 'Tidal Familiar (1M)', p: 25 }];
+            } else if (tipo === 'deezer') {
+                titulo.innerText = '🎶 Deezer (1M)';
+                paquetes = [{ n: 'Deezer (1M)', p: 15 }];
+            }
+
             contenedor.innerHTML = paquetes.map(item => `
                 <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center">
                     <div><strong class="text-white text-xs">${item.n}</strong><p class="text-emerald-400 font-bold text-xs">$${item.p}.00 MXN</p></div>
-                    <button onclick="seleccionarMusica('${item.n}', ${item.p})" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button>
+                    <button onclick="seleccionarMusica('${item.n}', ${item.p}, '${tipo}')" class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button>
                 </div>
             `).join('');
             abrirModal('modal-musica');
         }
 
-        function seleccionarMusica(nombre, precio) {
-            const correo = document.getElementById('musica-correo-cliente').value.trim();
-            if(!correo) return alert('Ingresa el correo para la activación.');
-            seleccionarServicioManual(nombre, precio, `Correo cliente: ${correo}`, 'modal-musica');
+        function seleccionarMusica(nombre, precio, tipo) {
+            let datos = 'Alquiler (Datos otorgados por admin)';
+            if (tipo === 'youtube') {
+                const creds = document.getElementById('youtube-creds').value.trim();
+                if(!creds) return alert('Ingresa el correo nuevo y contraseña para YouTube.');
+                datos = `Correo nuevo y pass: ${creds}`;
+            }
+            seleccionarServicioManual(nombre, precio, datos, 'modal-musica');
         }
 
-        function seleccionarGemini(nombrePlan, precio) {
-            const correo = document.getElementById('gemini-correo').value.trim();
-            if(!correo) return alert('Ingresa el correo Gmail requerido.');
-            seleccionarServicioManual(nombrePlan, precio, `Correo Gmail: ${correo}`, 'modal-gemini');
+        // Crunchyroll 12M
+        function seleccionarCrunchy12() {
+            const correo = document.getElementById('crunchy12-correo').value.trim();
+            if(!correo) return alert('Ingresa el correo del cliente.');
+            seleccionarServicioManual('Crunchyroll (12M)', 265, `Correo cliente: ${correo} (Queda después de medianoche)`, 'modal-crunchy12');
+        }
+
+        // Gemini Familiar
+        function seleccionarGeminiFamiliar() {
+            const creds = document.getElementById('gemini-fam-creds').value.trim();
+            if(!creds) return alert('Ingresa el correo y contraseña.');
+            seleccionarServicioManual('Gemini Familiar (12M)', 290, `Correo y Pass: ${creds}`, 'modal-gemini');
+        }
+
+        // Recargas Telefónicas
+        function abrirModalRecarga(compania) {
+            servicioRecargaActual = compania;
+            document.getElementById('titulo-modal-recarga').innerText = `📱 Recarga ${compania} ($200)`;
+            abrirModal('modal-recarga');
+        }
+
+        function confirmarRecarga() {
+            const num = document.getElementById('recarga-numero').value.trim();
+            const comp = document.getElementById('recarga-compania').value.trim();
+            const tipo = document.getElementById('recarga-tipo').value;
+            if(!num || !comp) return alert('Por favor llena todos los campos.');
+
+            seleccionarServicioManual(`Recarga ${servicioRecargaActual} ($200)`, 135, `Número: ${num} | Compañía: ${comp} | Tipo: ${tipo}`, 'modal-recarga');
         }
 
         function seleccionarServicioManual(nombre, precio, datos, idModal) {
@@ -489,10 +588,29 @@
             const tipo = document.getElementById('smart-tipo').value;
             const textarea = document.getElementById('smart-datos-input');
             const precioTxt = document.getElementById('smart-precio-txt');
-            if (tipo === 'nueva') { precioTxt.innerText = '$95.00 MXN'; textarea.placeholder = "▪️ Nombre completo:\n▪️ CURP:\n▪️ Correo electrónico:\n▪️ Teléfono:\n▪️ Dirección completa y CP:"; }
-            else if (tipo === 'falsa') { precioTxt.innerText = '$150.00 MXN'; textarea.placeholder = "▪️ Nombre completo:\n▪️ Correo nuevo:\n▪️ Dirección:"; }
-            else if (tipo === 'renovacion') { precioTxt.innerText = '$195.00 MXN'; textarea.placeholder = "▪️ CURP:\n▪️ Código postal / Dirección:"; }
-            else if (tipo === 'adeudos') { precioTxt.innerText = '$35.00 MXN'; textarea.placeholder = "▪️ CURP:\n▪️ Código postal / Dirección:"; }
+            const label = document.getElementById('label-smart-datos');
+            
+            if (tipo === 'nueva') { 
+                precioTxt.innerText = '$95.00 MXN'; 
+                label.innerText = "Ingresa los datos requeridos:";
+                textarea.placeholder = "▪️ Nombre completo:\n▪️ CURP:\n▪️ Correo electrónico:\n▪️ Teléfono:\n▪️ Dirección completa y CP:"; 
+            } else if (tipo === 'nuevados') { 
+                precioTxt.innerText = '$265.00 MXN'; 
+                label.innerText = "Ingresa los datos requeridos:";
+                textarea.placeholder = "▪️ Nombre completo:\n▪️ CURP:\n▪️ Correo electrónico:\n▪️ Teléfono:\n▪️ Dirección completa y CP:"; 
+            } else if (tipo === 'falsa') { 
+                precioTxt.innerText = '$150.00 MXN'; 
+                label.innerText = "Ingresa los datos requeridos:";
+                textarea.placeholder = "▪️ Nombre completo:\n▪️ Correo nuevo:\n▪️ Dirección:"; 
+            } else if (tipo === 'renovacion' || tipo === 'renovaciondos') { 
+                precioTxt.innerText = tipo === 'renovacion' ? '$195.00 MXN' : '$350.00 MXN'; 
+                label.innerText = "Solo CURP (El código va por WhatsApp directo con ellos):";
+                textarea.placeholder = "▪️ CURP:"; 
+            } else if (tipo === 'adeudos') { 
+                precioTxt.innerText = '$35.00 MXN'; 
+                label.innerText = "Solo CURP (El código va por WhatsApp directo con ellos):";
+                textarea.placeholder = "▪️ CURP:"; 
+            }
         }
 
         function agregarSmartfitAlCarrito() {
@@ -500,8 +618,10 @@
             const datos = document.getElementById('smart-datos-input').value.trim();
             if(!datos) return alert('Llena los datos requeridos.');
             let nombreServicio = 'Smart Fit Cuenta Nueva', precio = 95;
+            if(tipo === 'nuevados') { nombreServicio = 'Smart Fit Nuevas 2M'; precio = 265; }
             if(tipo === 'falsa') { nombreServicio = 'Smart Fit Cuenta Nueva Falsa'; precio = 150; }
-            if(tipo === 'renovacion') { nombreServicio = 'Smart Fit Renovaciones'; precio = 195; }
+            if(tipo === 'renovacion') { nombreServicio = 'Smart Fit Renovaciones 1M'; precio = 195; }
+            if(tipo === 'renovaciondos') { nombreServicio = 'Smart Fit Renovación 2M'; precio = 350; }
             if(tipo === 'adeudos') { nombreServicio = 'Smart Fit Adeudos/Mantenimiento'; precio = 35; }
             seleccionarServicioManual(nombreServicio, precio, datos, 'modal-smartfit');
         }
