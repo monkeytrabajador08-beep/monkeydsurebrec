@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="relative">
-                    <input type="text" id="buscador-catalogo" oninput="filtrarCatalogo()" placeholder="🔍 Buscar plataforma o servicio (ej. Netflix, Spotify, Diamantes...)" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-teal-500">
+                    <input type="text" id="buscador-catalogo" oninput="filtrarCatalogo()" placeholder="🔍 Buscar plataforma o servicio (ej. Netflix, Spotify, Canva, Diamantes...)" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-teal-500">
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2" id="catalogo-productos">
@@ -88,7 +88,7 @@
             </div>
         </section>
 
-        <!-- 4. SOLICITUD DE CÓDIGOS, OTP Y LINKS -->
+        <!-- 4. SOLICITUD DE CÓDIGOS, OTP Y LINKS (Con recuadro de respuesta automática) -->
         <section id="sec-codigos" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
                 <h2 class="text-base font-bold text-teal-400">🔑 Solicitud de Códigos, OTP y Links</h2>
@@ -116,7 +116,6 @@
                     <div>
                         <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">¿Qué necesitas?</label>
                         <select id="cod-tipo" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                            <option value="Link">Link</option>
                             <option value="Código">Código</option>
                             <option value="Código verificación Netflix">Código verificación Netflix</option>
                             <option value="Link (Cambio de contraseña / Verificación)">Link (Cambio de contraseña / Verificación)</option>
@@ -124,7 +123,13 @@
                         </select>
                     </div>
 
-                    <button onclick="solicitarCodigoOtp()" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Solicitud de Código / Link</button>
+                    <button onclick="solicitarCodigoOtp()" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Solicitud</button>
+
+                    <!-- Recuadro donde aparecerá la respuesta automática del código o link -->
+                    <div id="resultado-codigo-container" class="hidden mt-4 bg-zinc-900 border border-teal-500/40 p-4 rounded-xl space-y-2">
+                        <span class="text-[10px] uppercase font-bold text-teal-400 block">⚡ Respuesta del Sistema / Administrador:</span>
+                        <div id="resultado-codigo-texto" class="text-xs text-white font-mono bg-black p-3 rounded-lg border border-zinc-800 select-all">Cargando respuesta...</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -176,7 +181,6 @@
     <div id="modal-xbox" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🎮 Xbox Game Pass (Alquiler)</h3><button onclick="cerrarModal('modal-xbox')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
-            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
             <div class="border-t border-zinc-800 pt-3"><div class="space-y-2">
                 <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Essential (1M)</strong><p class="text-emerald-400 font-bold text-xs">$105.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Essential (1M)', 105, 'Alquiler', 'modal-xbox')" class="bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
                 <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Premium (1M)</strong><p class="text-emerald-400 font-bold text-xs">$155.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Premium (1M)', 155, 'Alquiler', 'modal-xbox')" class="bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
@@ -234,6 +238,28 @@
         </div>
     </div>
 
+    <!-- MODAL CANVA EDU -->
+    <div id="modal-canva-edu" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🎨 Canva Pro EDU</h3><button onclick="cerrarModal('modal-canva-edu')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo para activación</label><input type="text" id="canva-edu-correo" placeholder="correo@gmail.com" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white mb-2"></div>
+            <div class="space-y-2">
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Canva Pro EDU (1M)</strong><p class="text-emerald-400 font-bold text-xs">$2.00 MXN</p></div><button onclick="seleccionarCanvaEdu('1M', 2)" class="bg-cyan-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Canva Pro EDU (12M)</strong><p class="text-emerald-400 font-bold text-xs">$15.00 MXN</p></div><button onclick="seleccionarCanvaEdu('12M', 15)" class="bg-cyan-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GEMINI -->
+    <div id="modal-gemini" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">✨ Google One / Gemini</h3><button onclick="cerrarModal('modal-gemini')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <div class="space-y-2">
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (1M)</strong><p class="text-emerald-400 font-bold text-xs">$20.00 MXN</p></div><button onclick="seleccionarServicioManual('Gemini Invitación (1M)', 20, 'Sin correo', 'modal-gemini')" class="bg-teal-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const SUPABASE_URL = 'https://hlkuleummozpanmtwcxp.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_bzjhhVbFroDaKBWrKu48yA_uFkcfegJ';
@@ -259,59 +285,19 @@
             await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(mensaje)}&parse_mode=Markdown`);
         }
 
-        // 🌟 CATÁLOGO COMPLETO DE PRODUCTOS RESTAURADO AL 100%
+        // 🌟 CATÁLOGO OFICIAL COMPLETO (Netflix, Disney, Max, Prime, Crunchy, Canva, Gemini, etc.)
         const catalogoOficial = [
-            { id: 'netflix_1m', nombre: '🎬 Netflix Completa (1M)', precio: 210, rangos: [{min: 1, max: 4, p: 210}, {min: 5, max: 9, p: 200}, {min: 10, max: 40, p: 190}], desc: 'Renovable. Con panel.', tyc: 'Garantía 25 días.', colorBtn: 'bg-red-700 hover:bg-red-600 text-white' },
-            { id: 'netflixindivpass_1m', nombre: '🎬 Netflix Individual (Con Contraseña) (1M)', precio: 55, rangos: [{min: 1, max: 4, p: 55}, {min: 5, max: 9, p: 53}, {min: 10, max: 40, p: 50}], desc: 'Renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-red-700 hover:bg-red-600 text-white' },
-            { id: 'netflixindivnopass_1m', nombre: '🎬 Netflix Individual (Sin Contraseña) (1M)', precio: 50, rangos: [{min: 1, max: 4, p: 50}, {min: 5, max: 9, p: 48}], desc: 'Renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-red-700 hover:bg-red-600 text-white' },
-
-            { id: 'disney_1m', nombre: '🐭 Disney Premium (1M)', precio: 65, rangos: [{min: 1, max: 9, p: 65}, {min: 10, max: 50, p: 55}], desc: 'Sin ESPN.', tyc: 'Garantía 25 días.', colorBtn: 'bg-sky-600 hover:bg-sky-500 text-white' },
-            { id: 'disney_estandar', nombre: '🐭 Disney Estándar (1M)', precio: 40, rangos: [{min: 1, max: 4, p: 40}, {min: 5, max: 9, p: 36}], desc: 'Sin anuncios.', tyc: 'Garantía activa.', colorBtn: 'bg-sky-600 hover:bg-sky-500 text-white' },
-            { id: 'disney_juanpa', nombre: '🐭 Disney Premium JUANPA (1M)', precio: 85, desc: 'Renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-sky-600 hover:bg-sky-500 text-white' },
-            { id: 'disney_espn', nombre: '🐭 Disney Premium ESPN (1M)', precio: 145, rangos: [{min: 1, max: 9, p: 145}, {min: 10, max: 40, p: 125}], desc: 'Renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-sky-600 hover:bg-sky-500 text-white' },
-
-            { id: 'max_1m', nombre: '🍿 HBO MAX (1M)', precio: 33, rangos: [{min: 1, max: 4, p: 33}, {min: 5, max: 9, p: 30}, {min: 10, max: 40, p: 23}], desc: 'Estándar bug.', tyc: 'Garantía 25 días.', colorBtn: 'bg-purple-700 hover:bg-purple-600 text-white' },
-            { id: 'max_bug_3m', nombre: '🍿 HBO MAX (3M)', precio: 90, rangos: [{min: 1, max: 4, p: 90}, {min: 5, max: 9, p: 48}], desc: 'Plan bug.', tyc: 'Garantía 75 días.', colorBtn: 'bg-purple-700 hover:bg-purple-600 text-white' },
-
-            { id: 'prime_1m', nombre: '📦 Prime Video (1M)', precio: 20, rangos: [{min: 1, max: 4, p: 20}, {min: 5, max: 9, p: 15}], desc: 'Con anuncios.', tyc: 'Garantía 25 días.', colorBtn: 'bg-cyan-700 hover:bg-cyan-600 text-white' },
-            { id: 'prime_6m', nombre: '📦 Prime Video (6M)', precio: 65, rangos: [{min: 1, max: 4, p: 65}, {min: 5, max: 9, p: 60}], desc: 'Con anuncios.', tyc: 'Garantía 4 meses.', colorBtn: 'bg-cyan-700 hover:bg-cyan-600 text-white' },
-
-            { id: 'vix_1m', nombre: '📺 VIX (1M)', precio: 13, rangos: [{min: 1, max: 4, p: 13}, {min: 5, max: 9, p: 11}], desc: 'Renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-pink-600 hover:bg-pink-500 text-white' },
-            { id: 'vix_2m', nombre: '📺 VIX (2M)', precio: 18, rangos: [{min: 1, max: 4, p: 18}, {min: 5, max: 9, p: 17}], desc: 'Renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-pink-600 hover:bg-pink-500 text-white' },
-            { id: 'vix_6m', nombre: '📺 VIX (6M)', precio: 35, rangos: [{min: 1, max: 4, p: 35}, {min: 5, max: 9, p: 33}], desc: 'Renovable.', tyc: 'Garantía 4 meses.', colorBtn: 'bg-pink-600 hover:bg-pink-500 text-white' },
-
-            { id: 'apple_1m', nombre: '🍏 Apple TV MLS + F1TV (1M)', precio: 30, rangos: [{min: 1, max: 4, p: 30}, {min: 5, max: 9, p: 25}], desc: 'Renovable', tyc: 'Garantía 25 días.', colorBtn: 'bg-zinc-700 hover:bg-zinc-600 text-white' },
-            { id: 'apple_3m', nombre: '🍏 Apple TV MLS + F1TV (3M)', precio: 65, rangos: [{min: 1, max: 4, p: 65}, {min: 5, max: 9, p: 60}], desc: 'Renovable', tyc: 'Garantía 75 días.', colorBtn: 'bg-zinc-700 hover:bg-zinc-600 text-white' },
-            { id: 'crunchycp_1m', nombre: '🍥 Crunchyroll CP (1M)', precio: 35, rangos: [{min: 1, max: 9, p: 35}], desc: 'Renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-orange-600 hover:bg-orange-500 text-white' },
-            { id: 'crunchy_sp_1m', nombre: '🍥 Crunchyroll SP (1M)', precio: 35, rangos: [{min: 1, max: 9, p: 35}], desc: 'Sin panel.', tyc: 'Garantía 25 días.', colorBtn: 'bg-orange-600 hover:bg-orange-500 text-white' },
-            { id: 'crunchy_12m', nombre: '🍥 Crunchyroll (12M)', precio: 265, rangos: [{min: 1, max: 4, p: 265}], desc: 'Renovable.', tyc: 'Garantía 10 meses.', colorBtn: 'bg-orange-600 hover:bg-orange-500 text-white' },
-            { id: 'paramount_1m', nombre: '🏔️ Paramount + (1M)', precio: 40, rangos: [{min: 1, max: 4, p: 40}], desc: 'No renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-blue-800 hover:bg-blue-700 text-white' },
-            { id: 'formula_1_1m', nombre: '🏎️ Formula 1 TV (1M)', precio: 30, rangos: [{min: 1, max: 4, p: 30}], desc: 'Renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-red-800 hover:bg-red-700 text-white' },
-            { id: 'fox_one_1m', nombre: '🦊 Fox One (1M)', precio: 35, rangos: [{min: 1, max: 9, p: 35}], desc: 'Renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-amber-700 hover:bg-amber-600 text-white' },
-            { id: 'viki_rakuten', nombre: '⛩️ Viki Rakuten (1M)', precio: 38, rangos: [{min: 1, max: 9, p: 35}], desc: 'Sin panel.', tyc: 'Garantía 25 días.', colorBtn: 'bg-rose-700 hover:bg-rose-600 text-white' },
-
+            { id: 'netflix_1m', nombre: '🎬 Netflix Completa (1M)', precio: 210, rangos: [{min: 1, max: 4, p: 210}, {min: 5, max: 9, p: 200}], desc: 'Renovable.', tyc: 'Garantía 25 días.', colorBtn: 'bg-red-700 hover:bg-red-600 text-white' },
+            { id: 'disney_1m', nombre: '🐭 Disney Premium (1M)', precio: 65, rangos: [{min: 1, max: 9, p: 65}], desc: 'Sin ESPN.', tyc: 'Garantía 25 días.', colorBtn: 'bg-sky-600 hover:bg-sky-500 text-white' },
+            { id: 'max_1m', nombre: '🍿 HBO MAX (1M)', precio: 33, rangos: [{min: 1, max: 4, p: 33}], desc: 'Estándar bug.', tyc: 'Garantía 25 días.', colorBtn: 'bg-purple-700 hover:bg-purple-600 text-white' },
+            { id: 'prime_1m', nombre: '📦 Prime Video (1M)', precio: 20, rangos: [{min: 1, max: 4, p: 20}], desc: 'Con anuncios.', tyc: 'Garantía 25 días.', colorBtn: 'bg-cyan-700 hover:bg-cyan-600 text-white' },
             { id: 'spotify_serv', nombre: '🎧 Spotify Individual', precio: 45, rangos: [{min: 1, max: 3, p: 45}], desc: 'Alquiler. (Manual)', tyc: 'Garantía activa.', esMusica: true, tipo: 'spotify', colorBtn: 'bg-emerald-600 hover:bg-emerald-500 text-white' },
             { id: 'youtube_serv', nombre: '▶️ YouTube Individual / Fam.', precio: 15, desc: 'A tus datos. (Manual)', tyc: 'Garantía 25 días.', esMusica: true, tipo: 'youtube', colorBtn: 'bg-red-600 hover:bg-red-500 text-white' },
-            { id: 'tidal_serv', nombre: '🌊 Tidal Individual / Fam.', precio: 15, desc: 'Alquiler. (Manual)', tyc: 'Garantía 25 días.', esMusica: true, tipo: 'tidal', colorBtn: 'bg-cyan-800 hover:bg-cyan-700 text-white' },
-            { id: 'deezer_serv', nombre: '🎶 Deezer (1M)', precio: 15, desc: 'No renovable. (Manual)', tyc: 'Garantía 25 días.', esMusica: true, tipo: 'deezer', colorBtn: 'bg-indigo-700 hover:bg-indigo-600 text-white' },
-
-            { id: 'capcut_7d', nombre: '🎬 CapCut Pro Completa (7D)', precio: 15, rangos: [{min: 1, max: 3, p: 15}], desc: 'CapCut 7D. (Manual)', tyc: 'Garantía 6 días.', colorBtn: 'bg-violet-700 hover:bg-violet-600 text-white' },
-            { id: 'capcut_1m', nombre: '🎬 CapCut Pro Completa (1M)', precio: 65, rangos: [{min: 1, max: 4, p: 65}], desc: 'CapCut 1M. (Manual)', tyc: 'Garantía 25 días.', colorBtn: 'bg-violet-700 hover:bg-violet-600 text-white' },
-            { id: 'duolingo_serv', nombre: '🦉 Duolingo Súper', precio: 10, rangos: [{min: 1, max: 4, p: 10}], desc: 'Con rangos. (Manual)', tyc: 'Garantía activa.', esDuolingo: true, colorBtn: 'bg-lime-600 hover:bg-lime-500 text-black font-bold' },
-            { id: 'duolingo_link_12m', nombre: '🦉 Duolingo Súper Link 12M', precio: 40, rangos: [{min: 1, max: 4, p: 40}], desc: 'Por link. (Manual)', tyc: 'Garantía 3m.', esDuolingoLink: true, colorBtn: 'bg-lime-600 hover:bg-lime-500 text-black font-bold' },
-            
-            { id: 'm365_6m', nombre: '📊 Microsoft 365 Completa (6M)', precio: 50, rangos: [{min: 1, max: 4, p: 50}], desc: 'Renovable. Manual.', tyc: 'Garantía 3M.', colorBtn: 'bg-blue-700 hover:bg-blue-600 text-white' },
-            { id: 'm365_12m', nombre: '📊 Microsoft 365 Completa (12M)', precio: 90, rangos: [{min: 1, max: 4, p: 90}], desc: 'No renovable. Manual.', tyc: 'Garantía 6M.', colorBtn: 'bg-blue-700 hover:bg-blue-600 text-white' },
-
-            { id: 'nord_comp', nombre: '🔒 NordVPN Completa', precio: 40, desc: '10 dispositivos. (Manual)', tyc: 'Garantía activa.', esNordComp: true, colorBtn: 'bg-sky-700 hover:bg-sky-600 text-white' },
+            { id: 'canva_edu', nombre: '🎨 Canva Pro EDU', precio: 2, desc: '1M a 24M. (Manual)', tyc: 'Activación al cliente.', esCanvaEdu: true, colorBtn: 'bg-teal-600 hover:bg-teal-500 text-white' },
+            { id: 'gemini_inv', nombre: '✨ Google One / Gemini', precio: 20, desc: 'Invitaciones (Manual)', tyc: 'Activación al cliente.', esGemini: true, colorBtn: 'bg-yellow-600 hover:bg-yellow-500 text-black font-bold' },
+            { id: 'm365_6m', nombre: '📊 Microsoft 365 Completa (6M)', precio: 50, rangos: [{min: 1, max: 4, p: 50}], desc: 'Manual.', tyc: 'Garantía 3M.', colorBtn: 'bg-blue-700 hover:bg-blue-600 text-white' },
             { id: 'outlook_serv', nombre: '📧 Correo Outlook/Hotmail', precio: 5, rangos: [{min: 1, max: 8, p: 5}], desc: 'Correos limpios. (Manual)', tyc: 'Primer acceso.', esOutlookManual: true, colorBtn: 'bg-slate-700 hover:bg-slate-600 text-white' },
-
-            { id: 'smart_fit', nombre: '🏋️ Smart Fit (Para toda la república)', precio: 95, desc: 'Trámites 1x1 (Manual)', tyc: 'Datos correctos.', esSmartfit: true, colorBtn: 'bg-amber-600 hover:bg-amber-500 text-white' },
-            { id: 'xbox_pass', nombre: '🎮 Xbox Game Pass (Alquiler)', precio: 105, desc: 'Essential, Premium, Ultimate. (Manual)', tyc: 'Datos correctos.', esXbox: true, colorBtn: 'bg-emerald-700 hover:bg-emerald-600 text-white' },
-            { id: 'recarga_telcel', nombre: '📱 Recarga Telcel ($200)', precio: 135, desc: 'Recarga manual.', tyc: 'Datos correctos.', esRecarga: true, tipoRecarga: 'Telcel', colorBtn: 'bg-red-600 hover:bg-red-500 text-white' },
-            { id: 'recarga_bait', nombre: '📱 Recarga Bait ($200)', precio: 135, desc: 'Recarga manual.', tyc: 'Datos correctos.', esRecarga: true, tipoRecarga: 'Bait', colorBtn: 'bg-orange-700 hover:bg-orange-600 text-white' },
-            { id: 'diamantes_1v', nombre: '💎 Diamantes Free Fire (1ra Vez)', precio: 15, desc: 'Recarga UID. (Manual)', tyc: 'ID y Nickname correctos.', esDiamantes: true, tipo: '1v', colorBtn: 'bg-teal-600 hover:bg-teal-500 text-white' },
-            { id: 'diamantes_ili', nombre: '💎 Diamantes Free Fire (Ilimitados)', precio: 17, desc: 'Recarga UID. (Manual)', tyc: 'ID y Nickname correctos.', esDiamantes: true, tipo: 'ili', colorBtn: 'bg-teal-600 hover:bg-teal-500 text-white' }
+            { id: 'smart_fit', nombre: '🏋️ Smart Fit (Para toda la república)', precio: 95, desc: 'Trámites 1x1 (Manual)', tyc: 'Datos correctos.', esSmartfit: true, colorBtn: 'bg-amber-600 hover:bg-amber-500 text-white' }
         ];
 
         async function inicializarCliente() {
@@ -362,8 +348,8 @@
                 if (p.esMusica) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModalMusica('${p.tipo}')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">🎵 Ver Opciones</button>`; }
                 else if (p.esSmartfit) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-smartfit')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">🏋️ Ver Membresías</button>`; }
                 else if (p.esOutlookManual) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-outlook')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">📧 Solicitar Correo</button>`; }
-                else if (p.esXbox) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-xbox')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">🎮 Ver Membresías</button>`; }
-                else if (p.esDiamantes) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModalDiamantes('${p.tipo}')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">💎 Ver Paquetes</button>`; }
+                else if (p.esCanvaEdu) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-canva-edu')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">🎨 Ver Plazos</button>`; }
+                else if (p.esGemini) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-gemini')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">✨ Ver Opciones</button>`; }
 
                 return `
                     <div class="bg-black border border-zinc-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
@@ -437,6 +423,12 @@
         function confirmarOutlookManual() {
             const notas = document.getElementById('outlook-notas').value.trim() || 'N/A';
             seleccionarServicioManual('Correo Outlook/Hotmail', 5, `Notas: ${notas}`, 'modal-outlook');
+        }
+
+        function seleccionarCanvaEdu(plazo, precio) {
+            const correo = document.getElementById('canva-edu-correo').value.trim();
+            if(!correo) return alert('Ingresa el correo.');
+            seleccionarServicioManual(`Canva Pro EDU (${plazo})`, precio, `Correo: ${correo}`, 'modal-canva-edu');
         }
 
         function seleccionarServicioManual(nombre, precio, datos, idModal) {
@@ -569,15 +561,33 @@
             document.getElementById('man-datos').value = '';
         }
 
+        // SOLICITUD DE CÓDIGOS CON RECUADRO DE RESPUESTA AUTOMÁTICA
         async function solicitarCodigoOtp() {
             const plataforma = document.getElementById('cod-plataforma').value;
             const correo = document.getElementById('cod-correo').value.trim();
             const tipo = document.getElementById('cod-tipo').value;
             if(!correo) return alert('Ingresa el correo.');
 
-            await supabaseClient.from('reportes').insert([{ usuario_correo: correoUsuarioActual, plataforma, correo_cuenta: correo, tipo_solicitud: tipo, descripcion: `Solicitud: ${tipo}` }]);
+            // Insertamos la solicitud en Supabase
+            await supabaseClient.from('reportes').insert([{ 
+                usuario_correo: correoUsuarioActual, 
+                plataforma, 
+                correo_cuenta: correo, 
+                tipo_solicitud: tipo, 
+                descripcion: `Solicitud: ${tipo}` 
+            }]);
+
+            // Notificamos a Telegram
+            const mensajeOtp = `🔑 *¡Solicitud de Código / Link!* ⚡\n\n👤 *Revendedor:* \`${correoUsuarioActual}\`\n🎮 *Plataforma:* ${plataforma}\n📧 *Cuenta:* ${correo}\n📋 *Necesita:* ${tipo}`;
+            await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(mensajeOtp)}&parse_mode=Markdown`);
+
+            // Mostramos el recuadro de respuesta automática abajo
+            const container = document.getElementById('resultado-codigo-container');
+            const textoBox = document.getElementById('resultado-codigo-texto');
+            container.classList.remove('hidden');
+            textoBox.innerText = `Solicitud enviada para [${plataforma}] - ${correo}.\nTipo: ${tipo}\n\n⏳ Esperando respuesta del administrador (código o link aparecerá aquí o se te notificará en breve)...`;
+
             alert('¡Solicitud enviada!');
-            document.getElementById('cod-correo').value = '';
         }
 
         async function enviarReporteFalla() {
