@@ -5,31 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monkey D Surebrec - Panel de Revendedor</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Librería oficial de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-black text-slate-100 min-h-screen p-4 md:p-8 pb-24 md:pb-8">
 
-    <!-- Menú Flotante / Barra de Navegación Rápida -->
+    <!-- Menú Flotante Inferior -->
     <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-zinc-900/90 backdrop-blur-md border border-zinc-800 p-2 rounded-2xl shadow-2xl flex items-center gap-2 z-50 overflow-x-auto max-w-full px-4">
-        <button onclick="mostrarSeccion('tienda')" id="nav-tienda" class="px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg">🛍️ Tienda</button>
+        <button onclick="mostrarSeccion('tienda')" id="nav-tienda" class="px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg">🛍️ Tienda Auto</button>
+        <button onclick="mostrarSeccion('manuales')" id="nav-manuales" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🛠️ Pedidos Manuales</button>
         <button onclick="mostrarSeccion('cuentas')" id="nav-cuentas" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">📦 Mis Cuentas</button>
-        <button onclick="mostrarSeccion('soporte')" id="nav-soporte" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🔑 Códigos y Reportes</button>
-        <button onclick="mostrarSeccion('subclientes')" id="nav-subclientes" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">👥 Subclientes</button>
-        <a href="https://wa.me/" target="_blank" class="px-3 py-2 rounded-xl bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 text-xs font-semibold whitespace-nowrap transition-all border border-emerald-500/20">💬 WhatsApp</a>
+        <button onclick="mostrarSeccion('soporte')" id="nav-soporte" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🔑 Reportes / OTP</button>
+        <a href="https://wa.me/" target="_blank" class="px-3 py-2 rounded-xl bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 text-xs font-semibold whitespace-nowrap transition-all border border-emerald-500/20">💬 Soporte WhatsApp</a>
     </nav>
 
-    <!-- Header del Revendedor -->
+    <!-- Header con Saldo Real de Supabase -->
     <header class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center bg-zinc-900 border border-zinc-800 rounded-2xl p-6 mb-8 shadow-2xl gap-4">
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec</h2>
             <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel de Revendedor 💼</h1>
-            <p class="text-xs text-zinc-400 mt-1">Conectado a inventario en vivo y compras automáticas.</p>
+            <p class="text-xs text-zinc-400 mt-1">Inventario en vivo y sistema de compras automatizado.</p>
         </div>
         <div class="flex items-center gap-4">
             <div class="text-right">
                 <span class="text-xs text-zinc-400 uppercase font-semibold block">Saldo Disponible</span>
-                <span id="saldo-disponible" class="text-xl font-extrabold text-emerald-400">Cargando...</span>
+                <span id="saldo-usuario" class="text-xl font-extrabold text-emerald-400">Cargando...</span>
             </div>
             <a href="index.html" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-4 py-2.5 rounded-xl transition-colors">Cerrar Sesión</a>
         </div>
@@ -37,13 +36,13 @@
 
     <main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- SECCIÓN 1: TIENDA Y CARRITO -->
+        <!-- 1. TIENDA AUTOMÁTICA -->
         <section id="sec-tienda" class="space-y-6">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                     <div>
-                        <h2 class="text-base font-bold">🛍️ Catálogo y Carrito de Compras</h2>
-                        <p class="text-xs text-zinc-400">Las compras entregan cuentas automáticas desde Supabase.</p>
+                        <h2 class="text-base font-bold">🛍️ Catálogo y Cuentas Automáticas</h2>
+                        <p class="text-xs text-zinc-400">Selecciona el servicio y stock disponible en tiempo real.</p>
                     </div>
                     <div class="bg-black border border-zinc-800 px-4 py-2.5 rounded-xl text-xs flex items-center gap-4">
                         <div>
@@ -51,227 +50,251 @@
                             <span class="text-zinc-600 mx-1">|</span>
                             <span>Total: <strong id="total-carrito" class="text-emerald-400">$0.00 MXN</strong></span>
                         </div>
-                        <button onclick="pagarCarrito()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3.5 py-1.5 rounded-xl transition-colors shadow-lg">Pagar Carrito</button>
+                        <button onclick="pagarCarrito()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3.5 py-1.5 rounded-xl transition-colors shadow-lg">Pagar con Saldo</button>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Netflix -->
-                    <div class="bg-black border border-zinc-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
-                        <div>
-                            <h3 class="font-bold text-white text-base">Netflix (Miembro Extra)</h3>
-                            <div class="flex gap-2 mt-3">
-                                <button onclick="actualizarSeleccion('netflix', 1, 35, this)" class="px-3 py-1 rounded-lg bg-teal-500 text-black font-bold text-xs transition-all">1 Mes ($35)</button>
-                                <button onclick="actualizarSeleccion('netflix', 2, 65, this)" class="px-3 py-1 rounded-lg bg-zinc-900 text-zinc-400 text-xs transition-all">2 Meses ($65)</button>
-                            </div>
-                            <p id="precio-netflix" class="text-2xl font-black text-emerald-400 mt-3">$35.00 <span class="text-xs text-zinc-400 font-normal">MXN</span></p>
-                            <div class="flex items-center justify-between mt-4 bg-zinc-900 p-2 rounded-xl border border-zinc-800">
-                                <span class="text-xs text-zinc-400 font-medium">Cantidad:</span>
-                                <div class="flex items-center gap-3">
-                                    <button onclick="cambiarCantidad('netflix', -1)" class="w-7 h-7 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">-</button>
-                                    <span id="cant-netflix" class="text-sm font-bold text-white">1</span>
-                                    <button onclick="cambiarCantidad('netflix', 1)" class="w-7 h-7 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <button onclick="agregarAlCarrito('Netflix')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">+ Añadir al Carrito</button>
-                    </div>
-
-                    <!-- Disney+ -->
-                    <div class="bg-black border border-zinc-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
-                        <div>
-                            <h3 class="font-bold text-white text-base">Disney+ Estándar</h3>
-                            <div class="flex gap-2 mt-3">
-                                <button onclick="actualizarSeleccion('disney', 1, 25, this)" class="px-3 py-1 rounded-lg bg-teal-500 text-black font-bold text-xs transition-all">1 Mes ($25)</button>
-                                <button onclick="actualizarSeleccion('disney', 2, 45, this)" class="px-3 py-1 rounded-lg bg-zinc-900 text-zinc-400 text-xs transition-all">2 Meses ($45)</button>
-                            </div>
-                            <p id="precio-disney" class="text-2xl font-black text-emerald-400 mt-3">$25.00 <span class="text-xs text-zinc-400 font-normal">MXN</span></p>
-                            <div class="flex items-center justify-between mt-4 bg-zinc-900 p-2 rounded-xl border border-zinc-800">
-                                <span class="text-xs text-zinc-400 font-medium">Cantidad:</span>
-                                <div class="flex items-center gap-3">
-                                    <button onclick="cambiarCantidad('disney', -1)" class="w-7 h-7 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">-</button>
-                                    <span id="cant-disney" class="text-sm font-bold text-white">1</span>
-                                    <button onclick="cambiarCantidad('disney', 1)" class="w-7 h-7 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <button onclick="agregarAlCarrito('Disney+')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">+ Añadir al Carrito</button>
-                    </div>
+                <!-- Tarjetas de Productos Automáticos -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="catalogo-productos">
+                    <div class="bg-black border border-zinc-800 p-5 rounded-xl text-xs text-zinc-500 text-center">Cargando stock disponible...</div>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 2: MIS CUENTAS -->
+        <!-- 2. PEDIDOS MANUALES -->
+        <section id="sec-manuales" class="space-y-6 hidden">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+                <h2 class="text-base font-bold">🛠️ Solicitar Servicio Manual</h2>
+                <p class="text-xs text-zinc-400">Usa esta sección para servicios o activaciones especiales que requieren gestión de la administración.</p>
+                
+                <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Seleccionar Servicio</label>
+                        <select id="man-servicio" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                            <option value="Smartfit Cuenta Nueva">Smartfit - Cuenta Nueva ($95 MXN)</option>
+                            <option value="Smartfit Renovación">Smartfit - Renovación ($195 MXN)</option>
+                            <option value="Perfil Personalizado / Otro">Otro Servicio o Perfil Personalizado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Datos Requeridos del Cliente (Correo, Nombre, etc.)</label>
+                        <textarea id="man-datos" rows="3" placeholder="Ingresa los datos necesarios para procesar tu pedido..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
+                    </div>
+                    <button onclick="enviarPedidoManual()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Pedido Manual a la Admin</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. MIS CUENTAS ADQUIRIDAS -->
         <section id="sec-cuentas" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
-                <h2 class="text-base font-bold mb-4">📦 Inventario de Mis Cuentas Activas</h2>
+                <h2 class="text-base font-bold mb-4">📦 Historial de Mis Cuentas Adquiridas</h2>
                 <div id="lista-mis-cuentas" class="space-y-4 text-xs text-zinc-400">
-                    Cargando cuentas adquiridas...
+                    Cargando cuentas...
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 3: CÓDIGOS Y REPORTES -->
+        <!-- 4. REPORTES / OTP -->
         <section id="sec-soporte" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
-                <h2 class="text-base font-bold">🔑 Panel de Códigos y Reportes Inteligente</h2>
+                <h2 class="text-base font-bold">🔑 Reporte de Caídas o Solicitud de Código OTP</h2>
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
-                    <h3 class="text-xs font-bold uppercase text-rose-400">🚨 Reportar Cuenta Caída</h3>
                     <input type="text" id="rep-correo" placeholder="Correo de la cuenta con problema..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <textarea id="rep-desc" placeholder="Describe brevemente el problema..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
-                    <button onclick="enviarReporte()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Reporte al Sistema</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 4: SUBCLIENTES -->
-        <section id="sec-subclientes" class="space-y-6 hidden">
-            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
-                <h2 class="text-base font-bold">👥 Gestión de Subclientes</h2>
-                <div class="bg-black border border-zinc-800 p-4 rounded-xl text-center text-xs text-zinc-500">
-                    Próximamente: Vinculación directa con subcuentas activas.
+                    <select id="rep-tipo" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <option value="otp">Solicitar Código OTP / Hogar</option>
+                        <option value="caida">Cuenta Caída / Reportar Falla</option>
+                    </select>
+                    <textarea id="rep-desc" placeholder="Detalles adicionales..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
+                    <button onclick="enviarReporteFalla()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Reporte</button>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Conexión y Lógica con Supabase -->
     <script>
         const SUPABASE_URL = 'https://hlkuleummozpanmtwcxp.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_bzjhhVbFroDaKBWrKu48yA_uFkcfegJ';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        let saldoActual = 450.00;
+        let correoUsuarioActual = localStorage.getItem('user_correo') || 'cliente@surebrec.com';
+        let saldoRevendedor = 0;
         let carritoItems = 0;
         let carritoTotal = 0;
-        let seleccionActual = {
-            netflix: { precio: 35, cantidad: 1 },
-            disney: { precio: 25, cantidad: 1 }
-        };
+        let productoEnCarrito = null;
+
+        async function inicializarCliente() {
+            const { data } = await supabaseClient
+                .from('usuarios')
+                .select('*')
+                .eq('correo', correoUsuarioActual)
+                .single();
+
+            if (data) {
+                saldoRevendedor = data.saldo || 0;
+                document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
+            } else {
+                document.getElementById('saldo-usuario').innerText = '$500.00 MXN';
+                saldoRevendedor = 500.00;
+            }
+
+            cargarCatalogoStock();
+        }
+
+        async function cargarCatalogoStock() {
+            const { data: inventario } = await supabaseClient
+                .from('inventario')
+                .select('*')
+                .eq('estado', 'disponible');
+
+            const contenedor = document.getElementById('catalogo-productos');
+            
+            const plataformas = [
+                { nombre: 'Disney Premium', precio: 65, desc: 'Cuenta completa oficial.' },
+                { nombre: 'MAX Platino', precio: 95, desc: 'Platino calidad máxima.' },
+                { nombre: 'Prime Video', precio: 65, desc: '6 Meses completa.' },
+                { nombre: 'Crunchyroll CP', precio: 35, desc: 'Cuenta principal (CP).' },
+                { nombre: 'Nord VPN', precio: 50, desc: 'Acceso completo VPN.' },
+                { nombre: 'VIX', precio: 35, desc: 'VIX Completa.' }
+            ];
+
+            contenedor.innerHTML = plataformas.map(p => {
+                const stockCount = inventario ? inventario.filter(i => i.plataforma === p.nombre).length : 0;
+                return `
+                    <div class="bg-black border border-zinc-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-bold text-white text-base">${p.nombre}</h3>
+                                <span class="bg-zinc-800 text-teal-400 text-[10px] px-2 py-1 rounded-md font-bold">Stock: ${stockCount} disp.</span>
+                            </div>
+                            <p class="text-xs text-zinc-400 mt-1">${p.desc}</p>
+                            <p class="text-2xl font-black text-emerald-400 mt-3">$${p.precio}.00 <span class="text-xs text-zinc-400 font-normal">MXN</span></p>
+                        </div>
+                        <button onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, ${stockCount})" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Añadir al Carrito</button>
+                    </div>
+                `;
+            }).join('');
+        }
 
         function mostrarSeccion(seccion) {
-            const secs = ['tienda', 'cuentas', 'soporte', 'subclientes'];
-            secs.forEach(s => {
+            ['tienda', 'manuales', 'cuentas', 'soporte'].forEach(s => {
                 document.getElementById('sec-' + s).classList.add('hidden');
                 document.getElementById('nav-' + s).className = "px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all";
             });
             document.getElementById('sec-' + seccion).classList.remove('hidden');
             document.getElementById('nav-' + seccion).className = "px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg";
-            
+
             if(seccion === 'cuentas') cargarMisCuentas();
         }
 
-        function cambiarCantidad(producto, cambio) {
-            seleccionActual[producto].cantidad += cambio;
-            if (seleccionActual[producto].cantidad < 1) seleccionActual[producto].cantidad = 1;
-            document.getElementById('cant-' + producto).innerText = seleccionActual[producto].cantidad;
-        }
+        function agregarAlCarrito(nombre, precio, stock) {
+            if(stock <= 0) return alert('Lo sentimos, no hay stock disponible de esta plataforma en este momento.');
+            productoEnCarrito = { nombre, precio };
+            carritoItems = 1;
+            carritoTotal = precio;
 
-        function actualizarSeleccion(producto, meses, precioBase, boton) {
-            seleccionActual[producto].precio = precioBase;
-            document.getElementById('precio-' + producto).innerHTML = `$${precioBase}.00 <span class="text-xs text-zinc-400 font-normal">MXN</span>`;
-            const contenedor = boton.parentElement;
-            Array.from(contenedor.children).forEach(btn => {
-                btn.className = "px-3 py-1 rounded-lg bg-zinc-900 text-zinc-400 text-xs transition-all";
-            });
-            boton.className = "px-3 py-1 rounded-lg bg-teal-500 text-black font-bold text-xs transition-all";
-        }
-
-        function agregarAlCarrito(productoKey) {
-            const item = seleccionActual[productoKey.toLowerCase().replace('+', '')];
-            const subtotal = item.precio * item.cantidad;
-            carritoItems += item.cantidad;
-            carritoTotal += subtotal;
-
-            document.getElementById('contador-carrito').innerText = carritoItems + ' ítems';
-            document.getElementById('total-carrito').innerText = '$' + carritoTotal.toFixed(2) + ' MXN';
-            alert(`¡Se añadieron ${item.cantidad} cuenta(s) al carrito por $${subtotal}.00 MXN!`);
+            document.getElementById('contador-carrito').innerText = '1 ítem';
+            document.getElementById('total-carrito').innerText = '$' + precio.toFixed(2) + ' MXN';
+            alert(`¡Se añadió ${nombre} al carrito por $${precio}.00 MXN!`);
         }
 
         async function pagarCarrito() {
-            if (carritoTotal === 0) return alert("Tu carrito está vacío.");
-            
-            // Buscar una cuenta disponible en Supabase de ejemplo para la compra
-            const { data: cuentasStock, error: errStock } = await supabaseClient
+            if (!productoEnCarrito || carritoTotal === 0) return alert("Tu carrito está vacío.");
+            if (saldoRevendedor < carritoTotal) return alert("Saldo insuficiente para completar la compra.");
+
+            const { data: stockItems, error: errStock } = await supabaseClient
                 .from('inventario')
                 .select('*')
+                .eq('plataforma', productoEnCarrito.nombre)
                 .eq('estado', 'disponible')
                 .limit(1);
 
-            if (errStock || !cuentasStock || cuentasStock.length === 0) {
-                alert("Lo sentimos, no hay stock disponible en este momento en la base de datos.");
-                return;
+            if (errStock || !stockItems || stockItems.length === 0) {
+                return alert("Ups, el stock acaba de agotarse.");
             }
 
-            const cuentaAsignada = cuentasStock[0];
+            const cuentaAsignada = stockItems[0];
 
-            // Marcar la cuenta como asignada en Supabase
-            const { error: errUpdate } = await supabaseClient
-                .from('inventario')
-                .update({ 
-                    estado: 'asignada', 
-                    fecha_compra: new Date(),
-                    asignado_ai: 'Revendedor Actual' 
-                })
-                .eq('id', cuentaAsignada.id);
+            await supabaseClient.from('inventario').update({
+                estado: 'asignada',
+                fecha_compra: new Date(),
+                asignado_a: correoUsuarioActual
+            }).eq('id', cuentaAsignada.id);
 
-            if (errUpdate) {
-                alert('Error al procesar la compra.');
-                return;
-            }
+            const nuevoSaldo = saldoRevendedor - carritoTotal;
+            await supabaseClient.from('usuarios').update({ saldo: nuevoSaldo }).eq('correo', correoUsuarioActual);
 
-            alert(`¡Compra exitosa! Cuenta entregada:\n\nCorreo: ${cuentaAsignada.correo_cuenta}\nPass: ${cuentaAsignada.password_cuenta}`);
-            
+            saldoRevendedor = nuevoSaldo;
+            document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
+
+            alert(`¡Compra Exitosa!\n\nCuenta: ${cuentaAsignada.correo_cuenta}\nContraseña: ${cuentaAsignada.password_cuenta}`);
+
+            productoEnCarrito = null;
             carritoItems = 0;
             carritoTotal = 0;
             document.getElementById('contador-carrito').innerText = '0 ítems';
             document.getElementById('total-carrito').innerText = '$0.00 MXN';
+            cargarCatalogoStock();
+        }
+
+        async function enviarPedidoManual() {
+            const servicio = document.getElementById('man-servicio').value;
+            const datos = document.getElementById('man-datos').value.trim();
+            if(!datos) return alert('Por favor ingresa los datos requeridos.');
+
+            const { error } = await supabaseClient.from('pedidos_manuales').insert([{
+                usuario_correo: correoUsuarioActual,
+                servicio: servicio,
+                datos_cliente: datos,
+                estado: 'pendiente'
+            }]);
+
+            if(error) alert('Error al enviar pedido.');
+            else {
+                alert('¡Pedido manual enviado con éxito a la administración!');
+                document.getElementById('man-datos').value = '';
+            }
         }
 
         async function cargarMisCuentas() {
-            const { data, error } = await supabaseClient
-                .from('inventario')
-                .select('*')
-                .eq('estado', 'asignada');
-
+            const { data } = await supabaseClient.from('inventario').select('*').eq('asignado_a', correoUsuarioActual);
             const contenedor = document.getElementById('lista-mis-cuentas');
-            if (error || !data || data.length === 0) {
+            if(!data || data.length === 0) {
                 contenedor.innerHTML = `<div class="bg-black border border-zinc-800 p-4 rounded-xl text-center text-xs text-zinc-500">No tienes cuentas compradas todavía.</div>`;
                 return;
             }
-
             contenedor.innerHTML = data.map(c => `
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl flex justify-between items-center">
                     <div>
                         <span class="text-teal-400 font-semibold uppercase">${c.plataforma}</span>
                         <p class="text-white font-mono mt-1">${c.correo_cuenta} / Pass: ${c.password_cuenta}</p>
                     </div>
-                    <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-2 py-1 rounded text-[10px] font-bold">Activa</span>
+                    <span class="bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded text-[10px] font-bold">Activa</span>
                 </div>
             `).join('');
         }
 
-        async function enviarReporte() {
+        async function enviarReporteFalla() {
             const correo = document.getElementById('rep-correo').value;
-            const descripcion = document.getElementById('rep-desc').value;
-            if(!correo || !descripcion) return alert('Por favor llena los campos.');
+            const tipo = document.getElementById('rep-tipo').value;
+            const desc = document.getElementById('rep-desc').value;
+            if(!correo || !desc) return alert('Llena todos los campos.');
 
-            const { error } = await supabaseClient.from('reportes').insert([{
-                usuario_correo: 'revendedor@surebrec.com',
+            await supabaseClient.from('reportes').insert([{
+                usuario_correo: correoUsuarioActual,
                 plataforma: 'General',
                 correo_cuenta: correo,
-                tipo_solicitud: 'caida',
-                descripcion: descripcion
+                tipo_solicitud: tipo,
+                descripcion: desc
             }]);
 
-            if(error) alert('Error al enviar reporte.');
-            else {
-                alert('¡Reporte enviado con éxito al administrador!');
-                document.getElementById('rep-correo').value = '';
-                document.getElementById('rep-desc').value = '';
-            }
+            alert('¡Reporte enviado con éxito!');
+            document.getElementById('rep-correo').value = '';
+            document.getElementById('rep-desc').value = '';
         }
+
+        window.onload = inicializarCliente;
     </script>
 </body>
 </html>
