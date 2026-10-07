@@ -9,7 +9,7 @@
 </head>
 <body class="bg-black text-slate-100 min-h-screen p-4 md:p-8 pb-24 md:pb-8">
 
-    <!-- Menú Flotante Inferior (Con secciones separadas) -->
+    <!-- Menú Flotante Inferior -->
     <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-zinc-900/90 backdrop-blur-md border border-zinc-800 p-2 rounded-2xl shadow-2xl flex items-center gap-2 z-50 overflow-x-auto max-w-full px-4">
         <button onclick="mostrarSeccion('tienda')" id="nav-tienda" class="px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg">🛍️ Tienda Auto</button>
         <button onclick="mostrarSeccion('manuales')" id="nav-manuales" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">🛠️ Pedidos Manuales</button>
@@ -24,7 +24,7 @@
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec</h2>
             <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">¡Qué tengas un buen día, lo estás haciendo muy bien! 💼</h1>
-            <p class="text-xs text-zinc-400 mt-1">Panel de Revendedor Oficial ordenado por categorías.</p>
+            <p class="text-xs text-zinc-400 mt-1">Panel de Revendedor Oficial con botones personalizados por categoría.</p>
         </div>
         <div class="flex items-center gap-4">
             <div class="text-right">
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="relative">
-                    <input type="text" id="buscador-catalogo" oninput="filtrarCatalogo()" placeholder="🔍 Buscar plataforma o servicio..." class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-teal-500">
+                    <input type="text" id="buscador-catalogo" oninput="filtrarCatalogo()" placeholder="🔍 Buscar plataforma o servicio (ej. Netflix, Spotify, Diamantes...)" class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-teal-500">
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2" id="catalogo-productos">
@@ -69,12 +69,13 @@
         <section id="sec-manuales" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">🛠️ Solicitar Servicio Especial / Notas</h2>
+                <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl">⏰ <strong>Tiempo de entrega:</strong> 30 min a 8 hrs</p>
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
                     <div>
                         <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Nota o Detalle</label>
-                        <textarea id="man-datos" rows="3" placeholder="Escribe aquí si requieres algún detalle o servicio especial..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
+                        <textarea id="man-datos" rows="3" placeholder="Escribe aquí si requieres algún detalle o servicio especial personalizado..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
                     </div>
-                    <button onclick="enviarPedidoManual()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Pedido</button>
+                    <button onclick="enviarPedidoManual()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Nota / Pedido</button>
                 </div>
             </div>
         </section>
@@ -87,28 +88,43 @@
             </div>
         </section>
 
-        <!-- 4. SOLICITUD DE CÓDIGOS / OTP / HOGAR / LINKS -->
+        <!-- 4. SOLICITUD DE CÓDIGOS, OTP Y LINKS -->
         <section id="sec-codigos" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
-                <h2 class="text-base font-bold text-teal-400">🔑 Solicitud de Códigos, OTP y Links (Hogar / Verificación)</h2>
-                <p class="text-xs text-zinc-400">Ingresa el correo de tu cuenta activa para recibir tu código, link de cambio de contraseña, verificación de correo en Crunchyroll o actualización de Hogar (Netflix).</p>
+                <h2 class="text-base font-bold text-teal-400">🔑 Solicitud de Códigos, OTP y Links</h2>
+                <p class="text-xs text-zinc-400">Selecciona la plataforma y el correo de tu cuenta activa para solicitar el código o enlace correspondiente.</p>
                 
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Selecciona la Plataforma</label>
+                        <select id="cod-plataforma" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                            <option value="Netflix">Netflix</option>
+                            <option value="Disney+">Disney+</option>
+                            <option value="HBO Max">HBO Max</option>
+                            <option value="Crunchyroll">Crunchyroll</option>
+                            <option value="Amazon Prime">Amazon Prime</option>
+                            <option value="Apple TV">Apple TV</option>
+                            <option value="Otra">Otra Plataforma</option>
+                        </select>
+                    </div>
+
                     <div>
                         <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo de la Cuenta Activa</label>
                         <input type="text" id="cod-correo" placeholder="correo@cuenta.com" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
                     </div>
+
                     <div>
                         <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">¿Qué necesitas?</label>
                         <select id="cod-tipo" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                            <option value="otp">Código OTP / Acceso General</option>
-                            <option value="hogar_netflix">Actualización de Hogar Netflix (Link)</option>
-                            <option value="link_crunchy">Verificación de Correo Crunchyroll (Link)</option>
-                            <option value="cambio_pass">Link para Cambio de Contraseña</option>
-                            <option value="codigo_disney_hbo">Código de Disney u HBO</option>
+                            <option value="Link">Link</option>
+                            <option value="Código">Código</option>
+                            <option value="Código verificación Netflix">Código verificación Netflix</option>
+                            <option value="Link (Cambio de contraseña / Verificación)">Link (Cambio de contraseña / Verificación)</option>
+                            <option value="Hogar (Netflix)">Hogar (Netflix)</option>
                         </select>
                     </div>
-                    <button onclick="solicitarCodigoOtp()" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Solicitar Código / Link</button>
+
+                    <button onclick="solicitarCodigoOtp()" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Solicitud de Código / Link</button>
                 </div>
             </div>
         </section>
@@ -130,7 +146,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Descripción de la Falla</label>
-                        <textarea id="rep-desc" rows="3" placeholder="Detalla el problema (ej. Pantalla bloqueada, contraseña incorrecta...)" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
+                        <textarea id="rep-desc" rows="3" placeholder="Detalla el problema..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Evidencia (Foto / Captura de pantalla)</label>
@@ -143,7 +159,100 @@
 
     </main>
 
-    <!-- Modales adicionales (Diamantes, Xbox, Smart Fit, etc. se mantienen igual) -->
+    <!-- MODAL DIAMANTES -->
+    <div id="modal-diamantes" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center"><h3 id="modal-titulo" class="text-base font-bold text-teal-400">💎 Seleccionar Paquete</h3><button onclick="cerrarModal('modal-diamantes')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
+            <div class="space-y-3">
+                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">ID de Jugador (Free Fire)</label><input type="text" id="modal-id-jugador" placeholder="Ej. 123456789" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"></div>
+                <div><label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Nombre de Jugador (Nickname)</label><input type="text" id="modal-nombre-jugador" placeholder="Ej. MonkeyD_99" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white"></div>
+            </div>
+            <div class="border-t border-zinc-800 pt-3"><p class="text-[11px] text-zinc-400 mb-2">Selecciona el paquete deseado:</p><div class="max-h-48 overflow-y-auto space-y-2 pr-1" id="lista-paquetes-modal"></div></div>
+        </div>
+    </div>
+
+    <!-- MODAL XBOX -->
+    <div id="modal-xbox" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🎮 Xbox Game Pass (Alquiler)</h3><button onclick="cerrarModal('modal-xbox')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs</p>
+            <div class="border-t border-zinc-800 pt-3"><div class="space-y-2">
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Essential (1M)</strong><p class="text-emerald-400 font-bold text-xs">$105.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Essential (1M)', 105, 'Alquiler (Datos otorgados by admin)', 'modal-xbox')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Premium (1M)</strong><p class="text-emerald-400 font-bold text-xs">$155.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Premium (1M)', 155, 'Alquiler (Datos otorgados by admin)', 'modal-xbox')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center"><div><strong class="text-white text-sm">Ultimate (1M)</strong><p class="text-emerald-400 font-bold text-xs">$265.00 MXN</p></div><button onclick="seleccionarServicioManual('Xbox Game Pass Ultimate (1M)', 265, 'Alquiler (Datos otorgados by admin)', 'modal-xbox')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Seleccionar</button></div>
+            </div></div>
+        </div>
+    </div>
+
+    <!-- MODAL SMART FIT -->
+    <div id="modal-smartfit" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">🏋️ Trámites Smart Fit</h3><button onclick="cerrarModal('modal-smartfit')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <p class="text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 p-2.5 rounded-xl">⏰ <strong>Entrega manual:</strong> 30 min a 8 hrs (1x1)</p>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Selecciona el Trámite</label>
+                    <select id="smart-tipo" onchange="actualizarCamposSmart()" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <option value="nueva">Cuenta Nueva 1M ($95)</option>
+                        <option value="falsa">Cuenta Nueva Falsa 1M ($150)</option>
+                        <option value="renovacion">Renovación 1M ($195)</option>
+                        <option value="renovaciondos">Renovación por 2M ($350)</option>
+                        <option value="adeudos">Adeudos / Mantenimiento (35% variable)</option>
+                    </select>
+                </div>
+                <div id="contenedor-monto-adeudo" class="hidden space-y-1">
+                    <label class="block text-xs font-semibold uppercase text-teal-400 mb-1">Monto Total del Adeudo (MXN):</label>
+                    <input type="number" id="smart-monto-adeudo" oninput="calcularAdeudoSmart()" placeholder="Ej. 1000" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white font-mono">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1" id="label-smart-datos">Ingresa los datos requeridos:</label>
+                    <textarea id="smart-datos-input" rows="3" placeholder="Completa los datos..." class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white font-mono"></textarea>
+                </div>
+            </div>
+            <div class="border-t border-zinc-800 pt-3 flex justify-between items-center">
+                <div><span class="text-xs text-zinc-400">Total a pagar:</span><p id="smart-precio-txt" class="text-emerald-400 font-extrabold text-lg">$95.00 MXN</p></div>
+                <button onclick="agregarSmartfitAlCarrito()" class="bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-colors">Añadir al Carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GEMINI -->
+    <div id="modal-gemini" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">✨ Google One / Gemini</h3><button onclick="cerrarModal('modal-gemini')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <div class="space-y-2 max-h-60 overflow-y-auto">
+                <div class="bg-black border border-zinc-800 p-2.5 rounded-xl flex justify-between items-center"><div><strong class="text-white text-xs">Gemini Invitación (1M)</strong><p class="text-emerald-400 font-bold text-xs">$20.00 MXN</p></div><button onclick="seleccionarServicioManual('Gemini Invitación (1M)', 20, 'Sin correo', 'modal-gemini')" class="bg-teal-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL MÚSICA -->
+    <div id="modal-musica" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center"><h3 id="titulo-modal-musica" class="text-base font-bold text-teal-400">🎵 Música</h3><button onclick="cerrarModal('modal-musica')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <div id="input-datos-youtube" class="hidden space-y-2"><label class="block text-xs font-semibold uppercase text-zinc-400">Correo y Contraseña</label><textarea id="youtube-creds" rows="2" class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea></div>
+            <div class="max-h-48 overflow-y-auto space-y-2" id="lista-paquetes-musica"></div>
+        </div>
+    </div>
+
+    <!-- MODAL OUTLOOK -->
+    <div id="modal-outlook" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center"><h3 class="text-base font-bold text-teal-400">📧 Correo Outlook</h3><button onclick="cerrarModal('modal-outlook')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <input type="text" id="outlook-notas" placeholder="Notas adicionales..." class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white mb-3">
+            <button onclick="confirmarOutlookManual()" class="w-full bg-slate-700 text-white font-bold text-xs py-2.5 rounded-xl">Solicitar</button>
+        </div>
+    </div>
+
+    <!-- MODAL RECARGA -->
+    <div id="modal-recarga" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center"><h3 id="titulo-modal-recarga" class="text-base font-bold text-teal-400">📱 Recarga</h3><button onclick="cerrarModal('modal-recarga')" class="text-zinc-400 hover:text-white font-bold text-lg">✕</button></div>
+            <input type="text" id="recarga-numero" placeholder="Número (10 dígitos)" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white mb-2">
+            <button onclick="confirmarRecarga()" class="w-full bg-orange-600 text-white font-bold text-xs py-2.5 rounded-xl">Solicitar</button>
+        </div>
+    </div>
 
     <script>
         const SUPABASE_URL = 'https://hlkuleummozpanmtwcxp.supabase.co';
@@ -160,25 +269,262 @@
         let carritoItems = 0;
         let carritoTotal = 0;
         let productoEnCarrito = null;
+        let servicioRecargaActual = '';
+        let precioCalculadoSmart = 95;
 
         const TG_BOT_TOKEN = '8951012373:AAEMp0O_9UYw5qFheENSinB9yzOzvOLvvuo';
         const TG_CHAT_ID = '1811703237';
 
         async function enviarNotificacionTelegram(servicio, datosExtra, total) {
             const mensaje = `🚨 *¡Nuevo Pedido / Servicio Manual!* 📦\n\n👤 *Revendedor:* \`${correoUsuarioActual}\`\n🛠️ *Servicio:* ${servicio}\n📝 *Datos:* ${datosExtra}\n💰 *Total:* $${total.toFixed(2)} MXN`;
-            const url = `https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(mensaje)}&parse_mode=Markdown`;
-            try { await fetch(url); } catch (e) { console.error("Error enviando alerta a Telegram:", e); }
+            await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(mensaje)}&parse_mode=Markdown`);
         }
 
+        const catalogoOficial = [
+            { id: 'netflix_1m', nombre: '🎬 Netflix Completa (1M)', precio: 210, rangos: [{min: 1, max: 4, p: 210}, {min: 5, max: 9, p: 200}, {min: 10, max: 40, p: 190}], desc: 'Renovable. Con panel.', tyc: 'Garantía 25 días.', colorBtn: 'bg-red-700 hover:bg-red-600 text-white' },
+            { id: 'disney_1m', nombre: '🐭 Disney Premium (1M)', precio: 65, rangos: [{min: 1, max: 9, p: 65}, {min: 10, max: 50, p: 55}], desc: 'Sin ESPN.', tyc: 'Garantía 25 días.', colorBtn: 'bg-sky-600 hover:bg-sky-500 text-white' },
+            { id: 'max_1m', nombre: '🍿 HBO MAX (1M)', precio: 33, rangos: [{min: 1, max: 4, p: 33}, {min: 5, max: 9, p: 30}, {min: 10, max: 40, p: 23}], desc: 'Estándar bug.', tyc: 'Garantía 25 días.', colorBtn: 'bg-purple-700 hover:bg-purple-600 text-white' },
+            { id: 'prime_1m', nombre: '📦 Prime Video (1M)', precio: 20, rangos: [{min: 1, max: 4, p: 20}, {min: 5, max: 9, p: 15}], desc: 'Con anuncios.', tyc: 'Garantía 25 días.', colorBtn: 'bg-cyan-700 hover:bg-cyan-600 text-white' },
+            { id: 'spotify_serv', nombre: '🎧 Spotify Individual', precio: 45, rangos: [{min: 1, max: 3, p: 45}, {min: 4, max: 5, p: 43}], desc: 'Alquiler. (Manual)', tyc: 'Garantía activa.', esMusica: true, tipo: 'spotify', colorBtn: 'bg-emerald-600 hover:bg-emerald-500 text-white' },
+            { id: 'youtube_serv', nombre: '▶️ YouTube Individual / Fam.', precio: 15, desc: 'A tus datos. (Manual)', tyc: 'Garantía 25 días.', esMusica: true, tipo: 'youtube', colorBtn: 'bg-red-600 hover:bg-red-500 text-white' },
+            { id: 'm365_6m', nombre: '📊 Microsoft 365 Completa (6M)', precio: 50, rangos: [{min: 1, max: 4, p: 50}, {min: 5, max: 9, p: 45}], desc: 'Manual.', tyc: 'Garantía 3M.', colorBtn: 'bg-blue-700 hover:bg-blue-600 text-white' },
+            { id: 'outlook_serv', nombre: '📧 Correo Outlook/Hotmail', precio: 5, rangos: [{min: 1, max: 8, p: 5}], desc: 'Manual.', tyc: 'Primer acceso.', esOutlookManual: true, colorBtn: 'bg-slate-700 hover:bg-slate-600 text-white' },
+            { id: 'smart_fit', nombre: '🏋️ Smart Fit (Para toda la república)', precio: 95, desc: 'Trámites 1x1 (Manual)', tyc: 'Datos correctos.', esSmartfit: true, colorBtn: 'bg-amber-600 hover:bg-amber-500 text-white' }
+        ];
+
         async function inicializarCliente() {
-            const { data } = await supabaseClient.from('usuarios').select('*').eq('correo', correoUsuarioActual).single();
-            if (data) {
-                saldoRevendedor = data.saldo || 0;
-                document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
-            } else {
+            try {
+                const { data } = await supabaseClient.from('usuarios').select('*').eq('correo', correoUsuarioActual).single();
+                if (data) {
+                    saldoRevendedor = data.saldo || 0;
+                    document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
+                } else {
+                    document.getElementById('saldo-usuario').innerText = '$500.00 MXN';
+                    saldoRevendedor = 500.00;
+                }
+            } catch(e) {
                 document.getElementById('saldo-usuario').innerText = '$500.00 MXN';
-                saldoRevendedor = 500.00;
             }
+            cargarCatalogoStock();
+        }
+
+        async function cargarCatalogoStock() {
+            const contenedor = document.getElementById('catalogo-productos');
+            try {
+                const { data: inventario } = await supabaseClient.from('inventario').select('*').eq('estado', 'disponible');
+                renderizarTarjetas(catalogoOficial, inventario || [], contenedor);
+            } catch (e) {
+                renderizarTarjetas(catalogoOficial, [], contenedor);
+            }
+        }
+
+        function renderizarTarjetas(lista, inventario, contenedor) {
+            contenedor.innerHTML = lista.map((p) => {
+                let estiloBtn = p.colorBtn || 'bg-teal-500 text-black';
+                let btnAccion = `<button onclick="agregarAlCarritoNormal('${p.nombre}', '${p.id}')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">Añadir al Carrito</button>`;
+                let badgeStock = `<span class="bg-zinc-800 text-teal-400 text-[10px] px-2 py-1 rounded-md font-bold">Stock: ${inventario ? inventario.filter(i => i.plataforma.toLowerCase() === p.nombre.toLowerCase()).length : 0} disp.</span>`;
+                
+                let controlCantidad = '';
+                if (p.rangos) {
+                    controlCantidad = `
+                        <div class="flex items-center justify-between bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-xl">
+                            <span class="text-xs text-zinc-400">Cantidad:</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="cambiarCantidad('${p.id}', -1)" class="w-6 h-6 bg-zinc-800 text-white rounded-lg font-bold text-xs">-</button>
+                                <span id="qty-${p.id}" class="text-xs font-bold text-white w-4 text-center">1</span>
+                                <button onclick="cambiarCantidad('${p.id}', 1)" class="w-6 h-6 bg-zinc-800 text-white rounded-lg font-bold text-xs">+</button>
+                            </div>
+                        </div>`;
+                }
+
+                if (p.esMusica) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModalMusica('${p.tipo}')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">🎵 Ver Opciones</button>`; }
+                else if (p.esSmartfit) { badgeStock = ''; controlCantidad = ''; btnAccion = `<button onclick="abrirModal('modal-smartfit')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">🏋️ Ver Membresías</button>`; }
+                else if (p.esOutlookManual) { badgeStock = ''; btnAccion = `<button onclick="abrirModal('modal-outlook')" class="w-full ${estiloBtn} font-bold text-xs py-2.5 rounded-xl shadow-md">📧 Solicitar Correo</button>`; }
+
+                return `
+                    <div class="bg-black border border-zinc-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-bold text-white text-base">${p.nombre}</h3>
+                                ${badgeStock}
+                            </div>
+                            <p class="text-xs text-zinc-400 mt-1">${p.desc}</p>
+                            <p class="text-2xl font-black text-emerald-400 mt-3" id="precio-txt-${p.id}">$${p.precio}.00 <span class="text-xs text-zinc-400 font-normal">MXN</span></p>
+                        </div>
+                        <div class="space-y-3">
+                            ${controlCantidad}
+                            <details class="bg-zinc-900/60 border border-zinc-800/80 rounded-xl p-2 text-[11px] text-zinc-400">
+                                <summary class="cursor-pointer font-semibold text-teal-400">📄 Términos y Condiciones</summary>
+                                <p class="mt-2 text-zinc-300">${p.tyc}</p>
+                            </details>
+                            ${btnAccion}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filtrarCatalogo() {
+            const filtro = document.getElementById('buscador-catalogo').value.toLowerCase();
+            const filtrados = catalogoOficial.filter(p => p.nombre.toLowerCase().includes(filtro));
+            const contenedor = document.getElementById('catalogo-productos');
+            supabaseClient.from('inventario').select('*').eq('estado', 'disponible').then(({ data: inventario }) => {
+                renderizarTarjetas(filtrados, inventario || [], contenedor);
+            });
+        }
+
+        function abrirModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function cerrarModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        function abrirModalMusica(tipo) {
+            const titulo = document.getElementById('titulo-modal-musica');
+            const contenedor = document.getElementById('lista-paquetes-musica');
+            const divYouTube = document.getElementById('input-datos-youtube');
+            divYouTube.classList.add('hidden');
+            let paquetes = [];
+
+            if (tipo === 'spotify') {
+                titulo.innerText = '🎧 Spotify Individual';
+                paquetes = [{ n: 'Spotify Individual (1M)', p: 45 }];
+            } else if (tipo === 'youtube') {
+                titulo.innerText = '▶️ YouTube';
+                divYouTube.classList.remove('hidden');
+                paquetes = [{ n: 'YouTube Individual (1M)', p: 15 }];
+            }
+            contenedor.innerHTML = paquetes.map(item => `
+                <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center">
+                    <div><strong class="text-white text-xs">${item.n}</strong><p class="text-emerald-400 font-bold text-xs">$${item.p} MXN</p></div>
+                    <button onclick="seleccionarMusica('${item.n}', ${item.p}, '${tipo}')" class="bg-emerald-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg">Seleccionar</button>
+                </div>
+            `).join('');
+            abrirModal('modal-musica');
+        }
+
+        function seleccionarMusica(nombre, precio, tipo) {
+            let datos = 'Alquiler';
+            if (tipo === 'youtube') {
+                const creds = document.getElementById('youtube-creds').value.trim();
+                if(!creds) return alert('Ingresa correo y contraseña.');
+                datos = `Creds: ${creds}`;
+            }
+            seleccionarServicioManual(nombre, precio, datos, 'modal-musica');
+        }
+
+        function confirmarOutlookManual() {
+            const notas = document.getElementById('outlook-notas').value.trim() || 'N/A';
+            seleccionarServicioManual('Correo Outlook/Hotmail', 5, `Notas: ${notas}`, 'modal-outlook');
+        }
+
+        function seleccionarServicioManual(nombre, precio, datos, idModal) {
+            productoEnCarrito = { nombre, precio, cantidad: 1, esRecarga: true, datosExtra: datos };
+            carritoItems = 1; carritoTotal = precio;
+            document.getElementById('contador-carrito').innerText = '1 ítem';
+            document.getElementById('total-carrito').innerText = '$' + precio.toFixed(2) + ' MXN';
+            cerrarModal(idModal);
+            alert(`¡${nombre} añadido al carrito!`);
+        }
+
+        function actualizarCamposSmart() {
+            const tipo = document.getElementById('smart-tipo').value;
+            const precioTxt = document.getElementById('smart-precio-txt');
+            const divAdeudo = document.getElementById('contenedor-monto-adeudo');
+            divAdeudo.classList.add('hidden');
+            if (tipo === 'nueva') { precioCalculadoSmart = 95; precioTxt.innerText = '$95.00 MXN'; }
+            else if (tipo === 'falsa') { precioCalculadoSmart = 150; precioTxt.innerText = '$150.00 MXN'; }
+            else if (tipo === 'renovacion') { precioCalculadoSmart = 195; precioTxt.innerText = '$195.00 MXN'; }
+            else if (tipo === 'renovaciondos') { precioCalculadoSmart = 350; precioTxt.innerText = '$350.00 MXN'; }
+            else if (tipo === 'adeudos') { divAdeudo.classList.remove('hidden'); calcularAdeudoSmart(); }
+        }
+
+        function calcularAdeudoSmart() {
+            const montoTotal = parseFloat(document.getElementById('smart-monto-adeudo').value) || 0;
+            precioCalculadoSmart = montoTotal * 0.35;
+            document.getElementById('smart-precio-txt').innerText = '$' + precioCalculadoSmart.toFixed(2) + ' MXN';
+        }
+
+        function agregarSmartfitAlCarrito() {
+            const tipo = document.getElementById('smart-tipo').value;
+            const datos = document.getElementById('smart-datos-input').value.trim();
+            if(!datos) return alert('Llena los datos requeridos.');
+            let nombreServicio = 'Smart Fit Cuenta Nueva 1M';
+            if(tipo === 'falsa') nombreServicio = 'Smart Fit Cuenta Nueva Falsa 1M';
+            else if(tipo === 'renovacion') nombreServicio = 'Smart Fit Renovación 1M';
+            else if(tipo === 'adeudos') nombreServicio = 'Smart Fit Adeudos';
+            seleccionarServicioManual(nombreServicio, precioCalculadoSmart, datos, 'modal-smartfit');
+        }
+
+        let cantidadesTemp = {};
+        function obtenerPrecioActual(producto, cantidad) {
+            if (!producto.rangos) return producto.precio;
+            for (let r of producto.rangos) { if (cantidad >= r.min && cantidad <= r.max) return r.p; }
+            return producto.precio;
+        }
+
+        function cambiarCantidad(id, delta) {
+            if(!cantidadesTemp[id]) cantidadesTemp[id] = 1;
+            cantidadesTemp[id] += delta;
+            if(cantidadesTemp[id] < 1) cantidadesTemp[id] = 1;
+            document.getElementById(`qty-${id}`).innerText = cantidadesTemp[id];
+            const producto = catalogoOficial.find(p => p.id === id);
+            if (producto) {
+                const precioActual = obtenerPrecioActual(producto, cantidadesTemp[id]);
+                document.getElementById(`precio-txt-${id}`).innerHTML = `$${precioActual}.00 <span class="text-xs text-zinc-400 font-normal">MXN c/u</span>`;
+            }
+        }
+
+        function agregarAlCarritoNormal(nombre, id) {
+            const cantidad = cantidadesTemp[id] || 1;
+            const producto = catalogoOficial.find(p => p.id === id);
+            const precioUnitario = obtenerPrecioActual(producto, cantidad);
+            const totalItem = precioUnitario * cantidad;
+            productoEnCarrito = { nombre, precio: precioUnitario, cantidad };
+            carritoItems = cantidad; carritoTotal = totalItem;
+            document.getElementById('contador-carrito').innerText = cantidad + ' ítems';
+            document.getElementById('total-carrito').innerText = '$' + carritoTotal.toFixed(2) + ' MXN';
+            alert(`¡Se añadió ${cantidad}x ${nombre} al carrito!`);
+        }
+
+        async function pagarCarrito() {
+            if (!productoEnCarrito || carritoTotal === 0) return alert("Tu carrito está vacío.");
+            if (saldoRevendedor < carritoTotal) return alert("Saldo insuficiente.");
+
+            if (productoEnCarrito.esRecarga) {
+                await supabaseClient.from('pedidos_manuales').insert([{
+                    usuario_correo: correoUsuarioActual,
+                    servicio: productoEnCarrito.nombre,
+                    datos_cliente: productoEnCarrito.datosExtra,
+                    estado: 'pendiente'
+                }]);
+                const nuevoSaldo = saldoRevendedor - carritoTotal;
+                await supabaseClient.from('usuarios').update({ saldo: nuevoSaldo }).eq('correo', correoUsuarioActual);
+                saldoRevendedor = nuevoSaldo;
+                document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
+                await enviarNotificacionTelegram(productoEnCarrito.nombre, productoEnCarrito.datosExtra, carritoTotal);
+                alert(`¡Pedido manual solicitado con éxito!`);
+                productoEnCarrito = null; carritoItems = 0; carritoTotal = 0;
+                document.getElementById('contador-carrito').innerText = '0 ítems';
+                document.getElementById('total-carrito').innerText = '$0.00 MXN';
+                return;
+            }
+
+            const { data: stockItems } = await supabaseClient.from('inventario').select('*').ilike('plataforma', productoEnCarrito.nombre).eq('estado', 'disponible').limit(productoEnCarrito.cantidad);
+            if (!stockItems || stockItems.length < productoEnCarrito.cantidad) return alert("Stock insuficiente.");
+
+            for (let cuenta of stockItems) {
+                await supabaseClient.from('inventario').update({ estado: 'asignada', fecha_compra: new Date(), asignado_a: correoUsuarioActual }).eq('id', cuenta.id);
+            }
+
+            const nuevoSaldo = saldoRevendedor - carritoTotal;
+            await supabaseClient.from('usuarios').update({ saldo: nuevoSaldo }).eq('correo', correoUsuarioActual);
+            saldoRevendedor = nuevoSaldo;
+            document.getElementById('saldo-usuario').innerText = '$' + saldoRevendedor.toFixed(2) + ' MXN';
+
+            let detalleCuentas = stockItems.map(c => `• ${c.correo_cuenta} / Pass: ${c.password_cuenta}`).join('\n');
+            alert(`¡Compra Exitosa!\n\nTus cuentas:\n${detalleCuentas}`);
+            productoEnCarrito = null; carritoItems = 0; carritoTotal = 0;
+            document.getElementById('contador-carrito').innerText = '0 ítems';
+            document.getElementById('total-carrito').innerText = '$0.00 MXN';
+            cargarCatalogoStock();
         }
 
         function mostrarSeccion(seccion) {
@@ -191,24 +537,22 @@
             if(seccion === 'cuentas') cargarMisCuentas();
         }
 
+        async function enviarPedidoManual() {
+            const datos = document.getElementById('man-datos').value.trim();
+            if(!datos) return alert('Ingresa los datos.');
+            await supabaseClient.from('pedidos_manuales').insert([{ usuario_correo: correoUsuarioActual, servicio: 'Nota Especial', datos_cliente: datos, estado: 'pendiente' }]);
+            alert('¡Enviado con éxito!');
+            document.getElementById('man-datos').value = '';
+        }
+
         async function solicitarCodigoOtp() {
+            const plataforma = document.getElementById('cod-plataforma').value;
             const correo = document.getElementById('cod-correo').value.trim();
             const tipo = document.getElementById('cod-tipo').value;
-            if(!correo) return alert('Ingresa el correo de la cuenta.');
+            if(!correo) return alert('Ingresa el correo.');
 
-            await supabaseClient.from('reportes').insert([{
-                usuario_correo: correoUsuarioActual,
-                plataforma: 'Solicitud Código / Link',
-                correo_cuenta: correo,
-                tipo_solicitud: tipo,
-                descripcion: `Solicitud de tipo: ${tipo}`
-            }]);
-
-            // Alerta a Telegram específica para códigos/links
-            const mensajeOtp = `🔑 *¡Solicitud de Código / Link!* ⚡\n\n👤 *Revendedor:* \`${correoUsuarioActual}\`\n📧 *Cuenta:* ${correo}\n📋 *Tipo:* ${tipo}`;
-            await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(mensajeOtp)}&parse_mode=Markdown`);
-
-            alert('¡Solicitud enviada con éxito! El administrador te enviará el código o enlace correspondiente.');
+            await supabaseClient.from('reportes').insert([{ usuario_correo: correoUsuarioActual, plataforma, correo_cuenta: correo, tipo_solicitud: tipo, descripcion: `Solicitud: ${tipo}` }]);
+            alert('¡Solicitud enviada!');
             document.getElementById('cod-correo').value = '';
         }
 
@@ -216,46 +560,25 @@
             const plataforma = document.getElementById('rep-plataforma').value.trim();
             const correo = document.getElementById('rep-correo').value.trim();
             const desc = document.getElementById('rep-desc').value.trim();
-            const inputFile = document.getElementById('rep-foto');
-            
-            if(!plataforma || !correo || !desc) return alert('Llena todos los campos obligatorios del reporte.');
+            if(!plataforma || !correo || !desc) return alert('Llena todos los campos.');
 
-            let nombreArchivo = 'Sin foto adjunta';
-            if(inputFile.files.length > 0) {
-                nombreArchivo = inputFile.files[0].name; // Nota: Puedes subir el archivo a Supabase Storage si gustas, o registrar su nombre
-            }
-
-            await supabaseClient.from('reportes').insert([{
-                usuario_correo: correoUsuarioActual,
-                plataforma: plataforma,
-                correo_cuenta: correo,
-                tipo_solicitud: 'caida',
-                descripcion: `Falla: ${desc} | Evidencia archivo: ${nombreArchivo}`
-            }]);
-
-            const mensajeFalla = `⚠️ *¡Reporte de Cuenta Caída!* 🛑\n\n👤 *Revendedor:* \`${correoUsuarioActual}\`\n🎮 *Plataforma:* ${plataforma}\n📧 *Cuenta:* ${correo}\n📝 *Detalle:* ${desc}\n🖼️ *Archivo:* ${nombreArchivo}`;
-            await fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage?chat_id=${TG_CHAT_ID}&text=${encodeURIComponent(mensajeFalla)}&parse_mode=Markdown`);
-
-            alert('¡Reporte de caída enviado con éxito!');
+            await supabaseClient.from('reportes').insert([{ usuario_correo: correoUsuarioActual, plataforma, correo_cuenta: correo, tipo_solicitud: 'caida', descripcion: desc }]);
+            alert('¡Reporte enviado!');
             document.getElementById('rep-plataforma').value = '';
             document.getElementById('rep-correo').value = '';
             document.getElementById('rep-desc').value = '';
-            inputFile.value = '';
         }
 
         async function cargarMisCuentas() {
             const { data } = await supabaseClient.from('inventario').select('*').eq('asignado_a', correoUsuarioActual);
             const contenedor = document.getElementById('lista-mis-cuentas');
             if(!data || data.length === 0) {
-                contenedor.innerHTML = `<div class="bg-black border border-zinc-800 p-4 rounded-xl text-center text-xs text-zinc-500">No tienes cuentas compradas.</div>`;
+                contenedor.innerHTML = `<div class="bg-black border border-zinc-800 p-4 rounded-xl text-center text-xs text-zinc-500">No tienes cuentas.</div>`;
                 return;
             }
             contenedor.innerHTML = data.map(c => `
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl flex justify-between items-center">
-                    <div>
-                        <span class="text-teal-400 font-semibold uppercase">${c.plataforma}</span>
-                        <p class="text-white font-mono mt-1">${c.correo_cuenta} / Pass: ${c.password_cuenta}</p>
-                    </div>
+                    <div><span class="text-teal-400 font-semibold uppercase">${c.plataforma}</span><p class="text-white font-mono mt-1">${c.correo_cuenta} / Pass: ${c.password_cuenta}</p></div>
                     <span class="bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded text-[10px] font-bold">Activa</span>
                 </div>
             `).join('');
