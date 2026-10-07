@@ -27,16 +27,20 @@
             <h2 class="text-base font-bold mb-4 flex items-center gap-2">📥 Tus Cuentas Activas Asignadas</h2>
             
             <div class="space-y-4">
-                <!-- Cuenta 1 -->
+                <!-- Cuenta 1 (Ejemplo próxima a vencer en 3 días - Alerta Roja) -->
                 <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                        <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2.5 py-1 rounded-md font-semibold uppercase">Netflix (Miembro Extra)</span>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-purple-500/10 text-purple-400 text-[10px] px-2.5 py-1 rounded-md font-semibold uppercase">Netflix (Miembro Extra)</span>
+                            <!-- Etiqueta de semáforo con menos de 5 días (Rojo) -->
+                            <span class="bg-rose-500/10 border border-rose-500/30 text-rose-400 px-2 py-0.5 rounded text-[10px] font-bold">⚠️ Vence en 3 días</span>
+                        </div>
                         <p class="text-sm font-mono text-white mt-2">
                             correo_ejemplo@toxapa.com <span class="text-slate-500">/</span> Pass: <span class="bg-slate-900 border border-slate-800 px-2 py-0.5 rounded text-indigo-400">W2590094</span>
                         </p>
-                        <p class="text-[11px] text-slate-400 mt-1">Vence: 12 de Noviembre, 2026</p>
+                        <p class="text-[11px] text-slate-400 mt-1">Vence: 12 de Octubre, 2026</p>
                     </div>
-                    <!-- Botones de Solicitud Rápida (Códigos, Links, Hogar) -->
+                    <!-- Botones de Solicitud Rápida -->
                     <div class="flex flex-wrap gap-2 w-full md:w-auto">
                         <button onclick="alert('Solicitud de Código OTP enviada al sistema.')" class="bg-purple-600 hover:bg-purple-500 text-white text-xs px-3 py-2 rounded-lg font-medium transition-colors">🔑 Pedir Código OTP</button>
                         <button onclick="alert('Solicitud de Link de Restablecimiento enviada.')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs px-3 py-2 rounded-lg font-medium transition-colors">🌐 Link</button>
@@ -44,14 +48,18 @@
                     </div>
                 </div>
 
-                <!-- Cuenta 2 -->
+                <!-- Cuenta 2 (Ejemplo con más de 5 días - Estado Normal) -->
                 <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                        <span class="bg-emerald-500/10 text-emerald-400 text-[10px] px-2.5 py-1 rounded-md font-semibold uppercase">Disney+ Estándar</span>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-emerald-500/10 text-emerald-400 text-[10px] px-2.5 py-1 rounded-md font-semibold uppercase">Disney+ Estándar</span>
+                            <!-- Etiqueta de semáforo normal (Más de 5 días) -->
+                            <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-2 py-0.5 rounded text-[10px] font-bold">🟢 Vence en 22 días</span>
+                        </div>
                         <p class="text-sm font-mono text-white mt-2">
                             disney_user@domain.com <span class="text-slate-500">/</span> Pass: <span class="bg-slate-900 border border-slate-800 px-2 py-0.5 rounded text-indigo-400">PassDisney99</span>
                         </p>
-                        <p class="text-[11px] text-slate-400 mt-1">Vence: 28 de Noviembre, 2026</p>
+                        <p class="text-[11px] text-slate-400 mt-1">Vence: 28 de Octubre, 2026</p>
                     </div>
                     <div class="flex flex-wrap gap-2 w-full md:w-auto">
                         <button onclick="alert('Solicitud de Código OTP enviada al sistema.')" class="bg-purple-600 hover:bg-purple-500 text-white text-xs px-3 py-2 rounded-lg font-medium transition-colors">🔑 Pedir Código OTP</button>
