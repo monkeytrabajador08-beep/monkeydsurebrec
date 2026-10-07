@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso y Registro - Plataforma de Revendedores</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
+        
+        <!-- Cabecera -->
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-indigo-500 bg-clip-text text-transparent">Portal de Revendedores</h1>
+            <p class="text-xs text-slate-400 mt-1">Acceso exclusivo y control anti-fraude</p>
+        </div>
+
+        <!-- Pestañas para cambiar entre Iniciar Sesión y Registrarse -->
+        <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-medium mb-6">
+            <button onclick="mostrarFormulario('login')" id="btn-tab-login" class="flex-1 py-2 rounded-lg bg-purple-600 text-white transition-all">Iniciar Sesión</button>
+            <button onclick="mostrarFormulario('register')" id="btn-tab-register" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition-all">Solicitar Registro</button>
+        </div>
+
+        <!-- Formulario de Iniciar Sesión -->
+        <form id="form-login" class="space-y-4">
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Correo Electrónico</label>
+                <input type="email" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="tucorreo@dominio.com">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Contraseña</label>
+                <input type="password" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="••••••••">
+            </div>
+            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 transition-colors font-medium py-3 rounded-lg text-sm shadow-lg shadow-purple-900/40 mt-2">
+                Ingresar al Panel
+            </button>
+        </form>
+
+        <!-- Formulario de Registro (Con los campos que pediste) -->
+        <form id="form-register" class="space-y-4 hidden">
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Nombre de Usuario</label>
+                <input type="text" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="TuUsuario">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Correo Electrónico</label>
+                <input type="email" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="tucorreo@dominio.com">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Contraseña</label>
+                <input type="password" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="••••••••">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Número de Teléfono (WhatsApp)</label>
+                <input type="tel" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-purple-500 text-white" placeholder="+52 123 456 7890">
+            </div>
+            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 transition-colors font-medium py-3 rounded-lg text-sm shadow-lg shadow-purple-900/40 mt-2">
+                Enviar Solicitud
+            </button>
+        </form>
+
+        <!-- Aviso Oculto al registrarse con éxito -->
+        <div id="notice-pending" class="hidden mt-6 bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 text-center">
+            <h3 class="text-amber-400 font-semibold text-sm mb-1">¡Solicitud Registrada!</h3>
+            <p class="text-xs text-slate-300 mb-3">Tu cuenta se encuentra en estado <b>Pendiente de Aprobación</b> por el administrador.</p>
+        </div>
+
+    </div>
+
+    <!-- Script simple para alternar formularios -->
+    <script>
+        function mostrarFormulario(tipo) {
+            const loginForm = document.getElementById('form-login');
+            const registerForm = document.getElementById('form-register');
+            const btnLogin = document.getElementById('btn-tab-login');
+            const btnRegister = document.getElementById('btn-tab-register');
+
+            if (tipo === 'login') {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                btnLogin.className = "flex-1 py-2 rounded-lg bg-purple-600 text-white transition-all";
+                btnRegister.className = "flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition-all";
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                btnRegister.className = "flex-1 py-2 rounded-lg bg-purple-600 text-white transition-all";
+                btnLogin.className = "flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition-all";
+            }
+        }
+    </script>
+
+</body>
+</html>
