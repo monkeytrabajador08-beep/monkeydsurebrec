@@ -13,7 +13,7 @@
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec · Admin</h2>
             <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel Maestro · Control Financiero y Stock 👑</h1>
-            <p class="text-xs text-zinc-400 mt-1">Dashboard de ganancias, solicitudes de registro y pedidos manuales separados</p>
+            <p class="text-xs text-zinc-400 mt-1">Dashboard de ganancias, control de stock disponible y gestión de pedidos</p>
         </div>
         <div>
             <a href="index.html" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-4 py-2.5 rounded-xl transition-colors">Cerrar Sesión</a>
@@ -22,22 +22,27 @@
 
     <main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- 1. DASHBOARD DE GANANCIAS DEL MES -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- 1. DASHBOARD DE GANANCIAS Y ESTADO DE INVENTARIO -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
-                <span class="text-xs font-semibold uppercase text-zinc-400">Ganancias Web (Este Mes)</span>
+                <span class="text-xs font-semibold uppercase text-zinc-400">Ganancias Web (Mes)</span>
                 <h3 id="dash-ganancias" class="text-3xl font-black text-emerald-400 mt-2">$0.00 <span class="text-xs font-normal text-zinc-500">MXN</span></h3>
-                <span class="text-[10px] text-zinc-500 mt-2">Calculado de compras automáticas de revendedores</span>
+                <span class="text-[10px] text-zinc-500 mt-2">Calculado de compras web</span>
             </div>
             <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
-                <span class="text-xs font-semibold uppercase text-zinc-400">Cuentas Vendidas (Mes)</span>
-                <h3 id="dash-vendidas" class="text-3xl font-black text-teal-400 mt-2">0</h3>
-                <span class="text-[10px] text-zinc-500 mt-2">Total de accesos despachados por la plataforma</span>
+                <span class="text-xs font-semibold uppercase text-zinc-400">Cuentas Disponibles</span>
+                <h3 id="dash-disponibles" class="text-3xl font-black text-teal-400 mt-2">0</h3>
+                <span class="text-[10px] text-zinc-500 mt-2">Listas para entrega automática</span>
             </div>
             <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
-                <span class="text-xs font-semibold uppercase text-zinc-400">Pedidos Manuales Pendientes</span>
+                <span class="text-xs font-semibold uppercase text-zinc-400">Cuentas Caídas / Alerta</span>
+                <h3 id="dash-caidas" class="text-3xl font-black text-rose-400 mt-2">0</h3>
+                <span class="text-[10px] text-zinc-500 mt-2">Reportadas por clientes</span>
+            </div>
+            <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+                <span class="text-xs font-semibold uppercase text-zinc-400">Pedidos Manuales</span>
                 <h3 id="dash-manuales-pendientes" class="text-3xl font-black text-cyan-400 mt-2">0</h3>
-                <span class="text-[10px] text-zinc-500 mt-2">Servicios que requieren gestión personalizada</span>
+                <span class="text-[10px] text-zinc-500 mt-2">Pendientes de gestión</span>
             </div>
         </section>
 
@@ -61,7 +66,7 @@
             </div>
         </section>
 
-        <!-- 3. GESTIÓN DE PEDIDOS MANUALES (NUEVA TABLA) -->
+        <!-- 3. GESTIÓN DE PEDIDOS MANUALES -->
         <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
             <h2 class="text-base font-bold mb-4 flex items-center gap-2">🛠️ Pedidos Manuales (Servicios con Datos Especiales)</h2>
             <div class="overflow-x-auto">
@@ -145,14 +150,25 @@
                 `).join('');
             }
 
-            // 2. Ganancias del Mes y Estadísticas
-            const { data: asignadas } = await supabaseClient.from('inventario').select('*').eq('estado', 'asignada');
-            if (asignadas) {
-                document.getElementById('dash-vendidas').innerText = asignadas.length;
-                document.getElementById('dash-ganancias').innerText = '$' + (asignadas.length * 45).toFixed(2) + ' MXN';
+            // 2. Inventario (Contar Disponibles, Asignadas y Ganancias)
+            const { data: inventarioTodo } = await supabaseClient.from('inventario').select('*');
+            if (inventarioTodo) {
+                const disponibles = inventarioTodo.filter(i => i.estado === 'disponible').length;
+                const asignadas = inventarioTodo.filter(i => i.estado === 'asignada').length;
+                
+                document.getElementById('dash-disponibles').innerText = disponibles;
+                document.getElementById('dash-ganancias').innerText = '$' + (asignadas * 45).toFixed(2) + ' MXN';
             }
 
-            // 3. Cargar Pedidos Manuales desde la nueva tabla 'pedidos_manuales'
+            // 3. Reportes de caídas pendientes
+            const { data: reportesCaidas } = await supabaseClient.from('reportes').select('*').eq('estado', 'pendiente');
+            if (reportesCaidas) {
+                document.getElementById('dash-caidas').innerText = reportesCaidas.length;
+            } else {
+                document.getElementById('dash-caidas').innerText = '0';
+            }
+
+            // 4. Cargar Pedidos Manuales desde 'pedidos_manuales'
             const { data: manuales } = await supabaseClient.from('pedidos_manuales').select('*').eq('estado', 'pendiente');
             const tbodyMan = document.getElementById('tabla-pedidos-manuales');
             if (!manuales || manuales.length === 0) {
