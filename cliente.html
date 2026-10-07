@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monkey D Surebrec - Panel de Revendedor</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería oficial de Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-black text-slate-100 min-h-screen p-4 md:p-8 pb-24 md:pb-8">
 
-    <!-- Menú Flotante / Barra de Navegación Rápida (5 Botones) -->
+    <!-- Menú Flotante / Barra de Navegación Rápida -->
     <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-zinc-900/90 backdrop-blur-md border border-zinc-800 p-2 rounded-2xl shadow-2xl flex items-center gap-2 z-50 overflow-x-auto max-w-full px-4">
         <button onclick="mostrarSeccion('tienda')" id="nav-tienda" class="px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg">🛍️ Tienda</button>
         <button onclick="mostrarSeccion('cuentas')" id="nav-cuentas" class="px-3 py-2 rounded-xl text-zinc-400 hover:text-white text-xs font-medium whitespace-nowrap transition-all">📦 Mis Cuentas</button>
@@ -22,12 +24,12 @@
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec</h2>
             <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel de Revendedor 💼</h1>
-            <p class="text-xs text-zinc-400 mt-1">Gracias por tu preferencia. Compras automáticas y administración general.</p>
+            <p class="text-xs text-zinc-400 mt-1">Conectado a inventario en vivo y compras automáticas.</p>
         </div>
         <div class="flex items-center gap-4">
             <div class="text-right">
                 <span class="text-xs text-zinc-400 uppercase font-semibold block">Saldo Disponible</span>
-                <span id="saldo-disponible" class="text-xl font-extrabold text-emerald-400">$450.00 MXN</span>
+                <span id="saldo-disponible" class="text-xl font-extrabold text-emerald-400">Cargando...</span>
             </div>
             <a href="index.html" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-4 py-2.5 rounded-xl transition-colors">Cerrar Sesión</a>
         </div>
@@ -35,13 +37,13 @@
 
     <main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- SECCIÓN 1: TIENDA, CARRITO Y TyC DESPLEGABLES -->
+        <!-- SECCIÓN 1: TIENDA Y CARRITO -->
         <section id="sec-tienda" class="space-y-6">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                     <div>
                         <h2 class="text-base font-bold">🛍️ Catálogo y Carrito de Compras</h2>
-                        <p class="text-xs text-zinc-400">Elige la duración, cantidad, revisa TyC y añade al carrito.</p>
+                        <p class="text-xs text-zinc-400">Las compras entregan cuentas automáticas desde Supabase.</p>
                     </div>
                     <div class="bg-black border border-zinc-800 px-4 py-2.5 rounded-xl text-xs flex items-center gap-4">
                         <div>
@@ -54,7 +56,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
                     <!-- Netflix -->
                     <div class="bg-black border border-zinc-800 p-5 rounded-xl flex flex-col justify-between space-y-4">
                         <div>
@@ -62,11 +63,8 @@
                             <div class="flex gap-2 mt-3">
                                 <button onclick="actualizarSeleccion('netflix', 1, 35, this)" class="px-3 py-1 rounded-lg bg-teal-500 text-black font-bold text-xs transition-all">1 Mes ($35)</button>
                                 <button onclick="actualizarSeleccion('netflix', 2, 65, this)" class="px-3 py-1 rounded-lg bg-zinc-900 text-zinc-400 text-xs transition-all">2 Meses ($65)</button>
-                                <button onclick="actualizarSeleccion('netflix', 3, 95, this)" class="px-3 py-1 rounded-lg bg-zinc-900 text-zinc-400 text-xs transition-all">3 Meses ($95)</button>
                             </div>
-
                             <p id="precio-netflix" class="text-2xl font-black text-emerald-400 mt-3">$35.00 <span class="text-xs text-zinc-400 font-normal">MXN</span></p>
-
                             <div class="flex items-center justify-between mt-4 bg-zinc-900 p-2 rounded-xl border border-zinc-800">
                                 <span class="text-xs text-zinc-400 font-medium">Cantidad:</span>
                                 <div class="flex items-center gap-3">
@@ -75,17 +73,7 @@
                                     <button onclick="cambiarCantidad('netflix', 1)" class="w-7 h-7 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">+</button>
                                 </div>
                             </div>
-
-                            <!-- TyC Desplegable -->
-                            <div class="mt-3">
-                                <button onclick="toggleTyC('tyc-netflix')" class="text-xs text-teal-400 hover:underline flex items-center gap-1 font-medium">📜 Ver TyC / Especificaciones</button>
-                                <div id="tyc-netflix" class="hidden mt-2 bg-zinc-900 border border-zinc-800 p-3 rounded-lg text-[11px] text-zinc-300 space-y-1">
-                                    <p>• Cuenta perfil extra / No cambiar correo ni contraseña.</p>
-                                    <p>• Garantía activa contra caídas de hogar durante el plazo elegido.</p>
-                                </div>
-                            </div>
                         </div>
-
                         <button onclick="agregarAlCarrito('Netflix')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">+ Añadir al Carrito</button>
                     </div>
 
@@ -97,9 +85,7 @@
                                 <button onclick="actualizarSeleccion('disney', 1, 25, this)" class="px-3 py-1 rounded-lg bg-teal-500 text-black font-bold text-xs transition-all">1 Mes ($25)</button>
                                 <button onclick="actualizarSeleccion('disney', 2, 45, this)" class="px-3 py-1 rounded-lg bg-zinc-900 text-zinc-400 text-xs transition-all">2 Meses ($45)</button>
                             </div>
-
                             <p id="precio-disney" class="text-2xl font-black text-emerald-400 mt-3">$25.00 <span class="text-xs text-zinc-400 font-normal">MXN</span></p>
-
                             <div class="flex items-center justify-between mt-4 bg-zinc-900 p-2 rounded-xl border border-zinc-800">
                                 <span class="text-xs text-zinc-400 font-medium">Cantidad:</span>
                                 <div class="flex items-center gap-3">
@@ -108,95 +94,32 @@
                                     <button onclick="cambiarCantidad('disney', 1)" class="w-7 h-7 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-bold text-xs">+</button>
                                 </div>
                             </div>
-
-                            <!-- TyC Desplegable -->
-                            <div class="mt-3">
-                                <button onclick="toggleTyC('tyc-disney')" class="text-xs text-teal-400 hover:underline flex items-center gap-1 font-medium">📜 Ver TyC / Especificaciones</button>
-                                <div id="tyc-disney" class="hidden mt-2 bg-zinc-900 border border-zinc-800 p-3 rounded-lg text-[11px] text-zinc-300 space-y-1">
-                                    <p>• Cuenta completa o perfil asignado según stock.</p>
-                                    <p>• Soporte garantizado durante todo el periodo contratado.</p>
-                                </div>
-                            </div>
                         </div>
-
                         <button onclick="agregarAlCarrito('Disney+')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">+ Añadir al Carrito</button>
                     </div>
-
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 2: MIS CUENTAS (Con Semáforo, Renovación y Asignación) -->
+        <!-- SECCIÓN 2: MIS CUENTAS -->
         <section id="sec-cuentas" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
                 <h2 class="text-base font-bold mb-4">📦 Inventario de Mis Cuentas Activas</h2>
-                <div class="space-y-4">
-                    <div class="bg-black border border-zinc-800 p-4 rounded-xl flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 text-xs">
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-teal-400 font-semibold uppercase">Netflix (Miembro Extra)</span>
-                                <span class="bg-rose-500/10 border border-rose-500/30 text-rose-400 px-2 py-0.5 rounded text-[10px] font-bold">⚠️ Vence en 3 días</span>
-                            </div>
-                            <p class="text-white font-mono mt-1">correo_ejemplo@toxapa.com / Pass: W2590094</p>
-                            <p class="text-[10px] text-zinc-400 mt-0.5">Compra: 09 de Octubre, 2026</p>
-                        </div>
-                        
-                        <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto">
-                            <button onclick="renovarCuenta(35)" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-1.5 rounded-xl font-medium transition-colors">🔄 Renovar ($35)</button>
-                            
-                            <select class="bg-zinc-900 border border-zinc-800 rounded-xl px-2 py-1.5 text-xs text-white">
-                                <option>Seleccionar Subcliente...</option>
-                                <option>Subcliente_Pedro (pedro_sub@gmail.com)</option>
-                                <option>Subcliente_Ana (ana_streaming@gmail.com)</option>
-                            </select>
-                            <button onclick="alert('Cuenta transferida al subcliente seleccionado con éxito.')" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-3 py-1.5 rounded-xl whitespace-nowrap">Asignar</button>
-                        </div>
-                    </div>
+                <div id="lista-mis-cuentas" class="space-y-4 text-xs text-zinc-400">
+                    Cargando cuentas adquiridas...
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 3: CÓDIGOS Y REPORTES (Apartado de Códigos + Búsqueda y Reportes) -->
+        <!-- SECCIÓN 3: CÓDIGOS Y REPORTES -->
         <section id="sec-soporte" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
                 <h2 class="text-base font-bold">🔑 Panel de Códigos y Reportes Inteligente</h2>
-                
-                <!-- Solicitud de Códigos (Restaurado) -->
-                <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
-                    <h3 class="text-xs font-bold uppercase text-teal-400">Solicitar Código OTP / Link / Hogar</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <select class="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                            <option>1. Plataforma...</option>
-                            <option>Netflix</option>
-                            <option>Disney+</option>
-                        </select>
-                        <input type="text" placeholder="2. Escribe o busca el correo..." class="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                        <select class="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                            <option>🔑 Pedir Código OTP</option>
-                            <option>🌐 Link Restablecimiento</option>
-                            <option>📺 Actualizar Hogar</option>
-                        </select>
-                    </div>
-                    <button onclick="alert('Solicitud enviada al sistema.')" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Solicitud al Sistema</button>
-                </div>
-
-                <!-- Reportar Caída -->
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
                     <h3 class="text-xs font-bold uppercase text-rose-400">🚨 Reportar Cuenta Caída</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <select class="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                            <option>Plataforma...</option>
-                            <option>Netflix</option>
-                        </select>
-                        <input type="text" placeholder="Correo de la cuenta..." class="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                    </div>
-                    <input type="text" placeholder="Describe brevemente el problema..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <p class="text-[11px] text-zinc-400">📅 Fecha de compra automática: <strong class="text-emerald-400">12 de Octubre, 2026</strong></p>
-                    <div>
-                        <label class="block text-[11px] text-zinc-400 mb-1">Evidencia Fotográfica (Obligatorio):</label>
-                        <input type="file" accept="image/*" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-zinc-400 file:mr-4 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-teal-500 file:text-black">
-                    </div>
-                    <button onclick="alert('Reporte enviado con foto y fecha automática.')" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Reporte con Foto</button>
+                    <input type="text" id="rep-correo" placeholder="Correo de la cuenta con problema..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
+                    <textarea id="rep-desc" placeholder="Describe brevemente el problema..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-xs text-white"></textarea>
+                    <button onclick="enviarReporte()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs py-2.5 rounded-xl transition-colors">Enviar Reporte al Sistema</button>
                 </div>
             </div>
         </section>
@@ -204,27 +127,24 @@
         <!-- SECCIÓN 4: SUBCLIENTES -->
         <section id="sec-subclientes" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
-                        <h2 class="text-base font-bold">👥 Gestión de Subclientes</h2>
-                        <p class="text-xs text-zinc-400">Crea credenciales (usuario y contraseña) para tu equipo.</p>
-                    </div>
-                    <button onclick="alert('Abriendo creador de cuentas para subcliente...')" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs px-4 py-2.5 rounded-xl">+ Crear Credenciales</button>
-                </div>
+                <h2 class="text-base font-bold">👥 Gestión de Subclientes</h2>
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl text-center text-xs text-zinc-500">
-                    No tienes subclientes activos todavía.
+                    Próximamente: Vinculación directa con subcuentas activas.
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Scripts de Interacción -->
+    <!-- Conexión y Lógica con Supabase -->
     <script>
+        const SUPABASE_URL = 'https://hlkuleummozpanmtwcxp.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_bzjhhVbFroDaKBWrKu48yA_uFkcfegJ';
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         let saldoActual = 450.00;
         let carritoItems = 0;
         let carritoTotal = 0;
-
         let seleccionActual = {
             netflix: { precio: 35, cantidad: 1 },
             disney: { precio: 25, cantidad: 1 }
@@ -238,11 +158,8 @@
             });
             document.getElementById('sec-' + seccion).classList.remove('hidden');
             document.getElementById('nav-' + seccion).className = "px-3 py-2 rounded-xl bg-teal-500 text-black font-bold text-xs whitespace-nowrap transition-all shadow-lg";
-        }
-
-        function toggleTyC(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('hidden');
+            
+            if(seccion === 'cuentas') cargarMisCuentas();
         }
 
         function cambiarCantidad(producto, cambio) {
@@ -254,7 +171,6 @@
         function actualizarSeleccion(producto, meses, precioBase, boton) {
             seleccionActual[producto].precio = precioBase;
             document.getElementById('precio-' + producto).innerHTML = `$${precioBase}.00 <span class="text-xs text-zinc-400 font-normal">MXN</span>`;
-            
             const contenedor = boton.parentElement;
             Array.from(contenedor.children).forEach(btn => {
                 btn.className = "px-3 py-1 rounded-lg bg-zinc-900 text-zinc-400 text-xs transition-all";
@@ -265,44 +181,97 @@
         function agregarAlCarrito(productoKey) {
             const item = seleccionActual[productoKey.toLowerCase().replace('+', '')];
             const subtotal = item.precio * item.cantidad;
-            
             carritoItems += item.cantidad;
             carritoTotal += subtotal;
 
             document.getElementById('contador-carrito').innerText = carritoItems + ' ítems';
             document.getElementById('total-carrito').innerText = '$' + carritoTotal.toFixed(2) + ' MXN';
-            
-            alert(`¡Se añadieron ${item.cantidad} cuenta(s) al carrito por un subtotal de $${subtotal}.00 MXN!`);
+            alert(`¡Se añadieron ${item.cantidad} cuenta(s) al carrito por $${subtotal}.00 MXN!`);
         }
 
-        function pagarCarrito() {
-            if (carritoTotal === 0) {
-                alert("Tu carrito está vacío.");
+        async function pagarCarrito() {
+            if (carritoTotal === 0) return alert("Tu carrito está vacío.");
+            
+            // Buscar una cuenta disponible en Supabase de ejemplo para la compra
+            const { data: cuentasStock, error: errStock } = await supabaseClient
+                .from('inventario')
+                .select('*')
+                .eq('estado', 'disponible')
+                .limit(1);
+
+            if (errStock || !cuentasStock || cuentasStock.length === 0) {
+                alert("Lo sentimos, no hay stock disponible en este momento en la base de datos.");
                 return;
             }
-            if (saldoActual < carritoTotal) {
-                alert(`Saldo insuficiente. Tu saldo es de $${saldoActual.toFixed(2)} MXN y el total es de $${carritoTotal.toFixed(2)} MXN.`);
+
+            const cuentaAsignada = cuentasStock[0];
+
+            // Marcar la cuenta como asignada en Supabase
+            const { error: errUpdate } = await supabaseClient
+                .from('inventario')
+                .update({ 
+                    estado: 'asignada', 
+                    fecha_compra: new Date(),
+                    asignado_ai: 'Revendedor Actual' 
+                })
+                .eq('id', cuentaAsignada.id);
+
+            if (errUpdate) {
+                alert('Error al procesar la compra.');
                 return;
             }
-            saldoActual -= carritoTotal;
-            document.getElementById('saldo-disponible').innerText = '$' + saldoActual.toFixed(2) + ' MXN';
-            alert("¡Compra y pago realizados con éxito!");
+
+            alert(`¡Compra exitosa! Cuenta entregada:\n\nCorreo: ${cuentaAsignada.correo_cuenta}\nPass: ${cuentaAsignada.password_cuenta}`);
+            
             carritoItems = 0;
             carritoTotal = 0;
             document.getElementById('contador-carrito').innerText = '0 ítems';
             document.getElementById('total-carrito').innerText = '$0.00 MXN';
         }
 
-        function renovarCuenta(costo) {
-            if (saldoActual < costo) {
-                alert(`Saldo insuficiente para renovar. Tienes $${saldoActual.toFixed(2)} MXN y la renovación cuesta $${costo}.00 MXN.`);
+        async function cargarMisCuentas() {
+            const { data, error } = await supabaseClient
+                .from('inventario')
+                .select('*')
+                .eq('estado', 'asignada');
+
+            const contenedor = document.getElementById('lista-mis-cuentas');
+            if (error || !data || data.length === 0) {
+                contenedor.innerHTML = `<div class="bg-black border border-zinc-800 p-4 rounded-xl text-center text-xs text-zinc-500">No tienes cuentas compradas todavía.</div>`;
                 return;
             }
-            saldoActual -= costo;
-            document.getElementById('saldo-disponible').innerText = '$' + saldoActual.toFixed(2) + ' MXN';
-            alert(`¡Cuenta renovada con éxito por $${costo}.00 MXN!`);
+
+            contenedor.innerHTML = data.map(c => `
+                <div class="bg-black border border-zinc-800 p-4 rounded-xl flex justify-between items-center">
+                    <div>
+                        <span class="text-teal-400 font-semibold uppercase">${c.plataforma}</span>
+                        <p class="text-white font-mono mt-1">${c.correo_cuenta} / Pass: ${c.password_cuenta}</p>
+                    </div>
+                    <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-2 py-1 rounded text-[10px] font-bold">Activa</span>
+                </div>
+            `).join('');
+        }
+
+        async function enviarReporte() {
+            const correo = document.getElementById('rep-correo').value;
+            const descripcion = document.getElementById('rep-desc').value;
+            if(!correo || !descripcion) return alert('Por favor llena los campos.');
+
+            const { error } = await supabaseClient.from('reportes').insert([{
+                usuario_correo: 'revendedor@surebrec.com',
+                plataforma: 'General',
+                correo_cuenta: correo,
+                tipo_solicitud: 'caida',
+                descripcion: descripcion
+            }]);
+
+            if(error) alert('Error al enviar reporte.');
+            else {
+                alert('¡Reporte enviado con éxito al administrador!');
+                document.getElementById('rep-correo').value = '';
+                document.getElementById('rep-desc').value = '';
+            }
         }
     </script>
-
 </body>
 </html>
