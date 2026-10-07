@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monkey D Surebrec - Panel Maestro Administrador</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería oficial de Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-black text-slate-100 min-h-screen p-4 md:p-8">
 
@@ -13,7 +15,7 @@
         <div>
             <h2 class="text-xs uppercase tracking-widest text-teal-400 font-bold">Monkey D Surebrec · Admin</h2>
             <h1 class="text-xl font-bold bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent mt-0.5">Panel Maestro · Control Absoluto 👑</h1>
-            <p class="text-xs text-zinc-400 mt-1">Gestión de stock masivo, vencimientos, reportes y seguridad</p>
+            <p class="text-xs text-zinc-400 mt-1">Gestión de stock en vivo, aprobaciones y control de seguridad</p>
         </div>
         <div class="flex items-center gap-3">
             <a href="index.html" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs px-4 py-2 rounded-xl transition-colors">Cerrar Sesión</a>
@@ -22,165 +24,125 @@
 
     <main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- Métricas Rápidas -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
-                <p class="text-[11px] text-zinc-400 uppercase font-semibold">Pendientes Aprobación</p>
-                <h3 class="text-xl font-bold text-amber-400 mt-1.5">2 Revendedores</h3>
-            </div>
-            <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
-                <p class="text-[11px] text-zinc-400 uppercase font-semibold">Cuentas en Stock</p>
-                <h3 class="text-xl font-bold text-teal-400 mt-1.5">84 Disponibles</h3>
-            </div>
-            <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
-                <p class="text-[11px] text-zinc-400 uppercase font-semibold">Próximas a Vencer</p>
-                <h3 class="text-xl font-bold text-rose-400 mt-1.5">5 Cuentas</h3>
-            </div>
-            <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
-                <p class="text-[11px] text-zinc-400 uppercase font-semibold">Cuentas Liberadas</p>
-                <h3 class="text-xl font-bold text-zinc-300 mt-1.5">12 Listas</h3>
-            </div>
-            <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
-                <p class="text-[11px] text-zinc-400 uppercase font-semibold">Total Cuentas Caídas</p>
-                <h3 class="text-xl font-bold text-cyan-400 mt-1.5">3 Reportes</h3>
-            </div>
-        </div>
-
-        <!-- 1. Aprobaciones de Revendedores -->
+        <!-- 1. Aprobaciones de Revendedores (Conectado a Supabase) -->
         <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
-            <h2 class="text-base font-bold mb-4 flex items-center gap-2">👥 Solicitudes de Registro (Control Anti-Robos)</h2>
+            <h2 class="text-base font-bold mb-4 flex items-center gap-2">👥 Solicitudes de Registro Pendientes</h2>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">
                     <thead class="bg-black text-zinc-400 uppercase text-xs">
                         <tr>
                             <th class="p-3">Usuario</th>
                             <th class="p-3">Correo</th>
-                            <th class="p-3">Teléfono / WhatsApp</th>
+                            <th class="p-3">WhatsApp</th>
                             <th class="p-3 text-right">Acción</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-zinc-800 text-zinc-300">
+                    <tbody id="tabla-solicitudes" class="divide-y divide-zinc-800 text-zinc-300">
                         <tr>
-                            <td class="p-3 font-medium text-white">PedroStreaming</td>
-                            <td class="p-3">pedro@gmail.com</td>
-                            <td class="p-3">+52 951 111 2233</td>
-                            <td class="p-3 text-right space-x-2">
-                                <button onclick="alert('Revendedor aprobado.')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium">Aprobar</button>
-                                <button onclick="alert('Solicitud rechazada.')" class="bg-rose-600 hover:bg-rose-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium">Rechazar</button>
-                            </td>
+                            <td colspan="4" class="p-4 text-center text-zinc-500 text-xs">Cargando solicitudes...</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- 2. Carga de Inventario -->
+        <!-- 2. Carga de Inventario Masivo / Individual (Conectado a Supabase) -->
         <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
-                <h2 class="text-base font-bold">📦 Alta de Inventario / Stock</h2>
+                <h2 class="text-base font-bold">📦 Alta de Inventario Directa a Base de Datos</h2>
                 <div class="flex bg-black p-1 rounded-xl border border-zinc-800 text-xs font-medium">
                     <button onclick="cambiarModoStock('individual')" id="btn-ind" class="px-3 py-1.5 rounded-lg bg-teal-500 text-black font-bold transition-all">Individual (1x1)</button>
-                    <button onclick="cambiarModoStock('masivo')" id="btn-mas" class="px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all">Carga Masiva (.txt)</button>
+                    <button onclick="cambiarModoStock('masivo')" id="btn-mas" class="px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all">Carga Masiva</button>
                 </div>
             </div>
 
-            <!-- Individual -->
-            <form id="stock-individual" class="grid grid-cols-1 md:grid-cols-4 gap-4" onsubmit="event.preventDefault(); alert('Cuenta agregada.');">
+            <!-- Formulario Individual -->
+            <form id="stock-individual" class="grid grid-cols-1 md:grid-cols-4 gap-4" onsubmit="guardarCuentaIndividual(event)">
                 <div>
                     <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Plataforma</label>
-                    <select class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
-                        <option>Netflix (Miembro Extra)</option>
-                        <option>Disney+ Estándar</option>
-                        <option>MAX Platino</option>
+                    <select id="ind-plataforma" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
+                        <option value="Netflix">Netflix (Miembro Extra)</option>
+                        <option value="Disney+">Disney+ Estándar</option>
+                        <option value="MAX">MAX Platino</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Correo</label>
-                    <input type="text" placeholder="cuenta@dominio.com" required class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
+                    <input type="text" id="ind-correo" placeholder="cuenta@dominio.com" required class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Contraseña</label>
-                    <input type="text" placeholder="Contraseña" required class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
+                    <input type="text" id="ind-pass" placeholder="Contraseña" required class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
                 </div>
                 <div class="flex items-end">
                     <button type="submit" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-sm py-2 rounded-xl transition-colors">Guardar al Stock</button>
                 </div>
             </form>
 
-            <!-- Masivo .txt -->
-            <form id="stock-masivo" class="space-y-4 hidden" onsubmit="procesarArchivoTxt(event)">
+            <!-- Formulario Masivo -->
+            <form id="stock-masivo" class="space-y-4 hidden" onsubmit="guardarStockMasivo(event)">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Plataforma para el Lote</label>
-                        <select id="plataforma-lote" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
+                        <select id="masivo-plataforma" class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
                             <option value="Netflix">Netflix (Miembro Extra)</option>
                             <option value="Disney+">Disney+ Estándar</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Subir Archivo (.txt)</label>
-                        <input type="file" id="archivo-txt" accept=".txt" required class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-zinc-400 file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-teal-500 file:text-black">
+                        <label class="block text-xs font-semibold uppercase text-zinc-400 mb-1">Pega tu lista (Formato: correo:contraseña)</label>
                     </div>
                 </div>
-                <button type="submit" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Procesar y Cargar Lote Completo</button>
+                <textarea id="masivo-texto" rows="4" placeholder="correo1@domain.com:pass123&#10;correo2@domain.com:pass456" class="w-full bg-black border border-zinc-800 rounded-xl p-3 text-xs text-white font-mono"></textarea>
+                <button type="submit" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Procesar y Cargar Lote a Base de Datos</button>
             </form>
-        </section>
-
-        <!-- 3. Semáforo y Reportes -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
-                <h2 class="text-base font-bold mb-4">⏰ Control de Vencimientos (WhatsApp Semiautomático)</h2>
-                <div class="space-y-3">
-                    <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center text-xs">
-                        <div>
-                            <span class="text-rose-400 font-bold">⚠️ Vence en 2 días</span>
-                            <p class="text-white font-medium mt-0.5">Netflix · client_carlos</p>
-                        </div>
-                        <div class="flex gap-2">
-                            <a href="https://wa.me/" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded-lg font-medium">💬 WhatsApp</a>
-                            <button class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-1 rounded-lg">Renovar</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
-                <h2 class="text-base font-bold mb-4">✍️ Asignación Manual</h2>
-                <form class="space-y-3" onsubmit="event.preventDefault(); alert('Asignada.');">
-                    <select class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
-                        <option>CarlosRevende (Cliente)</option>
-                    </select>
-                    <select class="w-full bg-black border border-zinc-800 rounded-xl px-3 py-2 text-sm text-white">
-                        <option>Netflix - (14 disponibles)</option>
-                    </select>
-                    <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Asignar Cuenta Directa</button>
-                </form>
-            </section>
-        </div>
-
-        <!-- 4. Bandeja de Reportes -->
-        <section class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl">
-            <h2 class="text-base font-bold mb-4 flex items-center gap-2">🚨 Bandeja de Reportes de Cuentas Caídas</h2>
-            <div class="bg-black border border-zinc-800 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div class="space-y-1">
-                    <span class="text-xs text-teal-400 font-semibold">Subcliente_Pedro · Netflix (correo@toxapa.com)</span>
-                    <p class="text-sm text-amber-400">"Termina de configurar este TV para el hogar"</p>
-                    <div class="flex flex-wrap gap-4 text-[11px] text-zinc-400 pt-1">
-                        <span>📅 Compra: <strong class="text-emerald-400">09 Oct 2026</strong></span>
-                        <span>⏳ Vencimiento: <strong class="text-rose-400">09 Nov 2026</strong></span>
-                    </div>
-                    <button onclick="alert('Abriendo captura...')" class="mt-2 inline-flex items-center gap-1 text-[11px] bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-cyan-400 px-2.5 py-1 rounded-md font-medium">📎 Ver Captura / Evidencia</button>
-                </div>
-                <div class="flex flex-wrap gap-2">
-                    <button class="bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs px-3 py-2 rounded-xl">Resolver Hogar</button>
-                    <button class="bg-rose-600 hover:bg-rose-500 text-white text-xs px-3 py-2 rounded-xl font-medium">Reemplazar</button>
-                </div>
-            </div>
         </section>
 
     </main>
 
+    <!-- Conexión y Lógica con Supabase -->
     <script>
+        const SUPABASE_URL = 'https://hlkuleummozpanmtwcxp.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_bzjhhVbFroDaKBWrKu48yA_uFkcfegJ';
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Cargar solicitudes pendientes al abrir la página
+        async function cargarSolicitudes() {
+            const { data, error } = await supabaseClient
+                .from('usuarios')
+                .select('*')
+                .eq('estado', 'pendiente');
+
+            const tbody = document.getElementById('tabla-solicitudes');
+            if (error || !data || data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-zinc-500 text-xs">No hay solicitudes pendientes.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = data.map(u => `
+                <tr>
+                    <td class="p-3 font-medium text-white">${u.nombre}</td>
+                    <td class="p-3">${u.correo}</td>
+                    <td class="p-3">${u.whatsapp || 'N/A'}</td>
+                    <td class="p-3 text-right space-x-2">
+                        <button onclick="cambiarEstadoUsuario('${u.id}', 'aprobado')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium">Aprobar</button>
+                        <button onclick="cambiarEstadoUsuario('${u.id}', 'rechazado')" class="bg-rose-600 hover:bg-rose-500 text-white text-xs px-3 py-1.5 rounded-lg font-medium">Rechazar</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function cambiarEstadoUsuario(id, nuevoEstado) {
+            if(nuevoEstado === 'rechazado') {
+                await supabaseClient.from('usuarios').delete().eq('id', id);
+            } else {
+                await supabaseClient.from('usuarios').update({ estado: 'aprobado' }).eq('id', id);
+            }
+            alert('¡Acción aplicada con éxito!');
+            cargarSolicitudes();
+        }
+
+        // Cambiar pestañas de stock
         function cambiarModoStock(modo) {
             const ind = document.getElementById('stock-individual');
             const mas = document.getElementById('stock-masivo');
@@ -196,10 +158,67 @@
                 bInd.className = "px-3 py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all";
             }
         }
-        function procesarArchivoTxt(e) {
+
+        // Guardar cuenta individual en Supabase
+        async function guardarCuentaIndividual(e) {
             e.preventDefault();
-            alert("Lote procesado con éxito.");
+            const plataforma = document.getElementById('ind-plataforma').value;
+            const correo_cuenta = document.getElementById('ind-correo').value;
+            const password_cuenta = document.getElementById('ind-pass').value;
+
+            const { error } = await supabaseClient
+                .from('inventario')
+                .insert([{ plataforma, correo_cuenta, password_cuenta, estado: 'disponible' }]);
+
+            if (error) {
+                alert('Error al guardar: ' + error.message);
+            } else {
+                alert('¡Cuenta agregada exitosamente al inventario!');
+                document.getElementById('stock-individual').reset();
+            }
         }
+
+        // Guardar stock masivo desde texto
+        async function guardarStockMasivo(e) {
+            e.preventDefault();
+            const plataforma = document.getElementById('masivo-plataforma').value;
+            const texto = document.getElementById('masivo-texto').value.trim();
+            if(!texto) return alert('Por favor ingresa cuentas.');
+
+            const lineas = texto.split('\n');
+            const nuevasCuentas = [];
+
+            lineas.forEach(linea => {
+                const partes = linea.split(':');
+                if(partes.length >= 2) {
+                    nuevasCuentas.push({
+                        plataforma,
+                        correo_cuenta: partes[0].trim(),
+                        password_cuenta: partes[1].trim(),
+                        estado: 'disponible'
+                    });
+                }
+            });
+
+            if(nuevasCuentas.length === 0) {
+                alert('Formato incorrecto. Usa correo:contraseña por cada línea.');
+                return;
+            }
+
+            const { error } = await supabaseClient.from('inventario').insert(nuevasCuentas);
+
+            if (error) {
+                alert('Error en lote: ' + error.message);
+            } else {
+                alert(`¡Se cargaron ${nuevasCuentas.length} cuentas al inventario con éxito!`);
+                document.getElementById('masivo-texto').value = '';
+            }
+        }
+
+        // Cargar al iniciar
+        window.onload = () => {
+            cargarSolicitudes();
+        };
     </script>
 </body>
 </html>
