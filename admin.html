@@ -44,7 +44,7 @@
 
     <main class="max-w-6xl mx-auto space-y-8">
 
-        <!-- 1. SUBIR INVENTARIO (CON TODO EL CATÁLOGO COMPLETO) -->
+        <!-- 1. SUBIR INVENTARIO -->
         <section id="sec-inventario" class="space-y-6">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">📦 Añadir Cuentas al Inventario (Automáticas)</h2>
@@ -100,7 +100,7 @@
             </div>
         </section>
 
-        <!-- 2. REPORTE GENERAL (INTERACTIVO CON FILTROS) -->
+        <!-- 2. REPORTE GENERAL -->
         <section id="sec-reporte-general" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">📊 Reporte General del Sistema</h2>
@@ -118,7 +118,7 @@
             </div>
         </section>
 
-        <!-- 3. CLIENTES PRINCIPALES (CON APROBAR / RECHAZAR) -->
+        <!-- 3. CLIENTES PRINCIPALES -->
         <section id="sec-usuarios" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">👥 Gestión de Clientes Principales (Solicitudes de Acceso)</h2>
@@ -141,25 +141,32 @@
             </div>
         </section>
 
-        <!-- 5. RENOVAR CUENTAS (RESPETANDO DÍA DE CORTE ORIGINAL) -->
+        <!-- 5. RENOVAR CUENTAS (CON CATÁLOGO COMPLETO) -->
         <section id="sec-renovaciones" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">🔄 Renovar Cuentas de Clientes</h2>
                 <div class="bg-black border border-zinc-800 p-4 rounded-xl space-y-3">
                     <input type="text" id="renovar-correo" placeholder="Correo de la cuenta a renovar..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
                     <select id="renovar-plataforma" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white">
-                        <option value="Netflix Completa">Netflix Completa</option>
-                        <option value="Disney Premium">Disney Premium</option>
-                        <option value="HBO MAX">HBO MAX</option>
-                        <option value="Prime Video">Prime Video</option>
-                        <option value="Crunchyroll">Crunchyroll</option>
+                        <option value="🎬 Netflix Completa (1M)">🎬 Netflix Completa (1M)</option>
+                        <option value="🎬 Netflix Individual (Con Contraseña) (1M)">🎬 Netflix Individual (Con Contraseña) (1M)</option>
+                        <option value="🎬 Netflix Individual (Sin Contraseña) (1M)">🎬 Netflix Individual (Sin Contraseña) (1M)</option>
+                        <option value="🐭 Disney Premium (1M)">🐭 Disney Premium (1M)</option>
+                        <option value="🐭 Disney Estándar (1M)">🐭 Disney Estándar (1M)</option>
+                        <option value="🍿 HBO MAX (1M)">🍿 HBO MAX (1M)</option>
+                        <option value="🍿 HBO MAX (3M)">🍿 HBO MAX (3M)</option>
+                        <option value="📦 Prime Video (1M)">📦 Prime Video (1M)</option>
+                        <option value="📦 Prime Video (6M)">📦 Prime Video (6M)</option>
+                        <option value="📺 VIX (1M)">📺 VIX (1M)</option>
+                        <option value="🍏 Apple TV MLS + F1TV (1M)">🍏 Apple TV MLS + F1TV (1M)</option>
+                        <option value="🍥 Crunchyroll (12M)">🍥 Crunchyroll (12M)</option>
                     </select>
                     <button onclick="procesarRenovacion()" class="w-full bg-teal-500 hover:bg-teal-400 text-black font-bold text-xs py-2.5 rounded-xl transition-colors">Renovar (+30 días sobre su fecha de corte original)</button>
                 </div>
             </div>
         </section>
 
-        <!-- 6. ASIGNACIÓN MANUAL (SEPARADA EN DOS PASOS: PLATAFORMA Y CORREO) -->
+        <!-- 6. ASIGNACIÓN MANUAL -->
         <section id="sec-asignar" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">⚡ Asignación Manual de Cuentas</h2>
@@ -374,15 +381,16 @@
             }
             contenedor.innerHTML = data.map(u => {
                 const aprobado = u.acceso_bot === true;
+                const saldoReal = u.saldo || 0;
                 return `
                     <div class="bg-black border border-zinc-800 p-3 rounded-xl flex justify-between items-center">
                         <div>
                             <strong class="text-white">${u.correo}</strong>
-                            <p class="text-emerald-400 font-bold text-xs mt-0.5">Saldo: $${(u.saldo || 0).toFixed(2)} MXN</p>
+                            <p class="text-emerald-400 font-bold text-xs mt-0.5">Saldo: $${saldoReal.toFixed(2)} MXN</p>
                             <span class="text-[10px] uppercase font-bold ${aprobado ? 'text-teal-400' : 'text-amber-400'}">${aprobado ? 'Aprobado / Activo' : 'Pendiente de Aprobación'}</span>
                         </div>
                         <div class="flex gap-2">
-                            <button onclick="aprobarCliente('${u.correo}')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Aprobar</button>
+                            ${!aprobado ? `<button onclick="aprobarCliente('${u.correo}')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Aprobar</button>` : ''}
                             <button onclick="rechazarCliente('${u.correo}')" class="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition-colors">Rechazar</button>
                         </div>
                     </div>
@@ -415,9 +423,11 @@
                 await supabaseClient.from('usuarios').update({ saldo: nuevoSaldo }).eq('correo', correo);
                 alert(`¡Saldo actualizado! Nuevo saldo: $${nuevoSaldo.toFixed(2)} MXN`);
             } else {
-                await supabaseClient.from('usuarios').insert([{ correo: correo, saldo: monto, acceso_bot: true }]);
-                alert(`¡Usuario creado con saldo de $${monto.toFixed(2)} MXN!`);
+                await supabaseClient.from('usuarios').insert([{ correo: correo, saldo: monto, acceso_bot: false }]);
+                alert(`¡Usuario creado con éxito con saldo inicial de $${monto.toFixed(2)} MXN!`);
             }
+            document.getElementById('saldo-correo').value = '';
+            document.getElementById('saldo-monto').value = '';
             cargarUsuariosAdmin();
         }
 
@@ -445,7 +455,7 @@
 
         async function completarPedido(id, servicio) {
             await supabaseClient.from('pedidos_manuales').update({ estado: 'completado' }).eq('id', id);
-            alert('¡Pedido completado con éxito!');
+            alert('¡Pedido completado y actualizado!');
             const msgWA = `Hola! Tu pedido de ${servicio} ha sido completado con éxito. ¡Gracias por tu compra en Monkey D Surebrec!`;
             window.open(`https://wa.me/?text=${encodeURIComponent(msgWA)}`, '_blank');
             cargarPedidosManuales();
@@ -454,7 +464,7 @@
         async function cancelarPedido(id) {
             if(confirm('¿Estás seguro de cancelar este pedido?')) {
                 await supabaseClient.from('pedidos_manuales').update({ estado: 'cancelado' }).eq('id', id);
-                alert('Pedido cancelado.');
+                alert('Pedido cancelado y removido de pendientes.');
                 cargarPedidosManuales();
             }
         }
@@ -467,7 +477,6 @@
             const { data: cuenta } = await supabaseClient.from('inventario').select('*').eq('correo_cuenta', correo).eq('estado', 'asignada').single();
             if(!cuenta) return alert('No se encontró una cuenta activa con ese correo en el inventario.');
 
-            // Sumamos 30 días exactamente sobre su fecha de corte original (fecha_compra)
             let fechaBase = new Date(cuenta.fecha_compra || new Date());
             fechaBase.setDate(fechaBase.getDate() + 30);
 
