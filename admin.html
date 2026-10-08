@@ -141,7 +141,7 @@
             </div>
         </section>
 
-        <!-- 5. RENOVAR CUENTAS (CON CATÁLOGO COMPLETO) -->
+        <!-- 5. RENOVAR CUENTAS -->
         <section id="sec-renovaciones" class="space-y-6 hidden">
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
                 <h2 class="text-base font-bold">🔄 Renovar Cuentas de Clientes</h2>
@@ -454,8 +454,12 @@
         }
 
         async function completarPedido(id, servicio) {
-            await supabaseClient.from('pedidos_manuales').update({ estado: 'completado' }).eq('id', id);
-            alert('¡Pedido completado y actualizado!');
+            const { error } = await supabaseClient.from('pedidos_manuales').update({ estado: 'completado' }).eq('id', id);
+            if (error) {
+                alert('Error al actualizar el pedido en la base de datos.');
+                return;
+            }
+            alert('¡Pedido completado con éxito!');
             const msgWA = `Hola! Tu pedido de ${servicio} ha sido completado con éxito. ¡Gracias por tu compra en Monkey D Surebrec!`;
             window.open(`https://wa.me/?text=${encodeURIComponent(msgWA)}`, '_blank');
             cargarPedidosManuales();
@@ -463,7 +467,11 @@
 
         async function cancelarPedido(id) {
             if(confirm('¿Estás seguro de cancelar este pedido?')) {
-                await supabaseClient.from('pedidos_manuales').update({ estado: 'cancelado' }).eq('id', id);
+                const { error } = await supabaseClient.from('pedidos_manuales').update({ estado: 'cancelado' }).eq('id', id);
+                if (error) {
+                    alert('Error al cancelar el pedido en la base de datos.');
+                    return;
+                }
                 alert('Pedido cancelado y removido de pendientes.');
                 cargarPedidosManuales();
             }
